@@ -1,0 +1,249 @@
+/* 视频剪辑 v2 — editor skeleton (spec §6.4): top bar | B materials · C tabbed settings · D preview.
+   Loaded after clip-studio.css, clip-workbench.css and ui-v2.css; the html attribute prefix outranks
+   clip-workbench.css, which styles the same nodes with !important. Plan: output/视频剪辑页-功能区规划-20261021.md */
+
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2{height:calc(100svh - 64px);padding:0 16px 16px;gap:12px;background:var(--ui-bg);font-size:14px;color:var(--ui-text)}
+.mc-studio.mc-v2 .mc-section-head h2>.mc-glyph{display:none}
+
+/* ---- A. top bar ---- */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;min-height:56px;padding:8px 10px 8px 16px;margin:0;border:0;border-radius:var(--ui-radius-card);background:var(--ui-surface);box-shadow:var(--ui-shadow-card);flex-wrap:nowrap}
+.mc-v2 .mc-project{display:flex;align-items:center;gap:6px;min-width:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-project-name{min-width:0;max-width:260px;height:32px;padding:0 8px;margin-left:-8px;border:0;border-radius:var(--ui-radius-sm);background:transparent;color:var(--ui-text);font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:text}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-project-name:hover{background:var(--ui-fill)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-save-state{min-height:28px;padding:0 8px;gap:6px;border:0;background:transparent;color:var(--ui-text-3);font-size:12px;font-weight:400;box-shadow:none}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-save-state:hover{background:var(--ui-fill);color:var(--ui-text-2)}
+.mc-v2 .mc-save-state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ui-text-3)}
+.mc-v2 .mc-save-state[data-state=saved]::before{background:var(--ui-success)}
+.mc-v2 .mc-save-state[data-state=dirty]::before{background:var(--ui-warning)}
+
+/* One mode bar, the same segmented control on the editor and on the 口播 page. */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes{justify-self:center;display:inline-flex;flex:none;max-width:none;margin:0;padding:3px;gap:2px;border:0;border-radius:var(--ui-radius);background:var(--ui-fill)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes .mc-mode{flex:none;min-height:34px;padding:0 18px;border:0;border-radius:var(--ui-radius-sm);background:transparent!important;color:var(--ui-text-2)!important;font-size:14px;font-weight:400;box-shadow:none!important;white-space:nowrap}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes .mc-mode:hover{color:var(--ui-text)!important}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes .mc-mode[aria-selected=true]{background:var(--ui-surface)!important;color:var(--ui-text)!important;font-weight:600;box-shadow:var(--ui-shadow-raised)!important}
+.mc-v2 .mc-mode>.mc-glyph{display:none}
+
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-toolbar-actions{justify-self:end;display:flex;align-items:center;gap:8px;margin:0;flex-wrap:nowrap}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-toolbar-actions .mc-document-menu>summary{min-height:36px;padding:0 14px;border:0;border-radius:var(--ui-radius);background:var(--ui-fill);color:var(--ui-text);font-size:14px;list-style:none;box-shadow:none}
+.mc-v2 .mc-document-menu>summary::-webkit-details-marker{display:none}
+.mc-v2 .mc-document-menu>summary::after{content:"";width:7px;height:7px;margin-left:8px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg);opacity:.6}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-document-panel{right:0;left:auto;min-width:200px;padding:6px;gap:0;border:0;border-radius:12px;background:var(--ui-surface);box-shadow:var(--ui-shadow-float);display:flex;flex-direction:column}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-document-panel .mc-menu-item{justify-content:flex-start;width:100%;min-height:36px;padding:0 12px;border:0;border-radius:var(--ui-radius-sm);background:transparent;color:var(--ui-text);font-size:14px;font-weight:400;box-shadow:none}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-document-panel .mc-menu-item:hover{background:var(--ui-fill)}
+.mc-v2 .mc-menu-item>.mc-glyph{display:none}
+.mc-v2 .mc-menu-sep{width:100%;height:1px;margin:6px 0;border:0;background:var(--ui-line)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-toolbar-actions>.mc-icon-button{width:36px;min-width:36px;min-height:36px;padding:0;border:0;border-radius:var(--ui-radius);background:transparent;color:var(--ui-text-2);font-size:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-toolbar-actions>.mc-icon-button:hover{background:var(--ui-fill);color:var(--ui-text)}
+.mc-v2 .mc-toolbar-actions>.mc-icon-button>.mc-glyph{width:18px;height:18px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-generate{min-height:40px;padding:0 20px;border:0;border-radius:var(--ui-radius);font-size:14px;font-weight:600}
+
+/* ---- body: B | C | D ---- */
+.mc-v2 .mc-body{flex:1;min-height:0;overflow:hidden}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-layout.mc-zones{display:grid;grid-template-columns:300px minmax(0,1fr) 420px;gap:12px;height:100%;min-height:0;align-items:stretch}
+.mc-v2 .mc-zones>*{min-height:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-zones .mc-panel{border:0;border-radius:var(--ui-radius-card);background:var(--ui-surface);box-shadow:var(--ui-shadow-card)}
+
+/* B. materials */
+.mc-v2 .mc-zone-materials{display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;border-radius:var(--ui-radius-card)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-zone-materials>.mc-panel{flex:1 0 auto;padding:16px}
+.mc-v2 .mc-zone-materials .mc-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mc-v2 .mc-zone-materials .mc-section-head h2{font-size:16px;font-weight:600}
+.mc-v2 .mc-zone-materials .mc-pool-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.mc-v2 .mc-zone-materials .mc-asset{width:auto;min-width:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-material-empty{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:220px;padding:24px 16px;border:1.5px dashed var(--ui-line-strong);border-radius:12px;background:var(--ui-surface-2)}
+.mc-v2 .mc-material-empty h3{margin:0;font-size:14px;font-weight:500;color:var(--ui-text-2)}
+.mc-v2 .mc-empty-actions{display:flex;flex-direction:column;gap:8px;width:100%;max-width:200px}
+.mc-v2 .mc-empty-actions>.mc-button{width:100%}
+/* Accent is reserved for the generate button; ordinary primary actions are near-black (spec §1). */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-zones .mc-primary{background:var(--ui-ink)!important;color:var(--ui-surface)!important;box-shadow:none!important}
+/* 分镜脚本: the shot deck fits the 300px column when stacked. */
+.mc-v2 .mc-zone-materials .mc-shot-browser{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:start}
+.mc-v2 .mc-zone-materials .mc-shot-browser>.mc-group-cover{width:76px;height:96px}
+.mc-v2 .mc-zone-materials .mc-shot-deck{grid-column:2;width:170px;height:200px}
+.mc-v2 .mc-zone-materials .mc-deck-navigation{grid-column:1/-1}
+
+/* C. tabbed settings */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor{display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:0;gap:0;border-radius:var(--ui-radius-card);background:var(--ui-surface);box-shadow:var(--ui-shadow-card)}
+.mc-v2 .mc-editor-tabs{flex:none;display:flex;gap:24px;padding:0 20px;border-bottom:1px solid var(--ui-line);overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor-tab{position:relative;display:inline-flex;align-items:center;gap:6px;flex:none;height:48px;padding:0;border:0;background:transparent;color:var(--ui-text-2);font-size:14px;font-weight:400;cursor:pointer;white-space:nowrap}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor-tab:hover{color:var(--ui-text)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor-tab[aria-selected=true]{color:var(--ui-text);font-weight:600}
+.mc-v2 .mc-editor-tab[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--ui-text)}
+.mc-v2 .mc-tab-count{font-size:12px;font-weight:500;color:var(--ui-text-3);font-variant-numeric:tabular-nums}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor>.mc-tab-panel{flex:1;min-height:0;overflow:auto;scrollbar-width:thin;padding:8px 20px 20px;border:0;border-radius:0;box-shadow:none;background:transparent}
+.mc-v2 .mc-tab-panel>.mc-setting-row,.mc-v2 .mc-tab-panel>.mc-pool-section{padding:14px 0;border-bottom:1px solid var(--ui-line)}
+.mc-v2 .mc-tab-panel>:last-child{border-bottom:0}
+.mc-v2 .mc-tab-panel .mc-estimate{margin:12px 0 0;color:var(--ui-text-2);font-size:13px;font-variant-numeric:tabular-nums}
+.mc-v2 .mc-tab-panel .mc-pool-head h3{font-size:14px;font-weight:600}
+/* The script steps live inside the 脚本 tab instead of a full page. */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-tab-panel .mc-script-steps{justify-content:flex-start;margin:12px 0 16px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-tab-panel .mc-script-composer{max-width:none;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+
+/* D. preview — the protagonist */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-preview{display:flex;flex-direction:column;gap:0;height:100%;min-height:0;overflow:auto;scrollbar-width:thin;padding:0;border:0;border-radius:var(--ui-radius-card);background:var(--ui-surface);box-shadow:var(--ui-shadow-card)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-preview-stage{flex:1 0 auto;display:flex;flex-direction:column;gap:12px;padding:16px;border:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-screen-wrap{flex:1;min-height:0;padding:12px;border:0;border-radius:12px;background:var(--ui-surface-2)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-screen{width:min(var(--mc-screen-width,300px),100%,max(9rem,calc((100svh - 27rem)*var(--mc-ratio,.5625))));max-height:none;border-radius:10px}
+.mc-v2 .mc-preview-actions{justify-content:center}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-output-settings{padding:4px 16px 12px;border-top:1px solid var(--ui-line);border-bottom:0}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-output-summary{justify-content:space-between;width:100%;min-height:40px;padding:0 4px;border:0;background:transparent;color:var(--ui-text-2);font-size:13px;font-variant-numeric:tabular-nums;box-shadow:none}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-output-summary:hover{color:var(--ui-text)}
+.mc-v2 .mc-output-summary::after{content:"";width:7px;height:7px;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:translateY(-2px) rotate(45deg);opacity:.6;transition:transform .2s}
+.mc-v2 .mc-output-summary[aria-expanded=true]::after{transform:translateY(1px) rotate(-135deg)}
+.mc-v2 .mc-output-settings .mc-setting-row{padding:8px 4px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-preview-service{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding:10px 16px;border-top:1px solid var(--ui-line);font-size:12px}
+.mc-v2 .mc-service-state{display:inline-flex;align-items:center;gap:6px;color:var(--ui-text-2)}
+.mc-v2 .mc-service-state::before,.mc-v2 .mc-service-note::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--ui-warning)}
+.mc-v2 .mc-service-state[data-ready=true]::before{background:var(--ui-success)}
+
+/* D tabs: 预览 | 成片 */
+.mc-v2 .mc-side-tabs{flex:none;display:flex;gap:24px;padding:0 16px;border-bottom:1px solid var(--ui-line)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-side-tab{position:relative;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:transparent;color:var(--ui-text-2);font-size:14px;font-weight:400;cursor:pointer}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-side-tab:hover{color:var(--ui-text)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-side-tab[aria-selected=true]{color:var(--ui-text);font-weight:600}
+.mc-v2 .mc-side-tab[aria-selected=true]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--ui-text)}
+.mc-v2 .mc-outputs{flex:1 0 auto;display:flex;flex-direction:column;gap:12px;padding:16px}
+.mc-v2 .mc-output-list{display:flex;flex-direction:column;gap:8px}
+.mc-v2 .mc-output{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:12px;background:var(--ui-surface-2)}
+.mc-v2 .mc-output-head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px}
+.mc-v2 .mc-output-head strong{font-weight:600;font-variant-numeric:tabular-nums}
+.mc-v2 .mc-output .mc-muted{margin:0;font-size:12px;color:var(--ui-text-3);font-variant-numeric:tabular-nums}
+.mc-v2 .mc-output-state{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ui-text-2)}
+.mc-v2 .mc-output-state::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ui-text-3)}
+.mc-v2 .mc-output-state[data-state=busy]::before{background:var(--ui-warning)}
+.mc-v2 .mc-output-state[data-state=success]::before{background:var(--ui-success)}
+.mc-v2 .mc-output-state[data-state=failed]::before{background:var(--ui-danger)}
+.mc-v2 .mc-output .mc-alert{margin:0;font-size:12px}
+.mc-v2 .mc-output-links{display:flex;flex-wrap:wrap;gap:8px}
+.mc-v2 .mc-outputs .mc-empty{margin:24px 0;text-align:center;color:var(--ui-text-3);font-size:13px}
+
+/* 立即剪辑 dialog */
+.mc-v2 .mc-stepper{display:inline-flex;align-items:center;gap:4px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-stepper>.mc-button{width:36px;min-width:36px;padding:0;font-size:16px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-stepper>.mc-input{width:64px;height:36px;text-align:center;font-variant-numeric:tabular-nums}
+.mc-v2 .mc-service-note{display:flex;align-items:center;gap:8px;margin:12px 0 0;color:var(--ui-text-2);font-size:13px}
+/* Accent is for the generate button only; other primary actions in dialogs are near-black. */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-dialog .mc-primary:not(.ui-ai){background:var(--ui-ink)!important;color:var(--ui-surface)!important;border-color:transparent!important;box-shadow:none!important}
+.mc-v2 .mc-documents-dialog .mc-doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:12px 0}
+
+/* 口播 (native smart_clip): the same mode bar above its content. */
+.v2-oral-top{display:flex;align-items:center;justify-content:flex-end;min-height:32px;margin:0 0 8px;padding:0;background:transparent;box-shadow:none}
+.v2-clip-page .mc-top>.mc-modes{display:none!important}
+/* The native page sizes itself to the full main height; let it share that height with the bar
+   so its submit button stays on screen. */
+.v2-clip-page main.workspace-main:has(>.v2-oral-top){display:flex;flex-direction:column}
+.v2-clip-page main.workspace-main>.v2-oral-top{flex:none;height:auto!important}
+.v2-clip-page main.workspace-main>.smart-clip-page{flex:1;min-height:0;height:auto!important}
+.v2-clip-page .smart-clip-page>.clip-workspace{height:100%!important;grid-template-rows:minmax(0,1fr)!important}
+.v2-clip-page .smart-clip-page .clip-panel{height:auto!important;min-height:0}
+/* The old "AI短视频" cover card repeats the page name under a different one (G1). */
+.v2-clip-page .smart-clip-page .im-tool-cover{display:none!important}
+.v2-oral-top .v2-seg>button{height:34px;padding:0 18px;font-size:14px}
+.v2-oral-top .v2-seg>button[aria-selected=true]{font-weight:600}
+
+@media (max-width:1279px){
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-layout.mc-zones{grid-template-columns:260px minmax(0,1fr) 360px}
+  .mc-v2 .mc-editor-tabs{gap:18px;padding:0 16px}
+}
+@media (max-width:1023px){
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2{height:auto}
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top{grid-template-columns:minmax(0,1fr) auto}
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes{grid-column:1/-1;grid-row:2;justify-self:stretch;overflow-x:auto}
+  .mc-v2 .mc-body{overflow:visible}
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-layout.mc-zones{grid-template-columns:1fr;height:auto}
+  html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-preview{order:-1;height:auto}
+}
+
+/* Merchant white editor: tactile window surfaces, quiet controls and usable compact widths. */
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top,
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-zones .mc-panel,
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor,
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-preview{background:var(--uk-card);box-shadow:var(--uk-card-edge),var(--uk-card-shadow)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-material-empty{gap:16px;min-height:320px;border:0;background:transparent;box-shadow:none;padding:24px 8px}
+.mc-v2 .mc-material-art{display:block;object-fit:contain;max-width:80%;height:132px;width:144px;margin-bottom:2px}
+.mc-v2 .mc-empty-actions{max-width:180px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-zones .mc-primary{background:var(--uk-ink)!important;color:var(--ui-surface)!important;box-shadow:var(--uk-ink-shadow)!important}
+.mc-v2 .mc-effect-services{margin-top:24px;padding-top:8px;border-top:1px solid var(--ui-line)}
+.mc-v2 .mc-effect-services>.mc-section-head{padding:8px 0;margin:0}
+.mc-v2 .mc-effect-service{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:14px 0;border-bottom:1px solid var(--ui-line)}
+.mc-v2 .mc-effect-service:last-child{border-bottom:0}
+.mc-v2 .mc-effect-service strong{font-size:13px;font-weight:500;display:block}
+.mc-v2 .mc-effect-service small{font-size:12px;color:var(--ui-text-3);line-height:1.6;display:block;margin-top:4px}
+.mc-v2 .mc-capability-state{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;color:var(--ui-text-2);font-size:11px}
+.mc-v2 .mc-capability-state::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ui-warning)}
+.mc-v2 .mc-capability-state[data-ready=true]::before{background:var(--ui-success)}
+.mc-v2 .mc-confirm-price{font-size:22px;font-weight:600;letter-spacing:-.03em}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-dialog{border:0;background:var(--uk-card);box-shadow:var(--uk-card-shadow),var(--ui-shadow-float)}
+.mc-v2 .mc-dialog .mc-service .mc-status{border:0;padding:0;background:transparent;border-radius:0;font-size:12px}
+.mc-v2 .mc-dialog .mc-service .mc-status::before{content:"";display:inline-block;width:5px;height:5px;background:var(--ui-warning);border-radius:50%;margin-right:6px;vertical-align:2px}
+.mc-v2 .mc-dialog .mc-service p{line-height:1.6}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-dialog .mc-primary:not(.ui-ai){background:var(--uk-ink)!important;color:var(--ui-surface)!important;box-shadow:var(--uk-ink-shadow)!important}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-generate{font-family:var(--ui-font);font-variant-numeric:tabular-nums;letter-spacing:0;padding-inline:16px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top{grid-template-columns:minmax(130px,1fr) auto minmax(270px,1fr);gap:10px;padding-inline:16px 10px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes .mc-mode{padding-inline:15px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-layout.mc-zones{grid-template-columns:clamp(248px,21vw,320px) minmax(0,1fr) clamp(330px,30vw,460px)}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-setting-row{align-items:start}
+.mc-v2 .mc-editor-tabs{gap:20px;padding-inline:18px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor>.mc-tab-panel{padding-inline:18px}
+.mc-v2 .mc-setting-label{flex-basis:64px;min-width:64px;padding-top:7px}
+.mc-v2 .mc-service-state{font-size:11px}
+.mc-v2 .mc-script-steps{gap:4px;flex-wrap:nowrap}
+.mc-v2 .mc-script-step{font-size:12px;min-width:0;white-space:nowrap;padding-inline:8px}
+.mc-v2 .mc-script-sources{flex-wrap:wrap}
+@media(max-width:1360px) and (min-width:1001px){
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top{grid-template-columns:minmax(130px,1fr) auto minmax(290px,1fr);gap:8px;padding-inline:12px 8px}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-project-name{max-width:126px;font-size:14px}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-modes .mc-mode{padding-inline:11px;font-size:13px}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-toolbar-actions{gap:6px}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-generate{padding-inline:13px}
+ .mc-v2 .mc-editor-tabs{gap:15px;padding-inline:16px}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-editor>.mc-tab-panel{padding-inline:16px}
+ .mc-v2 .mc-setting-row{flex-wrap:wrap;row-gap:8px}
+ .mc-v2 .mc-setting-row>.mc-setting-label{flex-basis:100%;padding:0}
+ .mc-v2 .mc-effect-service{grid-template-columns:minmax(0,1fr) auto;gap:6px 8px}
+ .mc-v2 .mc-effect-service>div{grid-column:1/-1}
+ .mc-v2 .mc-effect-service>.mc-button{justify-self:end}
+}
+@media(max-width:1000px){
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-top{grid-template-columns:minmax(0,1fr) auto}
+ html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-layout.mc-zones{grid-template-columns:1fr}
+ .mc-v2 .mc-zone-materials,.mc-v2 .mc-editor{min-height:320px}
+ .mc-v2 .mc-material-empty{min-height:260px}
+}
+
+.mc-v2{font-family:var(--ui-font)}
+.mc-v2 .mw-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.mc-v2 .mc-zone-materials .mc-single-shot{grid-template-columns:1fr;padding:4px 0 12px}
+.mc-v2 .mc-single-shot .mc-shot-deck,.mc-v2 .mc-single-shot .mc-deck-navigation{display:none}
+.mc-v2 .mc-zone-materials .mc-single-shot>.mc-group-cover{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:8px;width:100%;height:40px;min-height:40px;padding:8px 10px;background:var(--uk-well);border:0;box-shadow:var(--uk-well-ring)}
+.mc-v2 .mc-single-shot>.mc-group-cover .mc-glyph{width:16px;height:16px}
+.mc-v2 .mc-single-shot>.mc-group-cover .mc-group-label{font-size:12px}
+.mc-v2 .mc-zone-materials .mc-shot-deck{width:100%;height:160px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-shot-deck .mc-deck-card{width:calc(100% - 22px);height:144px;top:10px;padding:12px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-shot-deck .mc-deck-card:not(.has-preview){background:var(--uk-card)!important;border-color:var(--ui-line-strong);box-shadow:var(--uk-card-shadow)}
+.mc-v2 .mc-deck-navigation{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.mc-v2 .mc-deck-navigation>.mc-note{display:none}
+.mc-v2 .mc-deck-navigation .mc-deck-status{font-size:12px;margin:0;flex:1}
+.mc-v2 .mc-deck-navigation>.mc-actions{gap:4px}
+html[data-pc-design][data-pc-theme] .mc-studio.mc-v2 .mc-deck-navigation>.mc-actions>.mc-button{width:28px;min-height:28px;padding:0;font-size:18px}
+.mc-v2 .mc-deck-shortcuts{flex-basis:100%;margin-top:0}
+.mc-v2 .mc-shot-settings{margin-top:14px;border-top:1px solid var(--ui-line);padding-top:14px}
+.mc-v2 .mc-shot-settings>summary{font-size:12px;color:var(--ui-text-2);cursor:pointer;padding:6px 0}
+.mc-v2 .mc-shot-settings .mc-setting-row{padding-top:14px;gap:10px}
+.mc-v2 .mc-shot-settings .mc-actions{flex-wrap:wrap;gap:6px}
+.mc-v2 .mc-oral-copy>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.mc-v2 .mc-oral-copy textarea::placeholder{color:var(--ui-text-3);font-size:13px}
+
+/* Oral templates remain the primary oral workflow; AI copy/storyboarding is a visible companion. */
+.v2-oral-top{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px}
+.v2-oral-top>.mc-v2-modes{grid-column:2;justify-self:center}
+.v2-oral-script{justify-self:end;display:inline-flex;align-items:center;gap:10px;min-height:34px;padding:0 12px;border:0;border-radius:var(--ui-radius-sm);background:var(--ui-fill);color:var(--ui-text);font:inherit;font-size:13px;white-space:nowrap;cursor:pointer}
+.v2-oral-script:hover{background:var(--ui-surface-2)}
+.v2-oral-script:focus-visible{outline:2px solid var(--ui-accent);outline-offset:3px}
+.mc-v2 .mc-oral-workflow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--ui-line)}
+.mc-v2 .mc-oral-workflow h3{margin:0;font-size:14px;line-height:22px;font-weight:600;color:var(--ui-text)}
+.mc-v2 .mc-oral-workflow>.mc-button{min-height:32px;font-size:12px}
+@media(max-width:1100px){.v2-oral-top{grid-template-columns:minmax(0,1fr) auto;gap:8px}.v2-oral-top>.mc-v2-modes{grid-column:1;justify-self:start}.v2-oral-top .v2-seg>button{padding-inline:10px}}
+@media(max-width:640px){.v2-oral-top{display:flex;flex-wrap:wrap;justify-content:flex-start}.v2-oral-top>.mc-v2-modes{max-width:100%;overflow:auto}.v2-oral-script{margin-left:auto}}
+
+.v2-oral-rule-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 8px;color:var(--ui-text-2);font-size:12px;line-height:20px}

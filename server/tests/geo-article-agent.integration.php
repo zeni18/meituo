@@ -1,0 +1,74 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__).'/runtime-loader.php';$app=new \AigcRuntimeApp(dirname(__DIR__));$app->initialize();
+use think\facade\Db;
+use app\common\service\merchant\{OemDirectoryService as Directory,MerchantGeoService as Geo};
+use app\common\service\merchant\geo\{GeoArticleAgent as Agent,GeoJobs as Jobs,GeoConnections as C,GeoBrandScope as Scope,GeoTextRuntime as Runtime,DeepSeekText as Client,BochaSearch};
+if(config('database.connections.mysql.database')!=='aigc_local'||(int)config('database.connections.mysql.hostport')!==3307)throw new RuntimeException('Dedicated local DB required');
+if(Db::name('oem_geo_job')->whereIn('status',['queued','running','submitting','polling'])->count())throw new RuntimeException('Pause idle GEO worker first');
+$prefix='aa'.bin2hex(random_bytes(5));$passed=0;$failure=null;$original=app()->request;
+function aa(bool $ok,string $label):void{global $passed;if(!$ok)throw new RuntimeException($label);$passed++;echo "PASS $label\n";}
+function aaReject(callable $fn,string $label):void{try{$fn();}catch(InvalidArgumentException){aa(true,$label);return;}throw new RuntimeException($label);}
+Db::startTrans();try{
+ $t=1;$identity=Runtime::install();$modelId=(string)$identity['model_id'];
+ $mid=Directory::saveMerchant($t,['name'=>$prefix,'account'=>$prefix,'password'=>'ArticleFixture2026!']);$u=(int)Db::name('oem_merchant')->where('id',$mid)->value('user_id');
+ $other=Directory::saveMerchant($t,['name'=>$prefix.'b','account'=>$prefix.'b','password'=>'ArticleFixture2026!']);$u2=(int)Db::name('oem_merchant')->where('id',$other)->value('user_id');
+ $req=new \app\Request();$req->tenantId=$t;$req->userId=$u;$req->source=\app\common\enum\AdminTerminalEnum::USER;app()->instance('request',$req);
+ Db::name('tenant')->where('id',$t)->update(['point_balance'=>10000]);Db::name('user')->where(['id'=>$u,'tenant_id'=>$t])->update(['user_money'=>10000]);
+ Geo::profileSave($t,$u,['revision'=>0,'brand_name'=>'文章样本品牌','industry'=>'企业软件','intro'=>'用于离线验证的企业事实']);
+ $rev=(int)Db::name('oem_geo_connection')->where(['tenant_id'=>$t,'agent_id'=>0,'capability'=>'text'])->value('revision');C::save($t,0,1,['capability'=>'text','revision'=>$rev,'mode'=>'own','settings'=>['provider'=>'deepseek','model_id'=>$modelId],'secrets'=>['api_key'=>'offline-article-fixture']]);
+ foreach(['input'=>100,'output'=>200]as $kind=>$price)Db::name('power_market_sku')->where('id',$identity[$kind.'_sku_id'])->update(['sale_points'=>$price,'sale_status'=>1]);
+ $ids=[];for($i=0;$i<7;$i++)$ids[]=Geo::save($t,$u,['kind'=>'materials','title'=>'事实'.$i,'content'=>'已知资料 '.$i])['id'];$foreign=Geo::save($t,$u2,['kind'=>'materials','title'=>'其他商家资料','content'=>'不能引用'])['id'];
+ $options=Jobs::options($t,$u);$quote=$options['models'][0]['quote_token'];
+ $p=['instruction'=>'给企业客户写一篇选型指南','request_key'=>$prefix.'_first_turn_001','session_id'=>0,'expected_turn_id'=>0,'model_id'=>$modelId,'quote_token'=>$quote,'accept_charge'=>true];
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['accept_charge'=>false])),'paid agent requires explicit cost consent');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['accept_charge'=>'true'])),'string consent is rejected');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['instruction'=>''])),'empty requests are rejected');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['instruction'=>str_repeat('长',2001)])),'instructions have a bounded size');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['quote_token'=>str_repeat('0',64)])),'stale or forged prices cannot start a job');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['material_ids'=>[$foreign]])),'foreign material cannot enter the prompt');
+ aa(Db::name('oem_geo_job')->where('user_id',$u)->count()===0,'rejected requests leave no paid queue entry');
+ $first=Agent::send($t,$u,$p);$root=$first['session_id'];aa($root===$first['id']&&Agent::send($t,$u,$p)['id']===$first['id'],'first submission is durable and idempotent');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($p,['instruction'=>'更换内容'])),'same key cannot silently create another charge');
+ $view=Agent::view($t,$u,$root);aa(count($view['turns'])===1&&$view['turns'][0]['status']==='queued'&&count($view['turns'][0]['sources']['materials'])===5,'reload restores the queued conversation and its actual five sources');
+ aaReject(fn()=>Agent::view($t,$u2,$root),'conversation cannot cross merchant ownership');aaReject(fn()=>Scope::with($t,$u,987654,fn()=>Agent::view($t,$u,$root)),'conversation cannot cross brand ownership');
+ $next=array_replace($p,['session_id'=>$root,'expected_turn_id'=>$first['id'],'request_key'=>$prefix.'_second_turn_001','instruction'=>'缩短开头，并保留手工编辑后的事实']);
+ aaReject(fn()=>Agent::send($t,$u,$next),'pending turn blocks another paid round in the same conversation');
+ $posts=0;$mode='success';$captured=[];$client=new Client(function($method,$url,$body,$headers)use(&$posts,&$mode,&$captured){
+  aa($method==='POST'&&$url==='https://api.deepseek.com/chat/completions'&&$body['model']==='deepseek-flash','agent uses the configured official Flash transport');$posts++;
+  aa($body['max_tokens']===4096&&$body['thinking']['type']==='disabled'&&$body['response_format']['type']==='json_object','one bounded JSON generation includes planning and full draft');
+  $input=json_decode($body['messages'][1]['content'],true);$captured[]=$input;aa($input['purpose']==='article_agent'&&$input['profile']['brand_name']==='文章样本品牌','server freezes the owned brand facts in each turn');
+  $data=['title'=>'软件选型指南'.$posts,'content'=>'## 选型建议\n\n只使用已知资料。','outline'=>['客户需求','选择标准'],'summary'=>'已完成本轮稿件。','checks'=>['价格信息待核实']];
+  return ['status'=>200,'body'=>['id'=>'offline-article-'.$posts,'model'=>'deepseek-flash','choices'=>[['finish_reason'=>'stop','message'=>['content'=>$mode==='malformed'?'not json':json_encode($data,JSON_UNESCAPED_UNICODE)]]],'usage'=>['prompt_tokens'=>1000,'completion_tokens'=>1000,'total_tokens'=>2000]]];
+ });$worker=new Jobs(null,new BochaSearch(),$client);$worker->tick();$view=Agent::view($t,$u,$root);$turn=$view['turns'][0];
+ aa($turn['status']==='success'&&$turn['result']['article']['outline']===['客户需求','选择标准'],'successful response exposes the real outline and manuscript');
+ aa($turn['billing_status']==='settled'&&abs((float)$turn['user_points']-.3)<.00001,'agent uses actual native token billing and original consumption');
+ aa(count($captured[0]['materials'])===5&&$captured[0]['materials'][0]['title']==='事实2'&&$captured[0]['previous_article']===null,'auto material selection uses only the recent owned facts');
+ aa(!$worker->tick()&&$posts===1&&Agent::send($t,$u,$p)['id']===$first['id'],'reload and replay never repeat a paid completion');
+ $save=['job_id'=>$first['id'],'title'=>'人工确认后的标题','content'=>'人工编辑后的正文事实'];$saved=Agent::save($t,$u,$save);$again=Agent::save($t,$u,$save);
+ aa($saved['id']===$again['id']&&Geo::lists($t,$u,['kind'=>'articles'])['count']===1,'edited draft enters the library exactly once');
+ $article=Db::name('aigc_geo_article')->where('id',$saved['id'])->find();aa(json_decode($article['metadata_json'],true)['geo_job_id']===$first['id'],'manual editing keeps the generating task provenance');
+ aaReject(fn()=>Agent::save($t,$u2,$save),'article save cannot cross merchant ownership');
+ aaReject(fn()=>Agent::save($t,$u,array_replace($save,['content'=>'未提供版本锁的修改'])),'changing an existing library article requires its current revision');
+ $updated=Agent::save($t,$u,$save+['expected_update'=>$saved['expected_update'],'expected_hash'=>$saved['expected_hash']]);
+ $updated=Agent::save($t,$u,array_replace($save,['content'=>'人工再次修订','expected_update'=>$saved['expected_update'],'expected_hash'=>$saved['expected_hash']]));
+ aa($updated['content']==='人工再次修订'&&$updated['expected_hash']!==$saved['expected_hash'],'current editor revision can update its library article');
+ aaReject(fn()=>Agent::save($t,$u,array_replace($save,['content'=>'过期稿件覆盖','expected_update'=>$saved['expected_update'],'expected_hash'=>$saved['expected_hash']])),'stale editor cannot overwrite another save');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($next,['expected_turn_id'=>0])),'stale conversation head is rejected');
+ $next['draft']=['title'=>'用户当前标题','content'=>'保留手工修改内容'];$second=Agent::send($t,$u,$next);
+ aaReject(fn()=>Agent::send($t,$u,array_replace($next,['request_key'=>$prefix.'_concurrent_001'])),'concurrent different requests cannot branch unnoticed');
+ aa(Agent::send($t,$u,$next)['id']===$second['id'],'uncertain revision submission replays the original paid job');
+ $worker->tick();aa($captured[1]['previous_article']===$next['draft']&&count($captured[1]['conversation'])===1&&$captured[1]['agent_parent_id']===$first['id'],'revision sees the current hand-edited article and previous intent');
+ $view=Agent::view($t,$u,$root);aa(count($view['turns'])===2&&$view['latest_id']===$second['id']&&$view['turns'][0]['saved']['content']==='人工再次修订','history restores both versions and independent library edits');
+ aa(Agent::sessions($t,$u,[])['lists'][0]['turns']===2&&Agent::sessions($t,$u2,[])['count']===0,'session list is grouped and ownership scoped');
+ $mode='malformed';$bad=Agent::send($t,$u,array_replace($next,['expected_turn_id'=>$second['id'],'request_key'=>$prefix.'_bad_result_001']));$worker->tick();$view=Agent::view($t,$u,$root);$last=end($view['turns']);aa($last['status']==='review'&&$last['result']['content']==='not json'&&$last['billing_status']==='settled','paid malformed output preserves evidence and enters review');
+ aa(!$worker->tick()&&$posts===3,'malformed output never triggers an automatic paid retry');
+ aaReject(fn()=>Agent::send($t,$u,array_replace($next,['expected_turn_id'=>$bad['id'],'request_key'=>$prefix.'_review_block_001'])),'unresolved paid result blocks unnoticed repeat generation');
+ aaReject(fn()=>Agent::save($t,$u,['job_id'=>$bad['id'],'title'=>'不能入库','content'=>'未审核结果']),'review output cannot become a confirmed article');
+ foreach(['plain','{"title":7,"content":"x"}','{"title":"x","content":""}','{"title":"x","content":"x","outline":[7]}','{"title":"x","content":"x","checks":{"a":"b"}}']as $i=>$raw)aaReject(fn()=>Agent::article($raw),'invalid structured output rejected '.$i);
+ aa(Agent::article("```json\n{\"title\":\"标题\",\"content\":\"正文\"}\n```")['content']==='正文','JSON fences and optional check lists are supported');
+ $third=array_replace($p,['request_key'=>$prefix.'_new_session_001']);$queued=Agent::send($t,$u,$third);Db::name('power_market_sku')->where('id',$identity['input_sku_id'])->update(['sale_points'=>101]);$worker->tick();$qr=Jobs::records($t,$u,['id'=>$queued['id']])['lists'][0];aa($posts===3&&$qr['status']==='failed'&&$qr['billing_status']==='not_started','a queued price change is rejected before creating a native charge');aaReject(fn()=>Agent::send($t,$u,array_replace($third,['request_key'=>$prefix.'_price_change_001'])),'a price change requires renewed confirmation');
+ aa(!str_contains(json_encode($view),'offline-article-fixture'),'conversation API does not expose provider secrets');
+ aa(abs((float)Db::name('user')->where('id',$u)->value('user_money')-9999.1)<.00001,'exactly three turns settle three real native consumption records');
+}catch(Throwable $e){$failure=$e;}finally{app()->instance('request',$original);Db::rollback();}
+if($failure){fwrite(STDERR,'FAIL '.$failure->getMessage().' @'.$failure->getLine()."\n");exit(1);}echo "All $passed article-agent checks passed; fixtures and native wallet changes rolled back, no external calls.\n";

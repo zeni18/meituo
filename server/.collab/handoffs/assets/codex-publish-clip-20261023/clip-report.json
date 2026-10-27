@@ -1,0 +1,291 @@
+{
+  "layouts": [
+    {
+      "width": 1280,
+      "mode": "quick",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 268.796875,
+          "right": 348.796875
+        },
+        {
+          "width": 507.203125,
+          "right": 868
+        },
+        {
+          "width": 384,
+          "right": 1264
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1280,
+      "mode": "mix",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 268.796875,
+          "right": 348.796875
+        },
+        {
+          "width": 507.203125,
+          "right": 868
+        },
+        {
+          "width": 384,
+          "right": 1264
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1280,
+      "mode": "storyboard",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 268.796875,
+          "right": 348.796875
+        },
+        {
+          "width": 507.203125,
+          "right": 868
+        },
+        {
+          "width": 384,
+          "right": 1264
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1280,
+      "mode": "script",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 268.796875,
+          "right": 348.796875
+        },
+        {
+          "width": 507.203125,
+          "right": 868
+        },
+        {
+          "width": 384,
+          "right": 1264
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1440,
+      "mode": "quick",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 302.390625,
+          "right": 382.390625
+        },
+        {
+          "width": 585.609375,
+          "right": 980
+        },
+        {
+          "width": 432,
+          "right": 1424
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1440,
+      "mode": "mix",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 302.390625,
+          "right": 382.390625
+        },
+        {
+          "width": 585.609375,
+          "right": 980
+        },
+        {
+          "width": 432,
+          "right": 1424
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1440,
+      "mode": "storyboard",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 302.390625,
+          "right": 382.390625
+        },
+        {
+          "width": 585.609375,
+          "right": 980
+        },
+        {
+          "width": 432,
+          "right": 1424
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1440,
+      "mode": "script",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 302.390625,
+          "right": 382.390625
+        },
+        {
+          "width": 585.609375,
+          "right": 980
+        },
+        {
+          "width": 432,
+          "right": 1424
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1920,
+      "mode": "quick",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 320,
+          "right": 400
+        },
+        {
+          "width": 1020,
+          "right": 1432
+        },
+        {
+          "width": 460,
+          "right": 1904
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1920,
+      "mode": "mix",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 320,
+          "right": 400
+        },
+        {
+          "width": 1020,
+          "right": 1432
+        },
+        {
+          "width": 460,
+          "right": 1904
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1920,
+      "mode": "storyboard",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 320,
+          "right": 400
+        },
+        {
+          "width": 1020,
+          "right": 1432
+        },
+        {
+          "width": 460,
+          "right": 1904
+        }
+      ],
+      "buttons": []
+    },
+    {
+      "width": 1920,
+      "mode": "script",
+      "overflow": false,
+      "materialAddVisible": true,
+      "panes": [
+        {
+          "width": 320,
+          "right": 400
+        },
+        {
+          "width": 1020,
+          "right": 1432
+        },
+        {
+          "width": 460,
+          "right": 1904
+        }
+      ],
+      "buttons": []
+    }
+  ],
+  "flows": [
+    {
+      "name": "oral mode uses current editor, no route jump",
+      "passed": true
+    },
+    {
+      "name": "manual oral copy splits to real shot groups and keeps current project",
+      "passed": true
+    },
+    {
+      "name": "mode switch protects edited content and cancel retains oral mode",
+      "passed": true
+    },
+    {
+      "name": "effects expose genuine unavailable states in one tab",
+      "passed": true
+    },
+    {
+      "name": "whole-paragraph subtitle is named accurately",
+      "passed": true
+    },
+    {
+      "name": "material picker adds owned image without losing selection",
+      "passed": true
+    },
+    {
+      "name": "generation confirmation shows server fee and destination, no auto rendering",
+      "passed": true
+    },
+    {
+      "name": "save and reopen retains oral mode and script",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

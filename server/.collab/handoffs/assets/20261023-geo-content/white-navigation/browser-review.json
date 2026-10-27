@@ -1,0 +1,380 @@
+{
+  "version": "mw20261023b",
+  "startedAt": "2026-10-22T21:21:39.009Z",
+  "menuNoTheme": true,
+  "checks": 29,
+  "issues": [],
+  "console": [],
+  "visits": [
+    {
+      "label": "profile-direct",
+      "active": [],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/user/info?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "preferences",
+      "active": [],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/user/preferences?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "workbench-from-preferences",
+      "active": [
+        "workbench"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "workbench-to-profile",
+      "active": [],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/user/info?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "tools",
+      "active": [
+        "tools"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/tools?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "image",
+      "active": [
+        "image"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/create?type=image&tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "video",
+      "active": [
+        "video"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/create?type=video&tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "avatar",
+      "active": [
+        "avatar"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/avatar?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "clip",
+      "active": [
+        "clip"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/video-editor?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "materials",
+      "active": [
+        "materials"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/materials/video?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "works",
+      "active": [
+        "works"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/assets?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "brand",
+      "active": [
+        "brand"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/stores?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "geo-diagnose",
+      "active": [
+        "geo-diagnose"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#diagnose",
+      "white": "true"
+    },
+    {
+      "label": "geo-effect",
+      "active": [
+        "geo-effect"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#effect",
+      "white": "true"
+    },
+    {
+      "label": "geo-studio",
+      "active": [
+        "geo-articles"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#articles",
+      "white": "true"
+    },
+    {
+      "label": "geo-keywords",
+      "active": [
+        "geo-articles"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#keywords",
+      "white": "true"
+    },
+    {
+      "label": "geo-article-library",
+      "active": [
+        "geo-articles"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#article-library",
+      "white": "true"
+    },
+    {
+      "label": "geo-facts",
+      "active": [
+        "geo-articles"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#materials",
+      "white": "true"
+    },
+    {
+      "label": "geo-images",
+      "active": [
+        "geo-articles"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#images",
+      "white": "true"
+    },
+    {
+      "label": "geo-website",
+      "active": [
+        "geo-website"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#website",
+      "white": "true"
+    },
+    {
+      "label": "crosspage-from-geo",
+      "active": [
+        "works"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/assets?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "back-geo-website",
+      "active": [
+        "geo-website"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/geo?tenant_id=1&brand_id=1#website",
+      "white": "true"
+    },
+    {
+      "label": "forward-works",
+      "active": [
+        "works"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/assets?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "short-drama-excluded",
+      "active": [],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "dark",
+      "url": "http://127.0.0.1:8090/ai/short-drama?tenant_id=1"
+    },
+    {
+      "label": "return-from-drama",
+      "active": [
+        "workbench"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "automation",
+      "active": [
+        "automation"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/automation?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "seedcards",
+      "active": [
+        "seedcards"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/seedcards?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "publish-tasks",
+      "active": [
+        "publish"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai/publish-tasks?tenant_id=1",
+      "white": "true"
+    },
+    {
+      "label": "workbench-final",
+      "active": [
+        "workbench"
+      ],
+      "entry": "http://127.0.0.1:8090/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+      "overflow": false,
+      "skin": null,
+      "skinNodes": 0,
+      "theme": "light",
+      "url": "http://127.0.0.1:8090/ai?tenant_id=1",
+      "white": "true"
+    }
+  ],
+  "paidActions": false,
+  "published": false
+}

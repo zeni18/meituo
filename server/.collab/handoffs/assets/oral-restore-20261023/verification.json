@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "case": "真人口播图层开关可操作",
+      "passed": true
+    },
+    {
+      "case": "素材混剪",
+      "passed": true
+    },
+    {
+      "case": "新闻体时长标签与控件",
+      "passed": true
+    },
+    {
+      "case": "取消切换保留标题",
+      "passed": true
+    },
+    {
+      "case": "文案分镜从完整选题步骤开始",
+      "passed": true
+    },
+    {
+      "case": "文案拆为两个镜头",
+      "passed": true
+    },
+    {
+      "case": "取消离开保留工程文案和镜头",
+      "passed": true
+    },
+    {
+      "case": "原模板选择窗口可打开",
+      "passed": true
+    },
+    {
+      "case": "一级口播直达完整功能且侧栏保持展开",
+      "passed": true
+    }
+  ],
+  "settingsAX": "Browser tab: 12, Title: \"美拓AI营销中台 · 本地开发\", URL: \"http://127.0.0.1:8090/ai/smart_clip?tenant_id=1\".\nThe following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.\n~\t\t\t\t\t99 container\n~\t\t\t\t\t\t100 button (expanded) 图层设置, Secondary Actions: Collapse\n+\t\t\t\t\t\t\t101 text 图层设置\n+\t\t\t\t\t\t102 checkbox (settable, integer) Description: 标题图层, Value: 0\n+\t\t\t\t\t\t103 checkbox (settable, integer) Description: 字幕图层, Value: 0\n+\t\t\t\t\t\t104 checkbox (settable, integer) Description: 身份栏图层, Value: 0\n+\t\t\t\t\t\t105 checkbox (settable, integer) Description: 背景图层, Value: 0\n+\t\t\t\t\t\t106 checkbox (settable, integer) Description: 数字人图层, Value: 0\nThe focused UI element is 100 button (expanded) 图层设置, Secondary Actions: Collapse"
+}

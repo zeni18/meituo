@@ -1,0 +1,32 @@
+{
+  "checks": [
+    "scenario fits viewport 1280",
+    "GEO questions inspectable 1280",
+    "GEO rule panel no horizontal overflow 1280",
+    "GEO review counts actual selected media 1280",
+    "authorization cap remains visible 1280",
+    "save action visible 1280",
+    "scenario fits viewport 1440",
+    "GEO questions inspectable 1440",
+    "GEO rule panel no horizontal overflow 1440",
+    "GEO review counts actual selected media 1440",
+    "authorization cap remains visible 1440",
+    "save action visible 1440",
+    "scenario fits viewport 1920",
+    "GEO questions inspectable 1920",
+    "GEO rule panel no horizontal overflow 1920",
+    "GEO review counts actual selected media 1920",
+    "authorization cap remains visible 1920",
+    "save action visible 1920",
+    "stale plan cannot silently expand authorization",
+    "editing cannot become a duplicate new scenario",
+    "media failure has inline recovery",
+    "unknown save restored after reload",
+    "media choice survives recovery",
+    "reload retry preserves original request identity",
+    "unconfigured service still allows a complete paused draft",
+    "pause persists and explains queued work",
+    "no browser errors"
+  ],
+  "errors": []
+}

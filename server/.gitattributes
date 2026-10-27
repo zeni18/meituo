@@ -1,0 +1,6 @@
+*.sh text eol=lf
+Dockerfile text eol=lf
+
+.collab/hooks/* text eol=lf
+.collab/*.ps1 text eol=crlf
+.collab/*.cjs text eol=lf

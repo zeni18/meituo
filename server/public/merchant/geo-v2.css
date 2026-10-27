@@ -1,0 +1,246 @@
+/* Merchant UI v2 — GEO 营销 (诊断 / 效果). Layout and page parts only; components come from ui-kit.css.
+   Colours only through --ui-* / --uk-* tokens. One focus card per page (品牌提及). Dialog parts render in .uk-layers. */
+
+.uk-geo .gv{gap:16px}
+.uk-geo .gv .uk-tabs{margin-top:-4px}
+.uk-geo .gv-notice:empty{display:none}
+.uk-geo .gv-body{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+/* ---------- title row: title · brand switcher · knowledge ring ---------- */
+.uk-geo .gv-head{gap:12px;align-items:center}
+.uk-geo .gv-head h1{margin:0;font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.uk-geo .gv-head .uk-grow{flex:1}
+.uk-geo .gv-head .uk-actions{display:flex;gap:8px;align-items:center}
+.uk-geo .gv-brand{display:inline-flex;align-items:center;gap:7px;max-width:280px;height:34px;margin-left:4px;padding:0 10px 0 9px;border:0;border-radius:10px;background:var(--uk-chip);box-shadow:0 0 0 1px var(--uk-hair),0 1px 2px var(--uk-hair);color:var(--ui-text);font:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:box-shadow var(--uk-dur),background var(--uk-dur)}
+.uk-geo .gv-brand:hover{background:var(--ui-surface);box-shadow:0 0 0 1px var(--ui-line-strong),0 2px 6px -2px var(--uk-stack-1)}
+.uk-geo .gv-brand>svg{width:16px;height:16px;flex:none;color:var(--uk-icon-muted)}
+.uk-geo .gv-brand>span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-brand .gv-caret{width:14px;height:14px}
+.uk-geo .gv-brand[aria-expanded=true]{box-shadow:0 0 0 1px var(--ui-accent),0 0 0 4px var(--ui-accent-soft)}
+
+/* ---------- shared bits ---------- */
+.gv-plogo{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:12px;overflow:hidden;background:var(--ui-surface);box-shadow:inset 0 0 0 1px var(--uk-hair),0 1px 2px var(--uk-hair)}
+.gv-plogo img{width:72%;height:72%;object-fit:contain;display:block}
+.gv-plogo b{font-size:15px;font-weight:600;color:var(--ui-text-2)}
+.gv-plogo.is-sm{width:32px;height:32px;border-radius:10px}
+.gv-plogo.is-xs{width:20px;height:20px;border-radius:6px}.gv-plogo.is-xs b{font-size:11px}
+.gv-pl{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.gv-link{display:inline-flex;align-items:center;gap:4px;color:var(--ui-accent);font-size:13px;text-decoration:none;white-space:nowrap}
+.gv-link:hover{text-decoration:underline;text-underline-offset:3px}
+.gv-link svg{width:14px;height:14px;fill:currentColor}
+.gv-info{display:inline-grid;place-items:center;cursor:help}
+.gv-info svg{width:15px;height:15px;color:var(--uk-icon-muted)}
+.gv-err{margin:12px 0 0;font-size:13px;line-height:20px;color:var(--uk-danger-ink)}
+.uk-geo .gv-blank{display:flex;flex-direction:column;align-items:center;gap:4px;padding:56px 24px 64px;text-align:center}
+.uk-geo .gv-blank>.uk-meta{max-width:440px}
+.uk-geo .gv-seg>button{height:28px;padding:0 12px;font-size:13px}
+.uk-geo [aria-busy=true]{opacity:.6;transition:opacity 200ms}
+@keyframes gv-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- 平台可见度: focus card + platform grid ---------- */
+.uk-geo .gv-vis{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:stretch}
+.uk-geo .gv-focus{display:flex;flex-direction:column;gap:6px;min-height:340px;padding:24px 24px 20px}
+.uk-geo .gv-focus.is-skel{gap:16px}
+.uk-geo .gv-flabel{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.78)}
+.uk-geo .gv-flabel svg{width:16px;height:16px;color:rgba(255,255,255,.85)}
+.uk-geo .gv-flabel span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-fnum{margin-top:6px;font-size:56px;line-height:62px;font-weight:600;letter-spacing:-.03em}
+.uk-geo .gv-fmeta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;line-height:20px;color:rgba(255,255,255,.7)}
+.uk-geo .gv-fmeta b{font-weight:600;color:var(--ui-surface)}
+.uk-geo .gv-frun{display:flex;flex-direction:column;gap:8px;margin-top:auto;padding:14px 14px 12px;border-radius:14px;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.uk-geo .gv-frun.is-empty{gap:2px;font-size:14px;color:var(--ui-surface)}
+.uk-geo .gv-frun-top{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.8)}
+.uk-geo .gv-frun-top b{color:var(--ui-surface);font-weight:600}
+.uk-geo .gv-fdot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ui-surface)}
+.uk-geo .gv-fdot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c,rgba(255,255,255,.6));box-shadow:0 0 0 3px color-mix(in srgb,var(--c,#fff) 28%,transparent)}
+.uk-geo .gv-fdot.is-ok{--c:var(--ui-success)}.uk-geo .gv-fdot.is-run{--c:var(--uk-stack-2)}.uk-geo .gv-fdot.is-wait{--c:var(--ui-warning)}.uk-geo .gv-fdot.is-fail{--c:var(--ui-danger)}
+.gv-fbar{position:relative;display:flex;height:6px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.16)}
+.gv-fbar i{display:block;height:100%;background:var(--ui-surface);transition:width 600ms var(--uk-ease-out)}
+.gv-fbar i.is-bad{background:var(--ui-danger)}
+.gv-fbar.is-light{width:120px;background:var(--ui-fill)}
+.gv-fbar.is-light i{background:var(--ui-accent)}
+.gv-fbar.is-light i.is-bad{background:var(--ui-danger)}
+.uk-geo .gv-frun-meta{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:rgba(255,255,255,.66)}
+.uk-geo .gv-frun-meta b{color:var(--ui-surface);font-weight:600}
+.uk-geo .gv-fchip{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;height:32px;margin-top:4px;padding:0 10px 0 12px;border:0;border-radius:9px;font:inherit;font-size:13px;font-weight:500;color:var(--ui-surface);background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);cursor:pointer;transition:background var(--uk-dur)}
+.uk-geo .gv-fchip:hover{background:rgba(255,255,255,.2)}
+.uk-geo .gv-fchip svg{width:15px;height:15px;fill:currentColor}
+.uk-geo .gv-fchip:focus-visible{box-shadow:0 0 0 2px var(--ui-surface)}
+
+.uk-geo .gv-plats{display:flex;flex-direction:column;gap:12px;min-width:0}
+.uk-geo .gv-sechead{display:flex;align-items:center;gap:8px;min-height:32px}
+.uk-geo .gv-sechead h2{margin:0;font-size:18px;line-height:26px;font-weight:600;letter-spacing:-.01em}
+.uk-geo .gv-sechead .uk-grow{flex:1}
+.uk-geo .gv-pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.uk-geo .gv-pcard{display:flex;flex-direction:column;gap:14px;min-width:0;padding:16px;border-radius:16px;background:var(--uk-card);box-shadow:var(--uk-card-shadow),var(--uk-card-edge);animation:gv-in 380ms var(--uk-ease-out) both;animation-delay:calc(var(--i,0) * 22ms)}
+.uk-geo .gv-pcard.is-skel{animation:none;gap:12px}
+.uk-geo .gv-ptop{display:flex;align-items:center;gap:12px;min-width:0}
+.uk-geo .gv-pname{display:flex;flex-direction:column;gap:2px;min-width:0}
+.uk-geo .gv-pname b{font-size:15px;line-height:22px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-pname .uk-status{font-size:12px}
+.uk-geo .gv-pnums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.uk-geo .gv-pnums span{display:flex;flex-direction:column;gap:1px;min-width:0}
+.uk-geo .gv-pnums b{font-size:20px;line-height:26px;font-weight:600;letter-spacing:-.02em;color:var(--ui-text-2)}
+.uk-geo .gv-pnums .is-key b{color:var(--ui-text)}
+.uk-geo .gv-pnums small{font-size:12px;line-height:16px;color:var(--ui-text-3);white-space:nowrap}
+.uk-geo .gv-pfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:24px;padding-top:10px;border-top:1px solid var(--uk-hair)}
+
+/* ---------- tables ---------- */
+.uk-geo .gv-qcard{margin-top:4px}
+.uk-geo .gv-qcard .uk-table-wrap{margin-top:10px;border-top:1px solid var(--uk-hair)}
+.uk-geo .gv-table td{height:56px}
+.uk-geo .gv-qtext{max-width:520px;font-weight:500;overflow-wrap:anywhere}
+.uk-geo .gv-snip{max-width:360px;color:var(--ui-text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-qempty{display:flex;flex-direction:column;align-items:center;gap:2px;padding:28px 20px 36px;text-align:center}
+.uk-geo .gv-list{min-height:320px;overflow:hidden}
+.uk-geo .gv-row{cursor:pointer}
+.uk-geo .gv-row:focus-visible{box-shadow:inset var(--uk-focus)}
+.uk-geo .gv-open{display:inline-flex;align-items:center;gap:2px;font-size:13px;color:var(--ui-text-3);transition:color 120ms}
+.uk-geo .gv-open svg{width:15px;height:15px;fill:currentColor}
+.uk-geo .gv-row:hover .gv-open{color:var(--ui-text)}
+.uk-geo .gv-prog{display:flex;align-items:center;gap:10px}
+.uk-geo .gv-jt{display:flex;flex-direction:column;min-width:0;max-width:360px}
+.uk-geo .gv-jt b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-iconlink{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;color:var(--ui-text-3)}
+.uk-geo .gv-iconlink:hover{background:var(--ui-fill);color:var(--ui-text)}
+.uk-geo .gv-iconlink svg{width:16px;height:16px;fill:currentColor}
+.uk-geo .gv-pager{padding:4px 20px 18px}
+.uk-geo .gv-skrows{display:flex;flex-direction:column;padding:12px 20px}
+.uk-geo .gv-skrow{display:flex;align-items:center;gap:24px;height:56px;border-bottom:1px solid var(--uk-hair)}
+
+/* ---------- 效果 ---------- */
+.uk-geo .gv-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.uk-geo .gv-tools .uk-grow{flex:1}
+.uk-geo .gv-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.uk-geo .gv-kpi{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0;padding:18px 20px 16px;border:0;font:inherit;text-align:left;color:var(--ui-text);cursor:pointer;transition:box-shadow var(--uk-dur) var(--uk-ease),transform var(--uk-dur) var(--uk-ease)}
+.uk-geo .gv-kpi:hover{transform:translateY(-2px);box-shadow:var(--uk-card-shadow-hover),var(--uk-card-edge)}
+.uk-geo .gv-kpi.is-skel{gap:12px;cursor:default}
+.uk-geo .gv-kpi-label{font-size:13px;color:var(--ui-text-2)}
+.uk-geo .gv-kpi>b{font-size:32px;line-height:40px;font-weight:600;letter-spacing:-.02em}
+.uk-geo .gv-kpi small{font-size:12px;line-height:18px;color:var(--ui-text-3)}
+.uk-geo .gv-kpi-go{position:absolute;top:16px;right:16px;width:16px;height:16px;fill:var(--uk-icon-muted);opacity:0;transition:opacity 140ms}
+.uk-geo .gv-kpi:hover .gv-kpi-go{opacity:1}
+.uk-geo .gv-split{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:16px}
+.uk-geo .gv-split.is-even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.uk-geo .gv-legend{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ui-text-2)}
+.uk-geo .gv-legend i{width:8px;height:8px;border-radius:2px}
+.uk-geo .gv-legend i.is-a,.uk-geo .gv-pair .is-a{background:var(--ui-accent)}
+.uk-geo .gv-legend i.is-b,.uk-geo .gv-pair .is-b{background:var(--uk-stack-1)}
+.uk-geo .gv-legend b{font-weight:600;color:var(--ui-text)}
+.uk-geo .gv-chart{position:relative;height:220px;margin:12px 20px 20px}
+.uk-geo .gv-grid{position:absolute;left:0;right:0;top:0;bottom:22px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.uk-geo .gv-grid i{border-top:1px dashed var(--uk-hair)}
+.uk-geo .gv-grid i:last-child{border-top:1px solid var(--ui-line)}
+.uk-geo .gv-bars{position:relative;display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:6px;height:100%}
+.uk-geo .gv-day{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0}
+.uk-geo .gv-pair{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:3px}
+.uk-geo .gv-pair span{width:min(12px,40%);min-height:2px;border-radius:3px 3px 1px 1px;transition:height 500ms var(--uk-ease-out)}
+.uk-geo .gv-day small{height:16px;font-size:11px;line-height:16px;color:var(--ui-text-3);text-align:center;white-space:nowrap;font-family:"Inter",var(--ui-font)}
+.uk-geo .gv-chart-empty{position:absolute;inset:0 0 22px;display:grid;place-items:center;font-size:13px;color:var(--ui-text-3)}
+.uk-geo .gv-jrows{display:flex;flex-direction:column;gap:4px;padding:10px 20px 20px}
+.uk-geo .gv-jrow{display:grid;grid-template-columns:88px minmax(0,1fr) 44px;align-items:center;gap:12px;height:36px}
+.uk-geo .gv-jrow .uk-status{font-size:13px}
+.uk-geo .gv-jrow b{font-weight:600;text-align:right}
+.uk-geo .gv-jtrack{height:6px;border-radius:3px;background:var(--ui-fill);overflow:hidden}
+.uk-geo .gv-jtrack i{display:block;height:100%;border-radius:3px;background:var(--uk-stack-1)}
+.uk-geo .gv-jtrack i.is-ok{background:var(--ui-success)}.uk-geo .gv-jtrack i.is-run{background:var(--ui-accent)}.uk-geo .gv-jtrack i.is-wait{background:var(--ui-warning)}.uk-geo .gv-jtrack i.is-fail{background:var(--ui-danger)}
+.uk-geo .gv-pubs{display:flex;flex-direction:column;padding:6px 20px 14px}
+.uk-geo .gv-pub{display:flex;align-items:center;gap:12px;min-height:56px;border-bottom:1px solid var(--uk-hair)}
+.uk-geo .gv-pub:last-child{border-bottom:0}
+.uk-geo .gv-pub-t{display:flex;flex-direction:column;flex:1;min-width:0}
+.uk-geo .gv-pub-t b{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.uk-geo .gv-ready{display:flex;flex-direction:column;padding:6px 12px 14px}
+.uk-geo .gv-rrow{display:flex;align-items:center;gap:10px;height:48px;padding:0 8px;border:0;border-radius:10px;background:none;font:inherit;font-size:14px;color:var(--ui-text);text-align:left;cursor:pointer;transition:background 120ms}
+.uk-geo .gv-rrow:hover{background:var(--ui-surface-2)}
+.uk-geo .gv-rrow span{flex:1}
+.uk-geo .gv-rrow b{font-weight:600}
+.uk-geo .gv-rrow>svg{width:16px;height:16px;color:var(--uk-icon-muted)}
+.uk-geo .gv-rrow .bs-ndot{width:17px;height:17px;display:grid;place-items:center}
+.uk-geo .gv-rrow .bs-ndot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--c,var(--uk-icon-muted));box-shadow:0 0 0 3px color-mix(in srgb,var(--c,var(--uk-icon-muted)) 16%,transparent)}
+
+/* ---------- dialogs & drawers (in .uk-layers) ---------- */
+.gv-soon{display:flex;flex-direction:column;gap:10px;padding-bottom:8px}
+.gv-soon p{margin:0;font-size:14px;line-height:22px;color:var(--ui-text-2)}
+.gv-wiz{display:flex;flex-direction:column;gap:18px;padding-bottom:8px}
+.gv-wiz-load{display:flex;flex-direction:column;gap:14px}
+.gv-step{display:flex;flex-direction:column;gap:10px}
+.gv-step-head{display:flex;align-items:center;gap:8px;min-height:32px}
+.gv-step-head b{font-size:15px;font-weight:600}
+.gv-step-head .uk-grow{flex:1}
+.gv-step-n{display:grid;place-items:center;width:22px;height:22px;border-radius:7px;font-size:12px;font-weight:600;color:var(--ui-surface);background:var(--uk-ink);box-shadow:var(--uk-ink-shadow)}
+.gv-qarea{min-height:168px;font-size:14px;line-height:24px}
+.gv-gen{display:flex;flex-direction:column;gap:10px;padding:12px 14px;border-radius:14px;background:var(--ui-surface-2);box-shadow:var(--uk-well-ring)}
+.gv-gen-head{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px}
+.gv-gen-head>svg{width:16px;height:16px;color:var(--ui-accent)}
+.gv-gen-head b{font-size:14px;font-weight:600}
+.gv-gen-head .uk-grow{flex:1}
+.gv-gen.is-off .gv-gen-head>svg{color:var(--uk-icon-muted)}
+.gv-gen-row{display:grid;grid-template-columns:minmax(0,1fr) 150px 110px auto;gap:8px}
+.gv-gen-row .uk-input,.gv-gen-row .uk-select{height:36px;background-color:var(--ui-surface)}
+.gv-gen-note{margin:0}
+.gv-pchoose{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.gv-pchip{position:relative;display:flex;align-items:center;gap:10px;height:52px;padding:0 12px 0 10px;border:0;border-radius:12px;background:var(--uk-sheen);box-shadow:0 0 0 1px var(--uk-hair),0 1px 2px var(--uk-hair);font:inherit;font-size:14px;color:var(--ui-text);text-align:left;cursor:pointer;transition:box-shadow var(--uk-dur)}
+.gv-pchip:hover{box-shadow:0 0 0 1px var(--ui-line-strong),0 2px 6px -2px var(--uk-stack-1)}
+.gv-pchip[aria-pressed=true]{box-shadow:0 0 0 2px var(--ui-accent),0 6px 16px -10px var(--ui-accent)}
+.gv-pchip-t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gv-tick{display:grid;place-items:center;width:18px;height:18px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--ui-line-strong);transition:background 140ms}
+.gv-tick svg{width:12px;height:12px;color:transparent}
+.gv-pchip[aria-pressed=true] .gv-tick{background:var(--ui-accent);box-shadow:none}
+.gv-pchip[aria-pressed=true] .gv-tick svg{color:var(--ui-surface)}
+.gv-sum{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;padding:12px 14px;border-radius:12px;background:var(--ui-surface-2);box-shadow:var(--uk-well-ring);font-size:14px;color:var(--ui-text-2)}
+.gv-sum b{font-weight:600;color:var(--ui-text)}
+.gv-sum-cost{margin-left:auto;font-weight:600;color:var(--ui-text)}
+.gv-sum-warn{color:var(--uk-danger-ink);font-size:13px}
+.gv-quote{display:flex;flex-direction:column;gap:16px;padding-bottom:8px}
+.gv-quote-num{display:flex;flex-direction:column;gap:2px}
+.gv-quote-num span{font-size:13px;color:var(--ui-text-2)}
+.gv-quote-num b{font-size:34px;line-height:42px;font-weight:600;letter-spacing:-.02em}
+.gv-quote-num .uk-tp{font-size:inherit;line-height:inherit}
+.gv-quote-dl{display:grid;gap:0;margin:0;border-top:1px solid var(--uk-hair)}
+.gv-quote-dl>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--uk-hair);font-size:14px}
+.gv-quote-dl dt{color:var(--ui-text-3)}
+.gv-quote-dl dd{margin:0;color:var(--ui-text);overflow-wrap:anywhere}
+.gv-quote-note,.gv-run-note{display:flex;gap:8px;margin:0;padding:10px 12px;border-radius:12px;background:var(--ui-surface-2);box-shadow:var(--uk-well-ring);font-size:13px;line-height:20px;color:var(--ui-text-2)}
+.gv-quote-note svg,.gv-run-note svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--uk-icon-muted)}
+.gv-confirm{display:flex;flex-direction:column;gap:12px;padding-bottom:8px}
+.gv-confirm p{margin:0;font-size:14px;line-height:22px}
+.gv-run{display:flex;flex-direction:column;gap:14px;padding-bottom:12px}
+.gv-ans{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border-radius:14px;background:var(--uk-sheen);box-shadow:0 0 0 1px var(--uk-hair),0 1px 2px var(--uk-hair)}
+.gv-ans header{display:flex;align-items:center;gap:10px}
+.gv-ans-t{display:flex;flex-direction:column;flex:1;min-width:0}
+.gv-ans-t b{font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.gv-ans header .uk-status{font-size:12px}
+.gv-ans-text{max-height:280px;overflow:auto;padding:10px 12px;border-radius:10px;background:var(--ui-surface-2);box-shadow:var(--uk-well-ring);font-size:14px;line-height:23px;white-space:pre-wrap;overflow-wrap:anywhere}
+.gv-ans-err{margin:0;font-size:13px;line-height:20px;color:var(--uk-warn-ink)}
+.gv-cites{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:13px}
+.gv-cites>b{flex-basis:100%;font-size:12px;font-weight:600;color:var(--ui-text-2)}
+.gv-refs summary{font-size:12px;color:var(--ui-text-3);cursor:pointer}
+.gv-refs .gv-link{margin:6px 14px 0 0}
+.gv-ans footer{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px}
+.gv-ans footer .uk-grow{flex:1}
+.gv-ans footer .uk-status{font-size:12px}
+.gv-pts{font-size:13px;font-weight:600}
+.gv-jmeta{display:flex;align-items:center;flex-wrap:wrap;gap:6px 14px}
+.gv-jmeta .uk-status{font-size:12px}
+.gv-qlist{margin:0;padding:0 0 0 20px;font-size:14px;line-height:26px}
+.gv-sres{display:flex;flex-direction:column;gap:10px}
+.gv-sitem{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-radius:12px;box-shadow:0 0 0 1px var(--uk-hair)}
+.gv-sitem b{font-size:14px;font-weight:600}
+.gv-sitem p{margin:0;font-size:13px;line-height:20px;color:var(--ui-text-2)}
+.gv-sitem>div{display:flex;align-items:center;gap:8px}
+.gv-sitem .uk-grow{flex:1}
+.gv-form{display:flex;flex-direction:column;gap:16px;padding-bottom:8px}
+.gv-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gv-evv{display:flex;flex-direction:column;gap:12px;padding-bottom:12px}
+.gv-evv-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.gv-evv .gv-ans-text{max-height:420px}
+
+@media (max-width:1320px){
+  .uk-geo .gv-vis{grid-template-columns:300px minmax(0,1fr)}
+  .uk-geo .gv-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:1180px){
+  .uk-geo .gv-vis,.uk-geo .gv-split,.uk-geo .gv-split.is-even{grid-template-columns:minmax(0,1fr)}
+  .uk-geo .gv-focus{min-height:0}
+}
+@media (prefers-reduced-motion:reduce){.uk-geo .gv-pcard{animation:none}}

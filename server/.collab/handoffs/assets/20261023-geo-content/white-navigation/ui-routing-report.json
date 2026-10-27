@@ -1,0 +1,10 @@
+{
+  "ok": true,
+  "checks": [
+    "same document hash changes in place with correct history state and no native router event",
+    "cross-page hash uses one SPA navigation and retains tenant",
+    "modified clicks preserve ordinary browser behavior",
+    "tenant repair preserves router.push and router.replace history semantics",
+    "native navigation guard installs once and repairs only missing internal tenant context"
+  ]
+}

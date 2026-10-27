@@ -1,0 +1,41 @@
+{
+  "flows": [
+    {
+      "name": "twenty-media limit holds across pages",
+      "passed": true
+    },
+    {
+      "name": "slower search cannot replace later search results",
+      "passed": true
+    },
+    {
+      "name": "disabled service cannot request quote or publish",
+      "passed": true
+    },
+    {
+      "name": "insufficient balance disables first submission",
+      "passed": true
+    },
+    {
+      "name": "closing a pending quote does not reopen its confirmation",
+      "passed": true
+    },
+    {
+      "name": "expired quote returns to cost review without creating order",
+      "passed": true
+    },
+    {
+      "name": "unknown result survives reload and later business failure with original request",
+      "passed": true
+    },
+    {
+      "name": "draft handoff is resolved before media selection",
+      "passed": true
+    },
+    {
+      "name": "legacy influencer orders opens canonical tab with correct scope",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

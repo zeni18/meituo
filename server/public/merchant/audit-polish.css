@@ -1,0 +1,127 @@
+/* Retained native controls use the same white merchant materials and semantics. */
+.ia-brand,.ia-brand-name,.ia-logo-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html[data-merchant-white] .video-studio .audit-cost-pending{display:none;color:var(--ui-text-2)}
+html[data-merchant-white] .video-studio.has-no-model .vs-generate>small:not(.audit-cost-pending){display:none}
+html[data-merchant-white] .video-studio.has-no-model .audit-cost-pending{display:block}
+html[data-merchant-white] .video-studio .vs-control-label{min-width:0}
+html[data-merchant-white] .video-studio .vs-controls>button{flex-shrink:0}
+html[data-merchant-white] .video-studio .vs-controls>button .vs-control-label{overflow:visible;text-overflow:clip}
+.mp-task-page .mw-primary,#merchant-workspace[aria-label="种草卡"] .mw-primary{background:var(--ui-text);color:var(--ui-surface);border-color:var(--ui-text);box-shadow:var(--ui-shadow-raised)}
+.mp-task-page .mp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:220px;padding:40px 24px;text-align:center;color:var(--ui-text-2)}
+.mp-task-page .mp-empty .mp-icon{display:block;width:32px;height:32px;flex:none;opacity:.55}
+.mp-task-page .mp-empty strong{color:var(--ui-text);font-size:15px;font-weight:600}
+.mp-task-page .mp-empty p{margin:0;max-width:420px;line-height:1.6;font-size:13px}
+.mp-task-page .mp-table-wrap{overflow:auto}
+.mp-task-page .mp-actions{flex-wrap:wrap}
+.mp-task-page :is(input,select,button):focus-visible{outline:2px solid var(--ui-accent);outline-offset:3px}
+.mp-task-page .mp-table th{white-space:nowrap}
+
+html.uk-route-pending main.ia-content>*{visibility:hidden!important}
+html.uk-route-pending main.ia-content::before{content:"";display:block;height:3px;background:var(--ui-accent);position:absolute;inset:0 auto auto 0;width:30%;border-radius:var(--ui-radius-sm);animation:audit-route-progress 900ms ease-out infinite alternate;z-index:2}
+@keyframes audit-route-progress{to{width:85%;opacity:.45}}
+@media(prefers-reduced-motion:reduce){html.uk-route-pending main.ia-content::before{animation:none;width:50%}}
+aside.ia-sidebar>.ia-brand strong{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+aside.ia-sidebar>.ia-brand>a{min-width:0;flex:1;overflow:hidden}
+html[data-merchant-white] .video-studio .vs-options{display:flex;gap:8px}
+html[data-merchant-white] .video-studio .vs-options>.vs-option{min-width:0;flex:1}
+html[data-merchant-white] .video-studio .vs-options>.vs-option:first-child{flex:1.3}
+html[data-merchant-white] .video-studio .vs-options>.vs-option>button{padding-inline:8px;gap:5px}
+html[data-merchant-white] .video-studio .vs-options>.vs-option>button>svg{width:16px;height:16px;flex-shrink:0}
+html[data-merchant-white] .video-studio .vs-options .vs-control-label{max-width:none;overflow:visible;text-overflow:clip;white-space:nowrap}
+html[data-merchant-white] .video-studio.has-no-model .vs-effect-selection{display:none}
+.audit-model-status{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;padding:12px 0 0;border-top:1px solid var(--ui-line);font-size:12px;line-height:1.6;color:var(--ui-text-2)}
+.audit-model-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ui-warning);flex:none;margin-top:6px}
+.it-catalog .audit-redundant{display:none}
+html[data-merchant-white] .mp-task-page .mw-primary,html[data-merchant-white] #merchant-workspace[aria-label="种草卡"] .mw-primary{background:var(--ui-ink)!important;border-color:var(--ui-ink)!important;color:var(--ui-surface)!important}
+
+/* Keep the tool form in the first screen; the retained generic introduction is a compact reference. */
+html[data-merchant-white].audit-tool-route .im-tool-cover{height:88px;min-height:88px;background:linear-gradient(180deg,var(--ui-surface-2),var(--ui-fill));color:var(--ui-text)}
+html[data-merchant-white].audit-tool-route .im-tool-cover::after{display:none}
+html[data-merchant-white].audit-tool-route .im-tool-cover>img{display:none}
+html[data-merchant-white].audit-tool-route .im-tool-cover>strong{color:var(--ui-text);bottom:14px;font-size:16px}
+html[data-merchant-white].audit-tool-route .im-tool-cover-actions button{color:var(--ui-text);background:var(--ui-surface);box-shadow:var(--ui-shadow-raised)}
+html[data-merchant-white].audit-tool-route .im-tool-intro .im-tool-hero{min-height:0;display:block;padding:24px;margin:0;background:none}
+html[data-merchant-white].audit-tool-route .im-tool-intro .im-tool-hero img,html[data-merchant-white].audit-tool-route .im-tool-intro .im-tool-hero h1,html[data-merchant-white].audit-tool-route .im-tool-hero>div>p:first-child{display:none}
+html[data-merchant-white].audit-tool-route .im-tool-hero>div>p:last-child{margin:0;max-width:52em;color:var(--ui-text-2);font-size:14px;line-height:1.8}
+html[data-merchant-white].audit-tool-route .im-tool-intro .im-tool-steps{margin:0 24px 24px;padding:24px;border-radius:var(--ui-radius-card);background:linear-gradient(180deg,var(--ui-surface),var(--ui-surface-2));box-shadow:var(--ui-shadow-card)}
+html[data-merchant-white].audit-tool-route .im-tool-steps h2{font-size:18px;line-height:26px;font-weight:600;letter-spacing:0;margin:0 0 24px}
+html[data-merchant-white].audit-tool-route .im-tool-steps h3{font-size:14px;line-height:22px;font-weight:600}
+html[data-merchant-white].audit-tool-route .im-tool-steps article p{font-size:12px;line-height:1.7}
+html[data-merchant-white].audit-tool-route .im-tool-steps article:first-child p,html[data-merchant-white].audit-tool-route .im-tool-tips{display:none}
+.audit-estimate{display:none;font-size:12px;color:var(--ui-text-2)}
+.audit-estimate-pending>div>strong{display:none}
+.audit-estimate-pending .audit-estimate{display:inline}
+
+.audit-estimate-pending>div>strong{display:none!important}
+html[data-merchant-white].audit-tool-route .im-tool-cover>strong{color:var(--ui-text)!important;text-shadow:none!important}
+
+.uk-geo .gp-tools>.uk-select[name="price"]{min-width:190px;max-width:216px;flex-shrink:0}
+
+/* The native home gallery is a retained route underlay, not the requested tool. */
+html[data-merchant-white].audit-tool-route main.ia-content>.workspace-main:not(:has(.im-tool-cover)){display:none!important}
+html[data-merchant-white].audit-tool-route main.ia-content:not(:has(.im-tool-cover))::before{content:"正在打开工具…";display:block;margin:32px;padding:32px;border-radius:var(--ui-radius-card);background:linear-gradient(180deg,var(--ui-surface),var(--ui-surface-2));box-shadow:var(--ui-shadow-card);color:var(--ui-text-2);font-size:13px}
+
+.uk-wallet-balance{padding:24px;border-radius:var(--ui-radius-card);background:linear-gradient(180deg,var(--ui-surface-2),var(--ui-fill));box-shadow:inset 0 1px 0 var(--ui-surface);display:flex;flex-direction:column;gap:12px}
+.uk-wallet-balance>span,.uk-wallet-balance>small{color:var(--ui-text-2);font-size:12px}
+.uk-wallet-balance>strong{font-size:40px;line-height:1.3;letter-spacing:-.02em}
+.uk-wallet dl{margin:20px 0}
+.uk-wallet dl>div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--ui-line)}
+.uk-wallet dt{color:var(--ui-text-2)}
+.uk-wallet dd{margin:0;font-weight:500}
+.uk-wallet-error{color:var(--ui-danger);font-size:13px;margin-bottom:0}
+.uk-wallet-error:empty{display:none}
+.account-menu .audit-account-billing svg{width:18px;height:18px;fill:currentColor;flex:none}
+.account-menu .audit-soon{margin-left:auto;font-size:11px;color:var(--ui-text-3)}
+.account-menu nav button:disabled{opacity:.5;cursor:default}
+
+.wb-data-notice{display:flex;align-items:center;justify-content:space-between;margin:0 0 20px;padding:12px 16px;border-radius:var(--ui-radius);background:var(--ui-surface);box-shadow:var(--ui-shadow-card);color:var(--ui-text-2);font-size:13px}
+
+html[data-merchant-white].audit-tool-route .im-tool-cover>strong{background:none!important;padding:0;inset:auto 16px 14px;line-height:22px}
+html[data-merchant-white].audit-tool-route .im-tool-cover-actions button:hover{background:var(--ui-fill)}
+html[data-merchant-white].audit-tool-route .im-tool-cover-actions button:focus-visible{outline:2px solid var(--ui-accent);outline-offset:2px}
+html[data-merchant-white] [data-audit-duplicate]{display:none!important}
+
+/* The catalog is a complete tool directory: no hidden horizontal continuation or unrelated demo art. */
+html[data-merchant-white] .it-catalog{max-width:1600px;margin-inline:auto}
+html[data-merchant-white] .it-catalog>header{align-items:center;gap:24px;margin-bottom:24px}
+html[data-merchant-white] .it-catalog>header input{width:300px;max-width:100%;height:40px;border:1px solid var(--ui-line);border-radius:var(--ui-radius);background:var(--ui-surface);padding:0 14px;font-size:13px;color:var(--ui-text);box-shadow:var(--ui-shadow-inset)}
+html[data-merchant-white] .it-catalog>nav{gap:6px;margin-bottom:28px;flex-wrap:wrap}
+html[data-merchant-white] .it-catalog>nav button{padding:8px 14px;border-radius:var(--ui-radius);font-size:13px}
+html[data-merchant-white] .it-catalog>nav button.active{background:var(--ui-ink);color:var(--ui-surface);box-shadow:var(--ui-shadow-raised)}
+html[data-merchant-white] .it-catalog .it-section{margin:0 0 24px;padding:0 20px 12px;border:1px solid var(--ui-line);border-radius:var(--ui-radius-card);background:linear-gradient(180deg,var(--ui-surface-2) 0,var(--ui-surface) 62px);box-shadow:var(--ui-shadow-card);overflow:hidden}
+html[data-merchant-white] .it-catalog .it-section>header{margin:0;padding:18px 2px 14px;border-bottom:1px solid var(--ui-line)}
+html[data-merchant-white] .it-catalog .it-section>header h2{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;line-height:24px;letter-spacing:0}
+html[data-merchant-white] .it-catalog .it-section>header h2::after{content:attr(data-audit-count);font-size:12px;font-weight:400;font-variant-numeric:tabular-nums;color:var(--ui-text-3)}
+html[data-merchant-white] .it-catalog .it-section>header>button,html[data-merchant-white] .it-catalog .it-row-arrow{display:none!important}
+html[data-merchant-white] .it-catalog .it-row{margin:0;padding:0;overflow:visible}
+html[data-merchant-white] .it-catalog .it-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;overflow:visible!important;padding:0;margin:0;scroll-snap-type:none}
+html[data-merchant-white] .it-catalog a.it-card{display:flex;align-items:center;gap:14px;min-width:0;width:auto;max-width:none;height:104px;min-height:104px;padding:14px 4px;border:0;border-bottom:1px solid var(--ui-line);border-radius:0;background:none;box-shadow:none;transform:none;transition:background 120ms ease}
+html[data-merchant-white] .it-catalog a.it-card:hover{background:linear-gradient(90deg,var(--ui-fill),transparent);box-shadow:none;transform:none}
+html[data-merchant-white] .it-catalog a.it-card:focus-visible{outline:2px solid var(--ui-accent);outline-offset:-2px;border-radius:var(--ui-radius)}
+html[data-merchant-white] .it-catalog .it-image{display:none}
+html[data-merchant-white] .it-catalog .audit-tool-featured .it-image{display:block;flex:0 0 88px;width:88px;height:72px;border-radius:var(--ui-radius);overflow:hidden}
+html[data-merchant-white] .it-catalog .audit-tool-featured .it-image img{width:100%;height:100%;object-fit:cover;transform:none}
+html[data-merchant-white] .it-catalog .it-card-body{position:relative;display:flex;flex:1;min-width:0;flex-direction:column;justify-content:center;gap:6px;padding:0 26px 0 0}
+html[data-merchant-white] .it-catalog .it-card-body h3{margin:0;font-size:14px;line-height:22px;font-weight:600;color:var(--ui-text)}
+html[data-merchant-white] .it-catalog .it-card-body p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0;min-height:0;font-size:12px;line-height:20px;color:var(--ui-text-2)}
+html[data-merchant-white] .it-catalog .it-try{position:absolute;inset:50% 0 auto auto;transform:translateY(-50%);display:flex;width:20px;height:20px;padding:0;background:none;color:var(--ui-text-3);box-shadow:none}
+html[data-merchant-white] .it-catalog .it-try>span{display:none}
+html[data-merchant-white] .it-catalog :is(button,input):focus-visible{outline:2px solid var(--ui-accent);outline-offset:3px}
+@media(min-width:1700px){html[data-merchant-white] .it-catalog .it-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1050px){html[data-merchant-white] .it-catalog .it-grid{grid-template-columns:minmax(0,1fr)}html[data-merchant-white] .it-catalog>header{flex-wrap:wrap}html[data-merchant-white] .it-catalog>header input{width:100%}}
+@media(prefers-reduced-motion:reduce){html[data-merchant-white] .it-catalog a.it-card{transition:none}}
+
+html[data-merchant-white] .it-catalog a.it-card{flex-direction:row;justify-content:flex-start;border-radius:0!important;box-shadow:none!important;background:transparent!important}
+html[data-merchant-white] .it-catalog .it-card-body{width:auto;min-height:0;align-items:stretch}
+html[data-merchant-white] .it-catalog .audit-tool-featured .it-image{min-height:0;max-height:72px;aspect-ratio:auto}
+html[data-merchant-white] .it-catalog a.it-card:hover{background:linear-gradient(90deg,var(--ui-fill),transparent)!important}
+
+/* Apply at route intent, before the retained home can paint. */
+html.wb-page main.ia-content>:not(.wb){display:none!important}
+
+html[data-merchant-white].audit-tool-route .music-intro-hero{display:block;min-height:0;margin:0;padding:24px;background:none}
+html[data-merchant-white].audit-tool-route .music-intro-art,html[data-merchant-white].audit-tool-route .music-intro-eyebrow,html[data-merchant-white].audit-tool-route .music-intro-hero h1,html[data-merchant-white].audit-tool-route .music-intro-features,html[data-merchant-white].audit-tool-route .music-intro-closing{display:none}
+html[data-merchant-white].audit-tool-route .music-intro-hero p{margin:0;font-size:14px;line-height:1.8;color:var(--ui-text-2)}
+html[data-merchant-white].audit-tool-route .music-intro-section{margin:0 24px 24px;padding:24px;border-radius:var(--ui-radius-card);background:linear-gradient(180deg,var(--ui-surface),var(--ui-surface-2));box-shadow:var(--ui-shadow-card)}
+html[data-merchant-white].audit-tool-route .music-intro-section h2{margin:0 0 24px;font-size:18px;line-height:26px}

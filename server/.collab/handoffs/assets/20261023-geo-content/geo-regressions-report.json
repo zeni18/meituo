@@ -1,0 +1,98 @@
+{
+  "base": "http://127.0.0.1:8765",
+  "actualPaidRequests": 0,
+  "checks": [
+    {
+      "name": "效果范围：旧响应最后返回也不覆盖昨天",
+      "passed": true,
+      "evidence": {
+        "selected": "yesterday",
+        "articles": "222",
+        "order": [
+          "yesterday",
+          "today"
+        ],
+        "rows": [
+          1,
+          9,
+          5,
+          6,
+          7
+        ],
+        "total": 28
+      }
+    },
+    {
+      "name": "提交中与采样中并入执行中，明细合计等于总数",
+      "passed": true,
+      "evidence": {
+        "rows": [
+          1,
+          9,
+          5,
+          6,
+          7
+        ],
+        "total": 28
+      }
+    },
+    {
+      "name": "诊断范围：旧响应最后返回也不覆盖昨天",
+      "passed": true,
+      "evidence": {
+        "selected": "yesterday",
+        "mentions": "222",
+        "order": [
+          "yesterday",
+          "today"
+        ]
+      }
+    },
+    {
+      "name": "同hash换品牌刷新；慢旧profile不覆盖最新品牌",
+      "passed": true,
+      "evidence": {
+        "hash": "#effect",
+        "brand": "1",
+        "menu": "禾米烘焙",
+        "knowledge": "知识7/7",
+        "articles": "101",
+        "profileOrder": [
+          "1",
+          "12"
+        ],
+        "navigations": 1
+      }
+    },
+    {
+      "name": "知识强化：关闭重开后未知提交沿用key，已知job仅重试轮询",
+      "passed": true,
+      "evidence": {
+        "postCount": 2,
+        "samePayload": true,
+        "uniqueAcceptedJobs": 1,
+        "sameJobPolls": [
+          "99000",
+          "99000"
+        ],
+        "suggestion": "山野咖啡在杭州提供手冲单品、意式咖啡与季节限定特调。"
+      }
+    },
+    {
+      "name": "PHP实际字段清洗循环保留request_key；旧变量作为负对照失败",
+      "passed": true,
+      "evidence": {
+        "fixed": {
+          "request_key": "kb_regression_request_20261023",
+          "field_count": 7,
+          "brand_name": "山野咖啡"
+        },
+        "negative_control_request_key": "competitors",
+        "actual_php_source": true,
+        "database_calls": 0,
+        "provider_calls": 0
+      }
+    }
+  ],
+  "errors": []
+}

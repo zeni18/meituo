@@ -1,0 +1,32 @@
+/* Run with the local in-memory harness only; never performs real paid requests. */
+module.exports = async page => {
+  const assert = require('node:assert/strict');
+  const url = new URL(page.url());
+  assert.equal(url.hostname, '127.0.0.1');
+  assert.equal(url.port, '8765');
+  assert.equal(await page.evaluate(() => Boolean(window.__contentMock)), true);
+  await page.locator('.gc-s-composer').waitFor();
+  const count = await page.evaluate(() => __contentMock.snapshot(11).jobs.length);
+  await page.locator('[data-gc-s-field="subject"]').fill('验收：如何选择适合门店的咖啡豆？');
+  await page.evaluate(() => __contentMock.failNext('studioGenerate', 'network-after-accept'));
+  await page.locator('[data-gc-s-action="generate"]').click();
+  await page.locator('.uk-dialog [data-act="submit"]').click();
+  await page.locator('.gc-charge-error').filter({ hasText: '结果尚未确认' }).waitFor();
+  await page.locator('.uk-dialog [data-act="cancel"]').click();
+  await page.locator('[data-gc-s-field="subject"]').fill('表单新值不应替换已受理请求');
+  await page.locator('[data-gc-s-action="generate"]').click();
+  await page.locator('.uk-dialog [data-act="submit"]').click();
+  await page.locator('.gc-s-article-title').waitFor({ timeout: 15000 });
+  assert.equal(await page.evaluate(() => __contentMock.snapshot(11).jobs.length), count + 1);
+  assert.equal(await page.locator('.gc-s-article-title').innerText(), '验收：如何选择适合门店的咖啡豆？');
+  await page.locator('[data-gc-s-action="edit"]').click();
+  await page.locator('[data-gc-s-field="editTitle"]').fill('人工审阅后的稿件');
+  await page.locator('[data-gc-s-action="save"]').click();
+  await page.waitForFunction(() => document.querySelector('.gc-s-saved-state')?.textContent === '已入文章库');
+  await page.locator('.uk-tab[data-key="article-library"]').click();
+  await page.locator('.gc-title-link').filter({ hasText: '人工审阅后的稿件' }).waitFor();
+  await page.locator('.gc-title-link').filter({ hasText: '人工审阅后的稿件' }).click();
+  await page.locator('.gc-reading').waitFor();
+  await page.keyboard.press('Escape');
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+};

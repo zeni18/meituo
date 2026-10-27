@@ -1,0 +1,29 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "include": [
+        "global.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "components.d.ts",
+        "auto-imports.d.ts",
+        "typings/**/*.d.ts"
+    ],
+    "compilerOptions": {
+        "ignoreDeprecations": "5.0",
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"],
+            "@decoration-core": ["../packages/decoration-core/index.ts"],
+            "@pc-decoration": ["../packages/pc-decoration/PcDecorationRenderer.vue"],
+            "@mobile-decoration": ["../packages/mobile-decoration/index.ts"],
+            "@mobile-decoration-renderer": ["../packages/mobile-decoration/MobileDecorationRenderer.vue"]
+        },
+        "strict": true
+    },
+    "references": [
+        {
+            "path": "./tsconfig.config.json"
+        }
+    ]
+}

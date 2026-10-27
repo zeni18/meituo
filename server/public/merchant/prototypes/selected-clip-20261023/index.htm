@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视频剪辑 · 高保真交互原型</title>
+<!-- 开发版：样式和脚本在 src/，示例图片引用 ../../likeadmin-aigc/public（只读）。
+     运行 python3 src/build.py 可以打包成不依赖目录结构的单文件，覆盖本文件。 -->
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="sb" id="sb" aria-label="主导航"></aside>
+  <div class="main">
+    <header class="hd" id="hd"></header>
+    <div class="studio">
+      <div class="pb" id="pb"></div>
+      <div class="ed" id="ed" data-pane="b">
+        <section class="col a" id="colA" aria-label="素材"></section>
+        <section class="col b" id="colB" aria-label="剪辑设置"></section>
+        <section class="col c" id="colC" aria-label="画面预览"></section>
+        <section class="tk" id="tk" aria-label="镜头轨"></section>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="layer"></div>
+<div id="popL"></div>
+<div id="toast" aria-live="polite"></div>
+<button class="demo" id="demo" data-act="demo" title="切换演示：云能力全部接入 / 部分待配置"></button>
+<script src="src/assets.js"></script>
+<script src="src/a-core.js"></script>
+<script src="src/b-render.js"></script>
+<script src="src/c-view.js"></script>
+<script src="src/d-events.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+export const appCode = 'aigc_outpaint'
+export const appName = '无缝扩图'
+export const appPath = '/app/aigc_outpaint'
+

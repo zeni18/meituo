@@ -1,0 +1,5 @@
+UPDATE `la_system_menu` SET `name`='代理管理',`update_time`=UNIX_TIMESTAMP() WHERE `pid`=0 AND `paths`='tenant';
+UPDATE `la_system_menu` SET `name`='代理列表',`perms`='channel.directory/lists',`component`='tenant/lists/index',`update_time`=UNIX_TIMESTAMP() WHERE `pid` IN (SELECT `id` FROM (SELECT `id` FROM `la_system_menu` WHERE `pid`=0 AND `paths`='tenant') x) AND `paths`='lists';
+UPDATE `la_system_menu` SET `name`='OEM 套餐',`update_time`=UNIX_TIMESTAMP() WHERE `pid` IN (SELECT `id` FROM (SELECT `id` FROM `la_system_menu` WHERE `pid`=0 AND `paths`='tenant') x) AND `paths`='package';
+INSERT INTO `la_system_menu` (`pid`,`type`,`name`,`sort`,`perms`,`paths`,`component`,`is_show`,`is_disable`,`create_time`,`update_time`)
+SELECT m.`id`,'A','开通和编辑代理',10,'channel.directory/save','','',0,0,UNIX_TIMESTAMP(),UNIX_TIMESTAMP() FROM `la_system_menu` m WHERE m.`paths`='lists' AND m.`perms`='channel.directory/lists' AND NOT EXISTS (SELECT 1 FROM `la_system_menu` c WHERE c.`pid`=m.`id` AND c.`perms`='channel.directory/save');

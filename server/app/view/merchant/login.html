@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>登录 · {{merchant_name}}</title>
+  <link rel="icon" href="{{merchant_favicon}}">
+  <link rel="stylesheet" href="/merchant/portal.css">
+  <link rel="stylesheet" href="/shared/login.css?v=20261017-3">
+  <script src="/shared/login.js?v=20261017-3" defer></script>
+  <script type="module" src="/merchant/portal.js?v=u1024brandname1"></script>
+</head>
+<body data-page="login">
+  <main class="login-layout system-login" data-login-kind="merchant">
+    <aside class="system-login-story">
+      <div class="system-login-brand">
+        <img data-brand-logo src="{{merchant_logo}}" alt="" width="36" height="36">
+        <span data-brand-name>{{merchant_name}}</span>
+      </div>
+      <div class="system-login-welcome">
+        <h1>让每一份创意，<br>成为生意的增长力。</h1>
+        <p>连接 AI 创作、内容管理与品牌营销，<br>开启你的专属工作空间。</p>
+      </div>
+      <img class="system-login-art" src="/shared/login-workspace.svg" alt="" width="480" height="400">
+    </aside>
+    <section class="login-panel">
+      <div class="login-form-wrap">
+        <p class="system-login-eyebrow">欢迎登录</p>
+        <h2 data-brand-name>{{merchant_name}}</h2>
+        <p class="system-login-intro">登录商家账号，开始今天的创作</p>
+        <form id="login-form">
+          <label for="account">登录账号</label>
+          <input id="account" name="account" autocomplete="username" required maxlength="32" placeholder="请输入商家账号或手机号">
+          <div class="label-row"><label for="password">登录密码</label></div>
+          <div class="password-field">
+            <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="64" placeholder="请输入登录密码">
+            <button type="button" id="password-toggle" aria-label="显示密码">显示</button>
+          </div>
+          <p id="login-error" class="form-error" role="alert" aria-live="polite"></p>
+          <button class="primary login-submit" type="submit" data-idle-label="立即登录">立即登录</button>
+        </form>
+        <p class="account-help">账号由所属服务商开通，无法登录请联系服务商。</p>
+      </div>
+      <footer class="login-footer" data-copyright></footer>
+    </section>
+  </main>
+</body>
+</html>

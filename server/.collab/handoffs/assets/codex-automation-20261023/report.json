@@ -1,0 +1,29 @@
+{
+  "checks": [
+    "no horizontal overflow 1280",
+    "four flow cards 1280",
+    "no horizontal overflow 1440",
+    "four flow cards 1440",
+    "no horizontal overflow 1920",
+    "four flow cards 1920",
+    "inventory target validation",
+    "save paused without activating",
+    "activation requires consent",
+    "activation after consent",
+    "unknown activation reconciled",
+    "real record tasks and budget",
+    "exception retained in details",
+    "media selection capped at five",
+    "media cross-page retention",
+    "unknown save freezes configuration",
+    "unknown save idempotent retry",
+    "unconfigured blocks authorization",
+    "empty list does not fabricate plans",
+    "missing source has meaningful path",
+    "list error is retryable",
+    "dialog keeps focus",
+    "escape dismisses dialog",
+    "no browser errors"
+  ],
+  "errors": []
+}

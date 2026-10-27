@@ -1,0 +1,124 @@
+{
+  "reviewedAtUtc": "2026-10-22T21:21:04.691Z",
+  "readOnly": true,
+  "productionModified": false,
+  "browserUsed": false,
+  "version": "mw20261023b",
+  "inputs": {
+    "publicDir": "D:\\meituo-dev\\project\\public",
+    "generatedDir": "D:\\AI营销中台\\_sync\\geo-content-20261023\\white-theme\\generated",
+    "adapterPath": "D:\\meituo-dev\\project\\public\\merchant\\page.js",
+    "htmlPath": "D:\\meituo-dev\\project\\public\\pc\\index.html",
+    "adapterSha256": "97b3d18891aadacd92be9f8334bda93a2cf25290de883291c301913a59b199b5",
+    "htmlSha256": "8eaf6c2271f5ed357817c69259ba7a888758c63e878cd044b252507c29186a71"
+  },
+  "counts": {
+    "modules": 247,
+    "overlayFiles": 223,
+    "staticImports": 2735,
+    "dynamicLiteralImports": 132,
+    "cssReferences": 1224,
+    "adapterStaticImports": 2
+  },
+  "htmlEntry": [
+    "/_nuxt/entry.ef871ac3.js?v=mw20261023b"
+  ],
+  "adapterRuntimeImports": [
+    "/_nuxt/entry.ef871ac3.js?v=mw20261023b",
+    "/_nuxt/useAiPcHomeDecorate.d01e3f4e.js?v=mw20261023b"
+  ],
+  "issues": {
+    "parseErrors": [],
+    "missingFiles": [],
+    "unversionedNuxtImports": [],
+    "changedCssReferences": [],
+    "externalModuleImports": [
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      },
+      {
+        "name": "entry.ef871ac3.js",
+        "dep": "/merchant/page.js?v=mw20261023b",
+        "type": "dynamic"
+      }
+    ],
+    "variableImports": [
+      {
+        "name": "entry.ef871ac3.js",
+        "expression": "e",
+        "context": " r=t.hash||(t.fresh?Date.now():\"\");return Ao(Lt().app.baseURL,n.pathname,r?`_payload.${r}.${lp}`:`_payload.${lp}`)}async function Lg(e){try{return cb?Og(await fetch(e).then(t=>t.text())):await ae(()=>import(e),[],import.meta.url).then(t=>t.default||t)}catch(t){console.warn(\"[nuxt] Cannot load payload \",e,t)}return null}function db(){return!!Re().payload.prerenderedAt}let Ol=null;async function hb(",
+        "assessment": "Nuxt prerender payload loader; does not select Vue or Pinia modules"
+      }
+    ]
+  },
+  "blockers": [],
+  "passed": true,
+  "conclusions": [
+    "All effective Nuxt modules were parsed without evaluating code.",
+    "Static and literal dynamic imports were resolved against the staged overlay plus existing production files.",
+    "CSS references were compared to original modules and verified on disk.",
+    "The external merchant adapter and HTML entry were checked separately because they are outside cache-overlay."
+  ]
+}

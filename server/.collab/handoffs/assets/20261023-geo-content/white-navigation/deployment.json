@@ -1,0 +1,17 @@
+{
+  "version": "u1023white3",
+  "cacheVersion": "mw20261023b",
+  "copied": [
+    "nav-v2.js",
+    "geo-v2.js",
+    "brand-v2.js",
+    "ui-kit.js",
+    "workspace.js",
+    "geo-semi-loader.js",
+    "merchant-white.js",
+    "merchant-white.css"
+  ],
+  "cacheOverlayFiles": 223,
+  "backup": "D:\\meituo-dev\\project\\.collab\\local\\ui-v2-backup\\20261023-white-navigation",
+  "githubPushed": false
+}

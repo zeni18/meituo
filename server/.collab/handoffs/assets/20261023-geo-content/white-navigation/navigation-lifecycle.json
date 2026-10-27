@@ -1,0 +1,122 @@
+{
+  "networkRequests": 0,
+  "paidRequests": 0,
+  "stage": "D:\\AI营销中台\\_sync\\geo-content-20261023\\fixes",
+  "checks": [
+    {
+      "name": "侧栏已知入口只发一次路由且保留租户",
+      "passed": true,
+      "evidence": {
+        "routes": [
+          "/ai?tenant_id=1"
+        ],
+        "nativeClicks": 0
+      }
+    },
+    {
+      "name": "进入 GEO 带 hash 仍走内部路由",
+      "passed": true,
+      "evidence": {
+        "routes": [
+          "/ai/geo?tenant_id=1#articles"
+        ],
+        "documentReloads": 0
+      }
+    },
+    {
+      "name": "GEO 内切保留品牌且不伪造 popstate",
+      "passed": true,
+      "evidence": {
+        "historyWrites": [
+          "/ai/geo?tenant_id=1&brand_id=12#articles"
+        ],
+        "fakePopstate": 0
+      }
+    },
+    {
+      "name": "无查询租户地址从会话补租户",
+      "passed": true,
+      "evidence": {
+        "normalized": "/ai?tenant_id=1"
+      }
+    },
+    {
+      "name": "常用入口冻结地址而不点击旧原生按钮",
+      "passed": true,
+      "evidence": {
+        "routes": [
+          "/ai/tools/aigc_music?tenant_id=1"
+        ],
+        "nativeClicks": 0
+      }
+    },
+    {
+      "name": "GEO 离开后品牌列表迟到不回跳",
+      "passed": true,
+      "evidence": {
+        "afterLeaveWrites": 0,
+        "brandDataUntouched": true
+      }
+    },
+    {
+      "name": "GEO 品牌列表乱序只接最新请求",
+      "passed": true,
+      "evidence": {
+        "newestBrand": "22",
+        "acceptedHistoryWrites": 1
+      }
+    },
+    {
+      "name": "品牌搜索离开清 timer，旧保存导航失效",
+      "passed": true,
+      "evidence": {
+        "debounceWaitMs": 275,
+        "afterLeaveWrites": 0,
+        "oldSavedCallbackBlocked": true
+      }
+    }
+  ],
+  "baseline": [
+    {
+      "name": "侧栏已知入口只发一次路由且保留租户",
+      "reproduced": true,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'native'\n+ ]\n- []\n"
+    },
+    {
+      "name": "进入 GEO 带 hash 仍走内部路由",
+      "reproduced": true,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   '/ai/geo?tenant_id=1#articles'\n- ]\n"
+    },
+    {
+      "name": "GEO 内切保留品牌且不伪造 popstate",
+      "reproduced": true,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'popstate'\n+ ]\n- []\n"
+    },
+    {
+      "name": "无查询租户地址从会话补租户",
+      "reproduced": true,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ '/ai'\n- '/ai?tenant_id=1'\n      ^\n"
+    },
+    {
+      "name": "常用入口冻结地址而不点击旧原生按钮",
+      "reproduced": true,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'native'\n+ ]\n- []\n"
+    },
+    {
+      "name": "GEO 离开后品牌列表迟到不回跳",
+      "reproduced": true,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "GEO 品牌列表乱序只接最新请求",
+      "reproduced": true,
+      "error": "Expected values to be strictly equal:\n\n'11' !== '22'\n"
+    },
+    {
+      "name": "品牌搜索离开清 timer，旧保存导航失效",
+      "reproduced": true,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    }
+  ],
+  "chargeImplementationUnchanged": true
+}

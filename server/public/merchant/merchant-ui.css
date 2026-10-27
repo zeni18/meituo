@@ -1,0 +1,302 @@
+/* Shared merchant appearance. Root aliases are computed on html, so teleported
+   menus never retain a colour snapshot from the page where they were opened. */
+html[data-pc-design=imagine] {
+  --merchant-control-bg: var(--ia-hover);
+  --merchant-control-hover: var(--ia-hover-strong);
+  --merchant-control-line: var(--ia-border);
+  --merchant-popup-bg: var(--ia-option-menu-bg);
+  --merchant-popup-text: var(--ia-text);
+  --merchant-popup-muted: var(--ia-muted);
+  --merchant-popup-line: var(--ia-popup-border);
+  --merchant-popup-hover: var(--ia-hover);
+  --merchant-selected-bg: var(--ia-accent-soft);
+  --merchant-selected-text: var(--ia-text);
+  --merchant-popup-shadow: var(--ia-panel-shadow);
+  --merchant-dialog-overlay: var(--ia-overlay);
+  --merchant-scrollbar: color-mix(in srgb, var(--ia-text) 18%, var(--ia-surface));
+  /* Legacy asset/chat/image components use these names without defining them. */
+  --pc-theme-panel: var(--ia-surface);
+  --pc-theme-text-secondary: var(--ia-muted);
+  --ia-bg-raised: var(--ia-elevated);
+  --ia-border-strong: color-mix(in srgb, var(--ia-text) 25%, var(--ia-surface));
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light {
+  --merchant-control-bg: var(--merchant-field-bg);
+  --merchant-control-hover: var(--ia-hover);
+  --merchant-control-line: transparent;
+  --ia-overlay: rgba(31, 39, 61, .3);
+}
+
+/* Change foreground and background together when the live theme changes.
+   Interpolating only the old pale background briefly leaves white text on white. */
+html[data-pc-design=imagine][data-pc-theme] :is(.ds-select-trigger,.merchant-top-search) {
+  transition-property: border-color, box-shadow, opacity, transform;
+}
+
+/* Native Vue/Element popups and the added modules share one live palette.
+   Do not target the contents of video players, masks or decoration canvases. */
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .ia-dialog, .vs-dialog, .vs-popover, .el-dialog, .el-drawer, .el-message-box,
+  .el-popper, .el-dropdown-menu, .el-select-dropdown, .el-picker-panel,
+  .el-cascader-panel, .el-time-panel, .el-autocomplete-suggestion,
+  .ia-account-popover, .ia-account-sheet, .ia-appearance, .ia-settings-submenu,
+  .sidebar-popover, .sidebar-more__menu, .sidebar-more__submenu,
+  .notice-center-drawer, .notice-detail-modal, .ai-help-panel, .ai-help-dialog,
+  .asset-gallery-modal, .ai-user-panel, .membership-modal, .membership-pay-modal,
+  .credit-purchase-modal, .credit-agreement-modal, .credits-usage-modal,
+  .avatar-create-modal, .avatar-delete-modal, .voice-create-modal,
+  .history-voice-modal, .voice-trim-modal, .work-detail__content,
+  .asset-preview__content, .template-modal, .tool-gallery-modal,
+  .gallery-modal, .reference-preview__panel, .mobile-code-modal__panel,
+  .avatar-create-modal__menu, .voice-create-modal__menu, .script-box__language-menu,
+  .avatar-card__menu, .voice-card__menu, .vp-mentions,
+  .is-imagine-tool .select-menu, .is-imagine-tool .tool-filter-menu,
+  .ai-tool-task-panel__filter-menu, .music-page--imagine .floating-picker,
+  .mw-dialog, .ms-dialog, .ml-dialog, .mc-dialog, .mp-dialog, .md-modal,
+  .ml-popover, .mw-submenu[popover], .mc-popover-panel, .mc-document-panel,
+  .ds-select:not(.ds-select-admin) .ds-select-panel,
+  .al-options, .al-calendar, .al-context-menu
+) {
+  --ia-bg: var(--merchant-popup-bg) !important;
+  --ia-surface: var(--merchant-popup-bg) !important;
+  --ia-elevated: var(--merchant-popup-bg) !important;
+  --ia-text: var(--merchant-popup-text) !important;
+  --ia-muted: var(--merchant-popup-muted) !important;
+  --ia-border: var(--merchant-popup-line) !important;
+  --ia-hover: var(--merchant-popup-hover) !important;
+  --pc-theme-panel: var(--merchant-popup-bg) !important;
+  background-color: var(--merchant-popup-bg) !important;
+  color: var(--merchant-popup-text) !important;
+  border-color: var(--merchant-popup-line) !important;
+  box-shadow: var(--merchant-popup-shadow);
+}
+/* Nested Element containers should not produce a second floating outline. */
+html[data-pc-design=imagine][data-pc-theme] .el-popper :is(
+  .el-dropdown-menu, .el-select-dropdown, .el-picker-panel, .el-cascader-panel
+) { box-shadow: none; border-color: transparent !important; }
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .ds-select-panel, .vs-popover, .el-popper, .ml-popover, .mw-submenu[popover],
+  .mc-popover-panel, .mc-document-panel, .avatar-create-modal__menu,
+  .voice-create-modal__menu, .script-box__language-menu,
+  .al-options, .al-calendar, .al-context-menu
+) { border-radius: 14px; }
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .mw-dialog, .ms-dialog, .ml-dialog, .mc-dialog, .mp-dialog, .md-modal
+)::backdrop { background: var(--merchant-dialog-overlay); }
+
+/* A single menu state across added selects and the native pickers. */
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .ds-select-option, .el-select-dropdown__item, .el-select-dropdown__option,
+  .el-dropdown-menu__item, .el-cascader-node, .vs-menu-list > button,
+  .account-menu__options > button, .avatar-model-options > button,
+  .al-option, .al-context-menu button:not(.al-danger)
+):not(:disabled):not(.is-disabled):not([aria-disabled=true]):is(
+  :hover, :focus-visible, .is-active, .selected, .is-selected, .is-current, .checked,
+  [aria-selected=true], [aria-checked=true], [aria-pressed=true]
+) {
+  background: var(--merchant-selected-bg) !important;
+  color: var(--merchant-selected-text) !important;
+}
+html[data-pc-design=imagine][data-pc-theme] .ds-select:not(.ds-select-admin) {
+  --ds-bg: var(--merchant-control-bg);
+  --ds-elevated: var(--merchant-popup-bg);
+  --ds-text: var(--ia-text);
+  --ds-muted: var(--ia-muted);
+  --ds-border: var(--merchant-popup-line);
+  --ds-hover: var(--merchant-popup-hover);
+  --ds-focus: var(--ia-focus);
+}
+html[data-pc-design=imagine][data-pc-theme] .ds-select:not(.ds-select-admin) .ds-select-trigger {
+  border-radius: 10px;
+  background: var(--merchant-control-bg);
+  color: var(--ia-text);
+  border-color: var(--merchant-control-line);
+}
+html[data-pc-design=imagine][data-pc-theme] .ds-select:not(.ds-select-admin) .ds-select-trigger[aria-expanded=true] {
+  border-color: var(--ia-focus);
+}
+
+/* Selected labels use the reading colour. Accent remains in the background,
+   underline, radio dot and focus ring; solid primary buttons keep on-accent text. */
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .el-radio__input.is-checked + .el-radio__label,
+  .el-checkbox__input.is-checked + .el-checkbox__label,
+  .el-switch__label.is-active, .el-check-tag.is-checked,
+  .el-tabs__item.is-active, .time-select-item.selected:not(.disabled),
+  .sidebar-more__language-option.is-active, .sidebar-more__theme-option.is-active,
+  .distribution-page .level-switch .active
+) { color: var(--merchant-selected-text) !important; }
+
+/* Extend the accepted light card style to the original application families. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .vs-panel, .avatar-page.is-imagine-avatar .avatar-editor,
+  .music-page--imagine .music-create, .is-imagine-tool .product-panel--form,
+  .is-imagine-tool .tool-module-card, .llm-workspace .conversation-card,
+  .llm-workspace .history-card, .assets-shell .assets-card, .it-catalog .it-card,
+  .imagine-inspiration-card, .aigc-image-page .creator-panel,
+  .aigc-video-page .creator-panel, .dh-page .creator-panel,
+  .dh-page .library-panel, .dh-page .preview-panel,
+  .settings-content .settings-section, .distribution-page .distribution-hero,
+  .al-navigation, .al-filters, .al-batch
+) {
+  background-color: var(--ia-surface) !important;
+  border-color: transparent !important;
+  box-shadow: var(--merchant-card-shadow) !important;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .ia-input-shell, .vs-panel .vs-select, .vs-panel .vs-model-trigger,
+  .is-imagine-tool .select-trigger, .is-imagine-tool .tool-select-card,
+  .is-imagine-tool .tool-filter-trigger, .avatar-editor .work-name input,
+  .avatar-create-modal__input-shell, .voice-create-modal__input-shell,
+  .ia-search-input, .vs-model-search, .ai-help-search, .ai-help-textarea,
+  .llm-workspace .composer-shell, .llm-workspace .model-picker select,
+  .skin-editor-form input:not([type=file]):not([type=color]),
+  .it-catalog input:not([type=file]):not([type=color]),
+  .el-input__wrapper, .el-select__wrapper, .el-textarea__inner,
+  .is-imagine-tool .product-panel__body textarea:not(.el-textarea__inner),
+  .music-page--imagine .form-area textarea:not(.el-textarea__inner),
+  .al-search, .al-select, .al-density, .al-pill, .al-label-form input:not([type=color])
+) {
+  background: var(--merchant-control-bg) !important;
+  color: var(--ia-text);
+  border-color: transparent !important;
+  border-radius: 12px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .el-input__wrapper, .el-select__wrapper
+):not(.is-focus):not(.is-focused):not(:has(input:focus-visible)) {
+  box-shadow: none !important;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .ia-input-shell :is(input, textarea, [contenteditable]) {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .is-imagine-tool .product-panel__body, .music-page--imagine .form-area
+) input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]):not([type=hidden]):not(.el-input__inner) {
+  background: var(--merchant-control-bg);
+  border-color: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .ia-secondary-button, .is-imagine-tool .ghost-button,
+  .music-page--imagine .plain-btn, .music-page--imagine .ghost-btn,
+  .settings-content .el-button:not(.el-button--primary):not(.is-text):not(.is-link),
+  .pc-tool-ui .el-button:not(.el-button--primary):not(.is-text):not(.is-link)
+) {
+  background: var(--merchant-control-bg);
+  color: var(--ia-text);
+  border-color: transparent;
+  border-radius: 10px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .ia-secondary-button, .is-imagine-tool .ghost-button,
+  .music-page--imagine .plain-btn, .music-page--imagine .ghost-btn
+):hover:not(:disabled) { background: var(--merchant-control-hover); }
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .ia-choice-card, .avatar-page.is-imagine-avatar .driver-mode-tabs button,
+  .is-imagine-tool .product-panel__body .mode-card,
+  .is-imagine-tool .product-panel__body .ratio-card,
+  .is-imagine-tool .product-panel__body .resolution-card,
+  .is-imagine-tool .restore-type-grid > button, .is-imagine-tool .mode-grid > button,
+  .avatar-editor .editor-stage, .voice-create-modal__method-card,
+  .ml-label-choice, .mp-library-option, .mp-platforms label,
+  .md-designer .md-template, .md-designer .md-item-row
+) {
+  background: var(--merchant-control-bg);
+  border-color: transparent;
+  border-radius: 12px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(
+  .ia-choice-card, .avatar-page.is-imagine-avatar .driver-mode-tabs button,
+  .is-imagine-tool .product-panel__body .mode-card,
+  .is-imagine-tool .product-panel__body .ratio-card,
+  .is-imagine-tool .product-panel__body .resolution-card,
+  .mp-library-option, .ml-label-choice
+):is(.active, .is-active, [aria-pressed=true], [aria-selected=true]),
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mp-platforms label:has(input:checked) {
+  background: var(--ia-accent-soft);
+  color: var(--merchant-selected-text);
+  border-color: var(--ia-accent);
+}
+/* Avoid a fill inside another filled field, including selects in dialogs. */
+html[data-pc-design=imagine][data-pc-theme] :is(.el-input__wrapper, .el-select__wrapper) input {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Focus and errors take precedence over the quiet field border, in every mode.
+   The upstream native CSS removes outlines from all inputs; restore standalone
+   controls, leaving native wrapper focus handling intact. */
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .mw-workspace, .mw-dialog, .ms-dialog, .mc-studio, .mp-page, .ml-library,
+  .ml-dialog, .md-designer, .md-modal, .al-label-form
+) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]):not([type=hidden]):not([type=button]):not([type=submit]):not(.ds-select-source), textarea):focus-visible {
+  outline: 2px solid var(--ia-focus) !important;
+  outline-offset: 2px;
+}
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .el-input__wrapper, .el-select__wrapper
+):is(.is-focus, .is-focused, :focus-visible, :has(input:focus-visible)) {
+  box-shadow: inset 0 0 0 2px var(--ia-focus) !important;
+}
+html[data-pc-design=imagine][data-pc-theme] .el-form-item.is-error :is(
+  .el-input__wrapper, .el-select__wrapper, .el-textarea__inner
+) { box-shadow: inset 0 0 0 1px var(--ia-danger) !important; }
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .mw-workspace, .mw-dialog, .ms-dialog, .mc-studio, .mp-page, .ml-library,
+  .ml-dialog, .md-designer, .md-modal, .ds-select
+) [aria-invalid=true] { border-color: var(--ia-danger) !important; }
+
+/* Some original modules hard-code charcoal scrollbars even in light mode. */
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .imagine-aigc, .ia-dialog, .vs-dialog, .vs-popover, .el-dialog, .el-popper
+),
+html[data-pc-design=imagine][data-pc-theme] :is(
+  .imagine-aigc, .ia-dialog, .vs-dialog, .vs-popover, .el-dialog, .el-popper
+) * {
+  scrollbar-color: var(--merchant-scrollbar) transparent !important;
+  scrollbar-width: thin;
+}
+
+/* Added business pages share the store directory's canvas and content surface. */
+html[data-pc-design=imagine] main.ia-content:is(.geo-active,.press-active),
+html[data-pc-design=imagine] main.ia-content.mw-workspace-active:has(>.mp-task-page){padding:20px;background:var(--ia-bg)}
+html[data-pc-design=imagine] main.ia-content:is(.geo-active,.press-active)>.hp-page,
+html[data-pc-design=imagine] main.ia-content>.mp-task-page{
+ min-width:0;width:100%;min-height:calc(100svh - 112px);padding:24px;
+ background:var(--ia-surface);border:1px solid var(--ia-border-subtle,var(--ia-border));border-radius:14px;
+ box-shadow:var(--merchant-card-shadow,none)
+}
+html[data-pc-design=imagine] .geo-workspace>.hp-tabs{padding:6px;gap:6px;margin-bottom:24px;border:0;border-radius:12px;background:var(--merchant-field-bg,var(--ia-hover))}
+html[data-pc-design=imagine] .geo-workspace>.hp-tabs .hp-button{border-color:transparent;background:transparent;border-radius:8px;min-height:38px;font-size:13px;padding:8px 12px}
+html[data-pc-design=imagine] .geo-workspace>.hp-tabs .hp-button:hover{background:var(--ia-hover)}
+html[data-pc-design=imagine] .geo-workspace>.hp-tabs [aria-current=page]{background:var(--ia-accent-soft);color:var(--ia-text);font-weight:500}
+html[data-pc-design=imagine] .geo-workspace :is(.hp-stat,.geo-flow>.hp-panel){background:var(--merchant-field-bg,var(--ia-hover));border-color:transparent;border-radius:12px;padding:20px}
+html[data-pc-design=imagine] .geo-workspace .geo-flow{gap:16px;margin:20px 0}
+html[data-pc-design=imagine] .geo-workspace .hp-note{background:var(--merchant-field-bg,var(--ia-hover));border-color:transparent;border-radius:10px}
+@media(max-width:767px){
+ html[data-pc-design=imagine] main.ia-content:is(.geo-active,.press-active),
+ html[data-pc-design=imagine] main.ia-content.mw-workspace-active:has(>.mp-task-page){padding:12px}
+ html[data-pc-design=imagine] main.ia-content:is(.geo-active,.press-active)>.hp-page,
+ html[data-pc-design=imagine] main.ia-content>.mp-task-page{min-height:calc(100svh - 80px);padding:16px;border-radius:12px}
+ html[data-pc-design=imagine] .geo-workspace>.hp-tabs{gap:4px;padding:4px;margin-bottom:20px}
+ html[data-pc-design=imagine] .geo-workspace>.hp-tabs .hp-button{min-height:40px;padding:8px 10px;font-size:12px}
+ html[data-pc-design=imagine] .geo-workspace :is(.hp-stat,.geo-flow>.hp-panel){padding:16px}
+}
+
+/* Catalogs and the full material manager use the same outer content frame. */
+html[data-pc-design=imagine] .asset-library.mf-inline-active .fc-page{
+ background:var(--ia-surface);border:1px solid var(--ia-border-subtle,var(--ia-border));border-radius:14px;
+ padding:24px;box-shadow:var(--merchant-card-shadow,none)
+}
+html[data-pc-design=imagine] main.ia-content.ml-library-host>.ml-library{
+ margin:20px;width:calc(100% - 40px);background:var(--ia-surface);
+ border:1px solid var(--ia-border-subtle,var(--ia-border));border-radius:14px;box-shadow:var(--merchant-card-shadow,none)
+}
+html[data-pc-design=imagine] main.ia-content.ml-library-host>.ml-library :is(.ml-shell,.ml-panel){min-height:calc(100svh - 112px)}
+html[data-pc-design=imagine] main.ia-content.ml-library-host>.ml-library .ml-folders{border-radius:14px 0 0 14px;height:calc(100svh - 112px)}
+@media(max-width:767px){
+ html[data-pc-design=imagine] .asset-library.mf-inline-active .fc-page{padding:16px;border-radius:12px}
+ html[data-pc-design=imagine] main.ia-content.ml-library-host>.ml-library{margin:12px;width:calc(100% - 24px);border-radius:12px}
+ html[data-pc-design=imagine] main.ia-content.ml-library-host>.ml-library .ml-folders{height:auto;border-radius:12px 12px 0 0}
+}

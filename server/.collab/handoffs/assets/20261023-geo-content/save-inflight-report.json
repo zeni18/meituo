@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "checks": [
+    "inflight save preserves subsequent input and advances saved baseline",
+    "second save persists preserved draft using refreshed concurrency hash",
+    "send-to-press pauses when later edits remain unsaved"
+  ],
+  "errors": []
+}

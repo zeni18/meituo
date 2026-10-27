@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "qa": {
+    "horizontalOverflow": false,
+    "composerWidth": 400,
+    "bodyWidth": 1144,
+    "activeMode": "爆文改写",
+    "notices": 1,
+    "generateBottom": 958,
+    "viewHeight": 1000,
+    "emptyTitle": "还没有稿件",
+    "disabled": true
+  },
+  "errors": [],
+  "mutations": []
+}

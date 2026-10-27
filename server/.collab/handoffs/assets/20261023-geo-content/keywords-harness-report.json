@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "真实结构列表与分页",
+    "搜索与清除筛选",
+    "六栏组合服务端预览与入库",
+    "编辑词条与 expected_hash",
+    "TXT 导入审阅和去重入库",
+    "多选词条带入写稿主题池",
+    "AI 费用确认、模拟生成、轮询和勾选入库",
+    "未知受理恢复原请求与同 key 重试",
+    "跨品牌新建定位及词库 revision 编辑"
+  ],
+  "errors": [],
+  "layout": {
+    "horizontalScroll": false,
+    "clippedButtons": []
+  }
+}

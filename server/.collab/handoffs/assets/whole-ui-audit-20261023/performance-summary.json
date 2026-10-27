@@ -1,0 +1,53 @@
+{
+  "performance-before.json": {
+    "initialEventAt": "2026-10-22T23:15:12.006Z",
+    "firstTwoIdleAfterInitial": [
+      {
+        "kind": "idle",
+        "route": "/ai",
+        "mutations": 264,
+        "longTaskCount": 2,
+        "requestCount": 29
+      },
+      {
+        "kind": "idle",
+        "route": "/ai",
+        "mutations": 2,
+        "longTaskCount": 2,
+        "requestCount": 34
+      }
+    ],
+    "maxApiThroughSecondIdleMs": 3017,
+    "initialLongTasks": [
+      85,
+      182
+    ],
+    "idleWithoutDomChangesObserved": true
+  },
+  "performance-final.json": {
+    "initialEventAt": "2026-10-23T01:04:12.355Z",
+    "firstTwoIdleAfterInitial": [
+      {
+        "kind": "idle",
+        "route": "/ai",
+        "mutations": 267,
+        "longTaskCount": 3,
+        "requestCount": 20
+      },
+      {
+        "kind": "idle",
+        "route": "/ai",
+        "mutations": 0,
+        "longTaskCount": 3,
+        "requestCount": 20
+      }
+    ],
+    "maxApiThroughSecondIdleMs": 1581,
+    "initialLongTasks": [
+      79,
+      208,
+      64
+    ],
+    "idleWithoutDomChangesObserved": true
+  }
+}

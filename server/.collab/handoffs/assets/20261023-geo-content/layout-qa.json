@@ -1,0 +1,343 @@
+{
+  "checks": 42,
+  "issues": [],
+  "errors": [],
+  "report": [
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "keywords",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "articles",
+      "overflow": false,
+      "issues": [],
+      "genVisible": true
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "article-library",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "materials",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "images",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "diagnose",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "hash": "effect",
+      "overflow": false,
+      "issues": [],
+      "genVisible": null
+    }
+  ]
+}

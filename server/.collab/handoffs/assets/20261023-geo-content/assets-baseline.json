@@ -1,0 +1,22 @@
+{
+  "existingOutsideScope": true,
+  "sameBehavior": true,
+  "rows": [
+    {
+      "newContentOmitted": false,
+      "path": "/ai/assets",
+      "mainHost": false,
+      "rebuiltAssets": false,
+      "ukLoaded": true,
+      "nativeAssets": true
+    },
+    {
+      "newContentOmitted": true,
+      "path": "/ai/assets",
+      "mainHost": false,
+      "rebuiltAssets": false,
+      "ukLoaded": true,
+      "nativeAssets": true
+    }
+  ]
+}

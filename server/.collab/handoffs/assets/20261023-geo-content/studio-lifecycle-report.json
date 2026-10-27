@@ -1,0 +1,38 @@
+{
+  "base": "http://127.0.0.1:8765",
+  "paidRequests": 0,
+  "checks": [
+    {
+      "name": "A手动主题弹窗换B同hash自动关闭，B草稿和请求无A内容，原autofocus正常",
+      "passed": true,
+      "evidence": {
+        "leakedDraft": false,
+        "leakedRequests": 0,
+        "leakedRecords": false,
+        "dialogs": 0
+      }
+    },
+    {
+      "name": "A存入词库弹窗换B同hash自动关闭，B无A主题入库或草稿污染",
+      "passed": true,
+      "evidence": {
+        "leakedDraft": false,
+        "leakedRequests": 0,
+        "leakedRecords": false,
+        "dialogs": 0
+      }
+    },
+    {
+      "name": "create?subject=&group=恢复主题与词库，地址规范化且无整页刷新",
+      "passed": true,
+      "evidence": {
+        "hash": "#articles",
+        "subject": "旧地址主题参数验证",
+        "group": 110103,
+        "navigationCount": 1
+      }
+    }
+  ],
+  "pageErrors": [],
+  "passed": true
+}

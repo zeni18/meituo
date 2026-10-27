@@ -1,0 +1,201 @@
+/* Merchant UI v2 — global tokens and shell.
+   Loaded last by MerchantPortalMiddleware. Light theme only.
+   Spec: docs/design/merchant-ui-v2.md */
+
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(/merchant/fonts/inter-400.woff) format("woff");unicode-range:U+0020-007E,U+00A0-00FF,U+2013-2014,U+2018-201D,U+2022,U+2026,U+2190-2193,U+2212,U+00D7}
+@font-face{font-family:"Inter";font-style:normal;font-weight:500;font-display:swap;src:url(/merchant/fonts/inter-500.woff) format("woff");unicode-range:U+0020-007E,U+00A0-00FF,U+2013-2014,U+2018-201D,U+2022,U+2026,U+2190-2193,U+2212,U+00D7}
+@font-face{font-family:"Inter";font-style:normal;font-weight:600 700;font-display:swap;src:url(/merchant/fonts/inter-600.woff) format("woff");unicode-range:U+0020-007E,U+00A0-00FF,U+2013-2014,U+2018-201D,U+2022,U+2026,U+2190-2193,U+2212,U+00D7}
+/* TP mark lives at U+E000; it joins every family our stacks start with. */
+@font-face{font-family:"TP Glyph";font-display:block;src:url(/merchant/fonts/tp-glyph.woff) format("woff");unicode-range:U+E000}
+@font-face{font-family:"Inter";font-weight:100 900;font-display:block;src:url(/merchant/fonts/tp-glyph.woff) format("woff");unicode-range:U+E000}
+@font-face{font-family:"Imagine Sans";font-weight:100 900;font-display:block;src:url(/merchant/fonts/tp-glyph.woff) format("woff");unicode-range:U+E000}
+
+html:root[data-pc-design][data-pc-theme=light].theme-light{
+  /* ---- v2 tokens ---- */
+  --ui-bg:#F4F5F7;
+  --ui-surface:#FFFFFF;
+  --ui-surface-2:#F7F8FA;
+  --ui-fill:#F1F2F5;
+  --ui-text:#16171D;
+  --ui-text-2:#5E6270;
+  --ui-text-3:#9A9DA8;
+  --ui-line:rgba(22,23,29,.08);
+  --ui-line-strong:rgba(22,23,29,.14);
+  --ui-accent:#5B5CF6;
+  --ui-accent-hover:#4B4CE6;
+  --ui-accent-soft:rgba(91,92,246,.10);
+  --ui-ai:linear-gradient(135deg,#8A7BFF 0%,#5B5CF6 48%,#4338CA 100%);
+  --ui-ai-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 8px 20px -8px rgba(91,92,246,.75);
+  --ui-ink:#16171D;
+  --ui-success:#12A150;
+  --ui-warning:#E08A00;
+  --ui-danger:#E5484D;
+  --ui-shadow-card:0 0 0 1px rgba(22,23,29,.04),0 1px 2px rgba(22,23,29,.04),0 8px 24px -10px rgba(22,23,29,.10);
+  --ui-shadow-raised:0 0 0 1px rgba(22,23,29,.04),0 1px 2px rgba(22,23,29,.06),0 4px 12px -4px rgba(22,23,29,.10);
+  --ui-shadow-float:0 0 0 1px rgba(22,23,29,.05),0 16px 40px -12px rgba(22,23,29,.22);
+  --ui-radius-sm:8px;
+  --ui-radius:10px;
+  --ui-radius-card:16px;
+  --ui-font:"Inter","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --ui-sidebar:232px;
+
+  /* ---- map onto the native shell variables ---- */
+  --ia-bg:var(--ui-bg);
+  --ia-bg-raised:var(--ui-surface);
+  --ia-surface:var(--ui-surface);
+  --ia-card:var(--ui-surface);
+  --ia-elevated:var(--ui-surface);
+  --ia-text:var(--ui-text);
+  --ia-muted:var(--ui-text-2);
+  --ia-subtle:var(--ui-text-3);
+  --ia-inverse:var(--ui-ink);
+  --ia-on-inverse:#fff;
+  --ia-border:var(--ui-line);
+  --ia-border-subtle:rgba(22,23,29,.05);
+  --ia-border-strong:var(--ui-line-strong);
+  --ia-hover:rgba(22,23,29,.04);
+  --ia-hover-strong:rgba(22,23,29,.07);
+  --ia-accent:var(--ui-accent);
+  --ia-accent-hover:var(--ui-accent-hover);
+  --ia-accent-text:var(--ui-accent);
+  --ia-accent-soft:var(--ui-accent-soft);
+  --ia-accent-soft-hover:rgba(91,92,246,.14);
+  --ia-focus:var(--ui-accent);
+  --ia-success:var(--ui-success);
+  --ia-warning:var(--ui-warning);
+  --ia-danger:var(--ui-danger);
+  --ia-font-body:var(--ui-font);
+  --ia-font-heading:var(--ui-font);
+  --ia-heading-page:24px;
+  --ia-heading-section:18px;
+  --ia-radius-card:var(--ui-radius-card);
+  --ia-radius-control:var(--ui-radius);
+  --ia-radius-inner:var(--ui-radius-sm);
+  --ia-shadow:rgba(22,23,29,.08);
+  --ia-panel-shadow:var(--ui-shadow-float);
+  --ia-option-menu-bg:var(--ui-surface);
+  --ia-option-selected-bg:var(--ui-fill);
+  --ia-option-selected-text:var(--ui-text);
+  --ia-popup-border:var(--ui-line);
+  --ia-popup-text:var(--ui-text);
+  --ia-popup-muted:var(--ui-text-2);
+  --ia-popup-soft:var(--ui-surface-2);
+  --ia-overlay:rgba(16,17,24,.36);
+  --merchant-card-shadow:var(--ui-shadow-card);
+  --merchant-field-bg:var(--ui-surface-2);
+  --merchant-control-bg:var(--ui-surface-2);
+  --merchant-control-hover:var(--ui-fill);
+  --merchant-selected-bg:var(--ui-fill);
+  --merchant-selected-text:var(--ui-text);
+  --merchant-popup-bg:var(--ui-surface);
+  --merchant-popup-line:var(--ui-line);
+  --merchant-popup-shadow:var(--ui-shadow-float);
+  --merchant-dialog-overlay:rgba(16,17,24,.36);
+
+  /* Element Plus */
+  --el-color-primary:var(--ui-accent);
+  --el-color-primary-light-3:#8C8DF9;
+  --el-color-primary-light-5:#ADADFB;
+  --el-color-primary-light-7:#CECEFC;
+  --el-color-primary-light-8:#DEDEFD;
+  --el-color-primary-light-9:#EFEFFE;
+  --el-color-primary-dark-2:var(--ui-accent-hover);
+  --el-border-radius-base:var(--ui-radius);
+  --el-border-radius-small:var(--ui-radius-sm);
+  --el-font-family:var(--ui-font);
+  --el-text-color-primary:var(--ui-text);
+  --el-text-color-regular:var(--ui-text-2);
+  --el-text-color-secondary:var(--ui-text-3);
+  --el-border-color:var(--ui-line-strong);
+  --el-border-color-light:var(--ui-line);
+  --el-border-color-lighter:var(--ui-line);
+  --el-fill-color-light:var(--ui-surface-2);
+  --el-bg-color-overlay:var(--ui-surface);
+  --el-box-shadow-light:var(--ui-shadow-float);
+
+  background:var(--ui-bg);
+  font-family:var(--ui-font);
+  -webkit-font-smoothing:antialiased;
+  scrollbar-color:rgba(22,23,29,.16) transparent;
+}
+html:root[data-pc-design][data-pc-theme=light].theme-light body{font-family:var(--ui-font);color:var(--ui-text);background:var(--ui-bg)}
+html:root[data-pc-design][data-pc-theme=light].theme-light :is(.num,.tp-num){font-variant-numeric:tabular-nums}
+.tp-font{font-family:"TP Glyph",var(--ui-font,inherit)!important}
+
+/* ---------- Shell ---------- */
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc{background:var(--ui-bg)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-sidebar{
+  background:var(--ui-bg);border-right:0;box-shadow:none;
+}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-header{
+  background:var(--ui-bg);border-bottom:0;box-shadow:none;
+}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-brand strong{font-weight:600;letter-spacing:0;color:var(--ui-text)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-icon-button{border-radius:var(--ui-radius);color:var(--ui-text-2)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-icon-button:hover{background:rgba(22,23,29,.05);color:var(--ui-text)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .merchant-top-search{
+  background:var(--ui-surface);box-shadow:0 0 0 1px rgba(22,23,29,.08);border-radius:var(--ui-radius);
+  padding:0 14px;min-width:180px;justify-content:flex-start;gap:8px;color:var(--ui-text-3);
+}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .merchant-top-search:hover{box-shadow:0 0 0 1px rgba(22,23,29,.16);background:var(--ui-surface)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-trigger{border-radius:12px}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-trigger:hover{background:rgba(22,23,29,.04)}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-plan{display:none}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-plan + [aria-hidden=true]{display:none}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-points{font-family:var(--ui-font);font-variant-numeric:tabular-nums;color:var(--ui-text-2);gap:3px}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-points svg{display:none}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-account-points::before{content:"\E000";font-family:"TP Glyph";color:var(--ui-accent);margin-right:2px}
+
+/* Primary actions keep the accent; AI actions use the gradient class. */
+html:root[data-pc-design][data-pc-theme=light].theme-light .ui-ai,
+html:root[data-pc-design][data-pc-theme=light].theme-light .ui-ai:hover{background:var(--ui-ai)!important;color:#fff!important;border-color:transparent!important;box-shadow:var(--ui-ai-shadow)!important}
+html:root[data-pc-design][data-pc-theme=light].theme-light .ui-ai:hover{filter:brightness(1.06)}
+
+@media (prefers-reduced-motion:reduce){
+  html.theme-light .nv2-nav *{transition:none!important}
+}
+
+/* ---------- Sidebar v2 (nav-v2.js) ---------- */
+.nv2 .ia-navigation-fixed{display:none!important}
+.nv2 .ia-navigation > :not(.nv2-nav){display:none!important}
+.nv2 .ia-navigation{padding:0;overflow-y:auto;scrollbar-width:none}
+.nv2 .ia-navigation::-webkit-scrollbar{display:none}
+.nv2-nav{display:flex;flex-direction:column;gap:18px;padding:6px 12px 28px}
+.nv2-group{display:flex;flex-direction:column;gap:2px}
+.nv2-title{font-size:12px;line-height:16px;color:var(--ui-text-3,#9A9DA8);padding:0 12px 6px}
+.nv2-link{display:flex;align-items:center;gap:12px;width:100%;height:40px;box-sizing:border-box;padding:0 12px;border:0;border-radius:10px;background:transparent;
+  color:var(--ui-text-2,#5E6270);font:inherit;font-size:14px;line-height:20px;text-align:left;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background .2s,color .2s,box-shadow .2s}
+.nv2-link:hover{background:rgba(22,23,29,.04);color:var(--ui-text,#16171D)}
+.nv2-link:focus-visible{outline:2px solid var(--ui-accent,#5B5CF6);outline-offset:-2px}
+.nv2-icon{width:20px;height:20px;flex-shrink:0;color:#A3A7B4;transition:color .2s}
+.nv2-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.nv2-link.on{background:var(--ui-surface,#fff);color:var(--ui-text,#16171D);font-weight:500;box-shadow:var(--ui-shadow-raised)}
+.nv2-link.on .nv2-icon,.nv2-parent.has-active>.nv2-toggle .nv2-icon{color:var(--ui-accent,#5B5CF6)}
+.nv2-parent.has-active>.nv2-toggle{color:var(--ui-text,#16171D);font-weight:500}
+.nv2-caret{width:14px;height:14px;flex-shrink:0;color:var(--ui-text-3,#9A9DA8);transition:transform .2s}
+.nv2-parent:not(.open) .nv2-caret{transform:rotate(-90deg)}
+.nv2-sub{display:flex;flex-direction:column;gap:2px;padding-top:2px}
+.nv2-parent:not(.open) .nv2-sub{display:none}
+.nv2-child{height:36px;padding-left:44px}
+.nv2-dot{display:none}
+.nv2-pins .nv2-icon{color:#B4B7C2}
+
+/* Collapsed rail */
+.imagine-aigc.is-collapsed .nv2-nav{padding:6px 10px 28px;align-items:center}
+.imagine-aigc.is-collapsed .nv2-title,.imagine-aigc.is-collapsed .nv2-label,.imagine-aigc.is-collapsed .nv2-caret,.imagine-aigc.is-collapsed .nv2-sub{display:none!important}
+.imagine-aigc.is-collapsed .nv2-link{width:44px;height:44px;padding:0;justify-content:center}
+.imagine-aigc.is-collapsed .nv2-group{gap:4px;align-items:center}
+.imagine-aigc.is-collapsed .nv2-parent.has-active>.nv2-toggle{background:var(--ui-surface,#fff);box-shadow:var(--ui-shadow-raised)}
+
+/* ---------- Entry consolidation (entries-v2.js) ---------- */
+.v2-hidden{display:none!important}
+.v2-page-title{margin:0;font-size:20px;line-height:28px;font-weight:600;color:var(--ui-text,#16171D);white-space:nowrap}
+.v2-seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:var(--ui-fill,#F1F2F5)}
+.v2-seg>button{height:30px;padding:0 14px;border:0;border-radius:8px;background:transparent;color:var(--ui-text-2,#5E6270);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,box-shadow .2s}
+.v2-seg>button:hover{color:var(--ui-text,#16171D)}
+.v2-seg>button[aria-selected=true]{background:#fff;color:var(--ui-text,#16171D);font-weight:500;box-shadow:0 1px 2px rgba(22,23,29,.08),0 2px 6px -2px rgba(22,23,29,.08)}
+.v2-clip-head{display:flex;align-items:center;gap:16px;min-width:0}
+.v2-clip-page .ia-header .mc-header-title{display:none!important}
+.v2-clip-page .ia-header .ia-page-title{display:none!important}
+html:root[data-pc-design][data-pc-theme=light].theme-light .imagine-aigc .ia-header .ia-page-title{font-size:20px;line-height:28px;font-weight:600;color:var(--ui-text);letter-spacing:0}

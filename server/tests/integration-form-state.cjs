@@ -1,0 +1,18 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={window:{},queueMicrotask:fn=>fn()};
+vm.runInNewContext(fs.readFileSync('public/integration/form-state.js','utf8'),context);
+const fields=[{name:'region',value:'cn-shanghai',type:'text'},{name:'enabled',checked:true,type:'checkbox'},{name:'mode',value:'own',type:'select-one'},{name:'',value:'',type:'search'}];
+const handlers={},container={querySelectorAll:()=>fields,addEventListener:(type,fn)=>handlers[type]=fn,removeEventListener:type=>delete handlers[type]};
+let dirty;
+const tracker=context.window.IntegrationFormState.track(container,value=>dirty=value);
+handlers.input();assert.equal(dirty,false,'initial/redundant input does not mark dirty');
+fields[0].value='cn-beijing';handlers.input();assert.equal(dirty,true,'changed field marks dirty');
+fields[0].value='cn-shanghai';handlers.change();assert.equal(dirty,false,'reverting clears dirty');
+fields[1].checked=false;handlers.change();assert.equal(dirty,true,'checkbox tracked');
+fields[1].checked=true;handlers.change();assert.equal(dirty,false,'checkbox revert tracked');
+fields[3].value='search only';handlers.input();assert.equal(dirty,false,'search-only widget ignored');
+fields[2].value='shared';handlers.change();assert.equal(dirty,true,'credential source tracked');
+tracker.reset();assert.equal(dirty,false,'successful save establishes new baseline');
+fields[2].value='own';assert.equal(tracker.isDirty(),true,'direct value changes detected at navigation');
+tracker.destroy();assert.equal(Object.keys(handlers).length,0,'listeners removed on tab disposal');
+console.log('10 integration form change checks passed.');

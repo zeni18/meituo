@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>视频剪辑 · 交互原型</title>
+  <link rel="stylesheet" href="studio.css?v=2">
+  <script defer src="studio.js?v=2"></script>
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar" aria-label="商家后台导航">
+      <a class="brand" href="/ai?tenant_id=1" target="_blank" rel="noopener"><span class="brand-mark">✦</span><b>美拓AI营销中台</b></a>
+      <nav>
+        <a href="/ai?tenant_id=1" target="_blank" rel="noopener" data-icon="home">工作台</a>
+        <small>创作</small>
+        <a href="/ai/tools?tenant_id=1" target="_blank" rel="noopener" data-icon="grid">AI 工具</a>
+        <a href="/ai/create?type=image&tenant_id=1" target="_blank" rel="noopener" data-icon="image">图像创作</a>
+        <a href="/ai/create?type=video&tenant_id=1" target="_blank" rel="noopener" data-icon="video">视频创作</a>
+        <a href="/ai/digital_human?tenant_id=1" target="_blank" rel="noopener" data-icon="person">数字人</a>
+        <a class="active" href="#storyboard" aria-current="page" data-icon="scissors">视频剪辑</a>
+        <small>内容</small>
+        <a href="/ai/materials/video?tenant_id=1" target="_blank" rel="noopener" data-icon="folder">素材库</a>
+        <a href="/ai/assets?tenant_id=1" target="_blank" rel="noopener" data-icon="layers">作品库</a>
+        <small>营销</small>
+        <a href="/ai/geo?tenant_id=1" target="_blank" rel="noopener" data-icon="globe">GEO 营销</a>
+        <a href="/ai/automation?tenant_id=1" target="_blank" rel="noopener" data-icon="calendar">自动化计划</a>
+        <small>品牌</small>
+        <a href="/ai/brands?tenant_id=1" target="_blank" rel="noopener" data-icon="store">品牌与门店</a>
+      </nav>
+      <button class="mobile-nav-close button" id="mobile-nav-close">收起导航</button>
+      <div class="side-bottom"><span class="avatar">M</span><div><b>商家工作空间</b><small>白色主题</small></div></div>
+    </aside>
+    <main class="main">
+      <header class="masthead"><button class="icon-button" id="nav-toggle" aria-label="收起主导航" aria-expanded="true"></button><h1 class="page-name">视频剪辑</h1><span class="prototype-label">交互原型 · 示例工程</span><span class="spacer"></span><button class="text-button" id="review-guide">审阅指南</button><button class="icon-button" id="help" aria-label="键盘快捷键"></button><span class="avatar small">M</span></header>
+      <section class="project-bar" aria-label="工程操作">
+        <div class="project-title"><button id="project-name" class="name-button">周末，来喝一杯</button><span class="save-state" id="save-state"><i></i>示例工程</span></div>
+        <div class="project-actions"><button class="icon-button" id="undo" aria-label="撤销" disabled></button><button class="icon-button" id="redo" aria-label="重做" disabled></button><span class="separator"></span><button class="button compact" id="save">保存草稿</button><button class="button compact" id="project-menu">工程 <span aria-hidden="true">⌄</span></button><button class="button ai" id="generate">生成设置 <span class="generation-count">1 条</span></button></div>
+      </section>
+      <div class="mode-bar"><div class="modes" role="tablist" aria-label="剪辑模式"><button role="tab" data-mode="quick">一键成片</button><button role="tab" data-mode="mix">批量混剪</button><button role="tab" data-mode="storyboard">分镜脚本</button><button role="tab" data-mode="oral">口播</button></div><div class="mode-tools"><button class="text-button" id="assets-toggle" aria-expanded="true">素材区</button><span class="small-dot"></span><span id="mode-summary">5 个镜头 · 24.0 秒</span></div></div>
+      <section class="workspace" id="workspace" aria-label="剪辑工作区">
+        <aside class="resource-panel" id="resource-panel" aria-label="素材与创作资源"></aside>
+        <section class="canvas-panel" id="canvas-panel" aria-label="画面预览"></section>
+        <aside class="inspector" id="inspector" aria-label="剪辑参数"></aside>
+      </section>
+      <section class="sequence" id="sequence" aria-label="镜头编排"></section>
+      <footer class="status-bar"><span id="status-message">示例素材 · 可自由试用，保存仅在此浏览器</span><span class="spacer"></span><button class="text-button" id="restore-demo">重置示例</button><span class="status-shortcut">Space 播放 · Ctrl S 保存</span></footer>
+    </main>
+  </div>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div class="dialog-head"><h2 id="dialog-title"></h2><button class="icon-button" id="dialog-close" aria-label="关闭弹窗"></button></div><div class="dialog-body" id="dialog-body"></div><footer class="dialog-footer" id="dialog-footer"></footer></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="file-input" accept="image/*,video/*" multiple hidden>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "steps": [
+    "real article save",
+    "real article optimistic edit",
+    "real article opens in studio",
+    "real material save",
+    "real material revision edit",
+    "real material reference to studio",
+    "real image upload",
+    "real image Quick Look",
+    "temporary upload moved to recoverable trash",
+    "real before-after screenshots at 1440 and 1280"
+  ],
+  "errors": []
+}

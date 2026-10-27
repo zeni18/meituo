@@ -1,0 +1,7 @@
+{
+  "code": "merchant_marketing", "name": "种草卡", "version": "1.0.0", "require_core": ">=1.0.0",
+  "description": "维护门店、视频素材、图文素材及话题，组合门店种草卡内容。",
+  "category": "门店营销", "is_builtin": 0, "expire_policy": "block", "sort": 2000,
+  "frontends": ["pc"], "api_prefix": "/merchantWorkspace",
+  "frontend_entries": [{"terminal":"pc","entry_key":"merchant_marketing","name":"种草卡","path":"/ai/seedcards","icon":"","sort":2000,"status":1,"meta":{"category":"门店营销"}}]
+}

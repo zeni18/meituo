@@ -1,0 +1,18 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={window:{}};
+vm.runInNewContext(fs.readFileSync('public/merchant/material-library.js','utf8'),context);
+const create=context.window.MerchantMaterialLibrary.createSelection;
+const initial=[101],changes=[],draft=create(initial,3,ids=>changes.push([...ids]));
+draft.set([202]);draft.set([303]);
+assert.deepEqual([...draft.values()],[101,202,303],'selections from other folders, pages and kinds remain in the draft');
+assert.deepEqual(initial,[101],'draft never mutates the editor selection before confirmation');
+assert.throws(()=>draft.set([404]),/最多选择 3/);
+assert.deepEqual([...draft.values()],[101,202,303],'limit failures are atomic');
+draft.set([202],false);assert.deepEqual([...draft.values()],[101,303],'unselecting or recycling removes only those IDs');
+draft.set([101,404]);assert.deepEqual([...draft.values()],[101,303,404],'page selections deduplicate existing items');
+draft.set([101,404],false);assert.deepEqual([...draft.values()],[303],'unselecting a page preserves choices elsewhere');
+draft.clear();assert.equal(draft.values().length,0);assert.deepEqual(changes.at(-1),[]);
+const single=create([1],1);single.set([2]);assert.deepEqual([...single.values()],[2],'single-cover selection replaces the previous choice');
+assert.throws(()=>single.set([3,4]),/最多选择 1/);assert.deepEqual([...single.values()],[2]);
+const bounded=create([],100);bounded.set(Array.from({length:100},(_,i)=>i+1));assert.throws(()=>bounded.set([101]),/最多选择 100/);assert.equal(bounded.values().length,100);
+console.log('Material picker: draft isolation, cross-view selection, atomic limits, page deselection, recycle removal and single-cover replacement passed.');

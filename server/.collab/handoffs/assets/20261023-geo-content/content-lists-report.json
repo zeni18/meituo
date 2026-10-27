@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "steps": [
+    "article read",
+    "article paste/save",
+    "article metadata edit",
+    "article search preserves focus",
+    "category create",
+    "category recycle/restore",
+    "material create",
+    "material edit",
+    "material filter clears batch",
+    "image Quick Look",
+    "image upload refresh"
+  ],
+  "errors": []
+}

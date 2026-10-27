@@ -1,0 +1,20 @@
+module.exports = async (pg) => {
+  const shot = (n) => pg.screenshot({ path: require('path').join(process.cwd(), 'out', 'g-' + n) + '.png' });
+  await pg.click('[data-start]'); await pg.waitForTimeout(700); await shot('wiz');
+  await pg.fill('.uk-dialog [name=questions]', '杭州西湖边有哪些安静的精品咖啡馆？\n适合周末带朋友去的手冲咖啡店推荐\n杭州哪家咖啡店自己烘焙豆子');
+  await pg.click('.uk-dialog [data-plat="Kimi"]'); await pg.waitForTimeout(200);
+  await pg.click('.uk-dialog [data-gen]'); await pg.waitForTimeout(400); await shot('genconfirm');
+  await pg.click('.uk-dialog:last-of-type [data-act=ok]'); await pg.waitForTimeout(2600); await shot('genned');
+  await pg.click('.uk-dialog [data-act=next]'); await pg.waitForTimeout(900); await shot('quote');
+  await pg.click('.uk-dialog [data-act=back]'); await pg.waitForTimeout(300);
+  await pg.keyboard.press('Escape'); await pg.waitForTimeout(300);
+  await pg.click('.uk-tab[data-key="diagnose-records"]'); await pg.waitForTimeout(800); await shot('runs');
+  await pg.click('.gv-row[data-run="31"]'); await pg.waitForTimeout(800); await shot('run');
+  await pg.keyboard.press('Escape'); await pg.waitForTimeout(300);
+  await pg.click('.uk-tab[data-key="diagnose-evidence"]'); await pg.waitForTimeout(700); await shot('ev');
+  await pg.click('[data-ev-new]'); await pg.waitForTimeout(400); await shot('evnew'); await pg.keyboard.press('Escape');
+  await pg.click('[data-brand-menu]'); await pg.waitForTimeout(300); await shot('brandmenu');
+  await pg.click('.uk-menu [data-key="b:12"]'); await pg.waitForTimeout(900);
+  await pg.click('.gv-head [data-kb]'); await pg.waitForTimeout(800); await shot('kb');
+  console.log('calls', JSON.stringify(await pg.evaluate(() => window.__calls.filter((c) => c.includes('POST')))));
+};

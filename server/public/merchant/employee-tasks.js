@@ -1,0 +1,17 @@
+(() => {
+ 'use strict';const host=document.getElementById('employee-tasks'),token=location.hash.slice(1),node=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=String(text);if(cls)n.className=cls;return n;},states={pending:'待领取',claimed:'已领取',submitted:'待审核',completed:'已完成',rejected:'请修改后重新提交'},platforms={douyin:'抖音',kuaishou:'快手',xiaohongshu:'小红书'};
+ const button=(text,work,primary=false)=>{const b=node('button',text,primary?'primary':'');b.type='button';b.addEventListener('click',async()=>{b.disabled=true;try{await work();}catch(e){showError(e.message);}finally{b.disabled=false;}});return b;};
+ let error=node('p','','error');error.setAttribute('role','alert');const showError=msg=>{error.textContent=msg;error.scrollIntoView({block:'nearest'});};
+ async function api(body){const r=await fetch('/employee/tasks-api',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json','X-Staff-Access':token},body:JSON.stringify(body)});const d=await r.json();if(d.code!==1)throw Error(d.msg||'操作失败');return d.data;}
+ async function copy(text){await navigator.clipboard.writeText(text);notice.textContent='已复制';}let notice;
+ async function load(){error.textContent='';try{const data=await api({action:'list'});host.replaceChildren();const top=node('header');top.append(node('strong',data.staff_name),node('span',data.store_name));host.append(top,error);notice=node('p');notice.setAttribute('role','status');host.append(notice);top.append(button('刷新',load),button(data.bound?'重新绑定服务号':'绑定服务号通知',async()=>{const r=await api({action:'bind'});location.assign(r.url);}));if(!data.bound)host.append(node('p','请在微信内打开专属链接，关注服务号后点击绑定，接收任务通知。','hint'));
+  if(!data.lists.length)host.append(node('p','暂无已生效的任务。定时任务会在发布时间后出现。','hint'));
+  for(const row of data.lists){const card=node('article');card.append(node('span',states[row.state]||row.state,'status'),node('h2',row.title+' · '+platforms[row.platform]),node('p',row.content),node('small',row.video_title||'视频暂不可用'));const content=node('div',undefined,'copy');content.append(node('p',row.copy_text),node('p',row.topics));card.append(content);if(row.deadline)card.append(node('small','截止 '+new Date(row.deadline*1000).toLocaleString('zh-CN')));if(row.note)card.append(node('p','商家反馈：'+row.note,'error'));const actions=node('div',undefined,'actions');
+   if(row.state==='pending')actions.append(button('领取任务',async()=>{await api({action:'claim',id:row.id});await load();},true));
+   actions.append(button('复制发布文案',()=>copy(row.copy_text+'\n'+row.topics)),button('查看／下载成片',async()=>{const d=await api({action:'delivery',id:row.id});card.querySelector('video')?.remove();const v=node('video');v.controls=true;v.src=d.url;card.append(v);const a=node('a','打开成片','task-link');a.href=d.url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}));
+   if(['claimed','rejected'].includes(row.state)){const label=node('label','已发布作品链接'),input=node('input');input.type='url';input.placeholder='https://…';input.value=row.proof_url||'';label.append(input);card.append(label);actions.append(button('提交给商家审核',async()=>{await api({action:'submit',id:row.id,proof_url:input.value});await load();},true));}
+   actions.querySelectorAll('button').forEach(b=>{if(!row.available)b.disabled=true;});card.append(actions);host.append(card);
+  }
+ }catch(e){host.replaceChildren(node('h1','员工任务'),error);showError(e.message);}}
+ load();
+})();

@@ -1,0 +1,13 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const context={window:{},Date};
+vm.runInNewContext(fs.readFileSync('public/shared/dates.js','utf8'),context);
+const {parseLocal,formats}=context.window.AddedPageDates;
+for(const invalid of ['',null,42,'2026-02-29','2026-02-31','2026-04-31','2026-13-01','2026-00-10','2026-10-00','2026-10-17T24:00','2026-10-17T12:60','2026-10-17T12:00:60','2026-10-17Z','2026-10-17T10:00+08:00'])assert.equal(parseLocal(invalid,'datetime-local'),undefined,'invalid local date rejected: '+invalid);
+const leap=parseLocal('2024-02-29');assert.equal(leap.getMonth(),1);assert.equal(leap.getDate(),29);
+const local=parseLocal('2026-10-17T09:07','datetime-local');assert.equal(local.getFullYear(),2026);assert.equal(local.getMonth(),9);assert.equal(local.getDate(),17);assert.equal(local.getHours(),9);assert.equal(local.getMinutes(),7);
+assert.equal(parseLocal('2026-10-17 09:07','datetime-local').getTime(),local.getTime(),'display format and submitted ISO value refer to the same local minute');
+assert.equal(parseLocal('09:07','time').getHours(),9);assert.equal(parseLocal('23:59:58','time').getSeconds(),58);assert.equal(parseLocal('24:00','time'),undefined);
+const existing=new Date(2026,9,17,9,7);const copied=parseLocal(existing);assert.notEqual(copied,existing);assert.equal(copied.getTime(),existing.getTime());
+assert.equal(parseLocal(new Date(NaN)),undefined,'invalid Date objects are rejected');
+assert.equal(formats.date,'Y-m-d');assert.equal(formats['datetime-local'],'Y-m-d\\TH:i','submitted date-time retains the native T separator');
+console.log('Shared dates: leap years, invalid dates, local time, ISO submission, seconds and safe Date copying passed.');

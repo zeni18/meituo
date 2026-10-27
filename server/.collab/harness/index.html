@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN" class="theme-light" data-pc-theme="light" data-pc-mode="light" data-pc-design="imagine" data-pc-workspace="imagine">
+<head>
+<meta charset="utf-8">
+<title>美拓AI营销中台</title>
+<style>
+  /* approximation of the native Nuxt shell geometry measured on 8090 (sidebar 248, header 72) */
+  html,body{margin:0}
+  body{font-family:"Inter","PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:#16171D;background:#F4F5F7;-webkit-font-smoothing:antialiased}
+  .imagine-aigc{min-height:100vh;background:#F4F5F7}
+  .ia-sidebar{position:fixed;left:0;top:0;bottom:0;width:248px;display:flex;flex-direction:column;overflow:hidden;background:#F4F5F7;z-index:20}
+  .ia-brand{display:flex;align-items:center;height:72px;padding:16px;box-sizing:border-box}
+  .ia-navigation{flex:1;overflow:auto;padding:0 12px 20px}
+  .ia-body{margin-left:248px;min-width:0}
+  .ia-header{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:8px;height:72px;box-sizing:border-box;padding:12px 24px 12px 16px;background:#F4F5F7}
+  .ia-header-spacer{flex:1}
+  .ia-icon-button{width:36px;height:36px;border:0;border-radius:10px;background:transparent}
+  .harness-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(140deg,#F6C9A8,#E48D6B)}
+  main.ia-content{display:block;min-height:calc(100vh - 72px)}
+</style>
+<link rel="stylesheet" href="/merchant/ui-v2.css">
+<link rel="stylesheet" href="/merchant/ui-kit.css">
+<link rel="stylesheet" href="/merchant/brand-v2.css">
+<link rel="stylesheet" href="/merchant/geo-content.css">
+<link rel="stylesheet" href="/merchant/geo-publish.css">
+<link rel="stylesheet" href="/merchant/geo-v2.css">
+<link rel="stylesheet" href="/merchant/clip-studio.css">
+<link rel="stylesheet" href="/merchant/clip-workbench.css">
+<link rel="stylesheet" href="/merchant/material-library.css">
+<link rel="stylesheet" href="/merchant/clip-editor-v2.css">
+<link rel="stylesheet" href="/merchant/clip-approved-layout.css">
+<link rel="stylesheet" href="/merchant/automation-v2.css">
+</head>
+<body>
+<div id="__nuxt">
+  <div class="imagine-aigc">
+    <aside class="ia-sidebar"><div class="ia-brand"><strong>美拓AI营销中台</strong></div><nav class="ia-navigation"></nav></aside>
+    <div class="ia-body">
+      <header class="ia-header"><span class="ia-header-spacer"></span><button class="ia-icon-button merchant-top-search" type="button"></button><button class="ia-icon-button" type="button"></button><div class="merchant-header-account"><button class="ia-account-trigger" type="button" style="border:0;background:none;padding:0"><span class="harness-avatar" style="display:block"></span></button></div></header>
+      <main class="ia-content"></main>
+    </div>
+  </div>
+</div>
+<script src="/mock-geo.js"></script>
+<script src="/mock-content.js"></script>
+<script src="/mock-publish.js"></script>
+<script src="/mock-automation.js"></script>
+<script src="/merchant/ui-kit.js"></script>
+<script src="/merchant/nav-v2.js"></script>
+<script src="/merchant/brand-v2.js"></script>
+<script src="/merchant/geo-content.js"></script>
+<script src="/merchant/geo-publish.js"></script>
+<script src="/merchant/geo-v2.js"></script>
+<script src="/merchant/automation-v2.js"></script>
+<script src="/merchant/geo-semi-loader.js" defer></script>
+<script src="/merchant/clip-group-sort.js"></script>
+<script src="/merchant/clip-motion.js"></script>
+<script src="/merchant/folder-sort.js"></script>
+<script src="/merchant/material-library.js"></script>
+<script src="/merchant/finished-video.js"></script>
+<script src="/merchant/clip-studio.js"></script>
+<script src="/mock-clip.js"></script>
+</body>
+</html>

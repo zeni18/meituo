@@ -1,0 +1,61 @@
+{
+  "origin": "http://127.0.0.1:8090",
+  "tenant_id": 1,
+  "brand_id": 1,
+  "checks": [
+    "已登录真实 8090，进入品牌 1 关键词页面",
+    "界面新建临时词库并定位，关联品牌 1",
+    "真实六栏组合返回 2 条预览且 billable=false",
+    "界面保存组合关键词，真实词库返回数量和 expected_hash",
+    "界面携带原 expected_hash 编辑成功，保存后 hash 已改变",
+    "过期 expected_hash 被服务端拒绝，现有内容未被覆盖",
+    "关键词搜索与清空筛选作用于真实已保存数据",
+    "界面编辑词库携带 revision 并持久保存",
+    "新建临时词库已软回收并在回收站查证"
+  ],
+  "writes": [
+    {
+      "action": "keywordLibrarySave",
+      "brand_id": "1"
+    },
+    {
+      "action": "keywordManualPreview",
+      "brand_id": "1"
+    },
+    {
+      "action": "keywordLibraryAdd",
+      "brand_id": "1"
+    },
+    {
+      "action": "keywordLibraryUpdate",
+      "brand_id": "1"
+    },
+    {
+      "action": "keywordLibraryUpdate",
+      "brand_id": "1"
+    },
+    {
+      "action": "keywordLibrarySave",
+      "brand_id": "1"
+    },
+    {
+      "action": "resourceRecycle",
+      "brand_id": "1"
+    }
+  ],
+  "blocked": [],
+  "browserErrors": [],
+  "temporary": {
+    "group": 1,
+    "keywords": [
+      1,
+      2
+    ]
+  },
+  "cleanup": {
+    "groupRecycled": true,
+    "keywordRows": "无词条软删除接口；临时词条保留在品牌 1 未分组，交由主任务统一清理临时品牌。"
+  },
+  "ok": true,
+  "paidRequests": 0
+}

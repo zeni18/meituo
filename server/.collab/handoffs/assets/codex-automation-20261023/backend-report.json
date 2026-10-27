@@ -1,0 +1,29 @@
+{
+    "passed": 22,
+    "checks": [
+        "lost save response replays the same plan",
+        "idempotent save creates exactly one plan",
+        "same request key cannot authorize different content",
+        "malformed save identity rejected",
+        "preflight rejects foreign owner",
+        "execution records reject foreign owner",
+        "preflight refuses a snapshot with no visual material",
+        "preflight creates no execution or render jobs",
+        "save and preflight leave the plan paused",
+        "plan cards receive the real destination name",
+        "listing hides snapshots authority and save metadata",
+        "stale revision cannot overwrite a saved plan",
+        "monthly metric counts only actual rounds inside the business month",
+        "cards receive ordered actual history and current stage",
+        "list and monthly metric remain isolated by owner",
+        "in-flight plans cannot change execution scope",
+        "completed authorization limit cannot be enabled again",
+        "expired authorization is explicitly identified",
+        "read-only checks never activate a plan",
+        "positive preflight uses an existing local image only",
+        "valid snapshot and configured services pass readiness without enabling",
+        "successful readiness check also creates no cloud tasks"
+    ],
+    "rolled_back": true,
+    "external_calls": 0
+}

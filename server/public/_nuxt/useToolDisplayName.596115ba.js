@@ -1,0 +1,1 @@
+import{U as l}from"./entry.ef871ac3.js?v=mw20261023d";const c=(e,a,s)=>{const t=(e==null?void 0:e.display_config)||{},r=String((t==null?void 0:t.title)||"").trim(),o=String((t==null?void 0:t.app_code)||"").trim();/* native-short-video-title */if(o==="smart_clip")return l("AI短视频",s);return l(r&&r!==o?r:a,s)};export{c as r};

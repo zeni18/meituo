@@ -1,0 +1,278 @@
+[
+  {
+    "name": "materials",
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "素材库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "materials",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "素材库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "materials",
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "素材库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "geo-publish",
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "GEO 发布"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "geo-publish",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "GEO 发布"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "geo-publish",
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "GEO 发布"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "video-create",
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "视频创作"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "video-create",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "视频创作"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "video-create",
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "视频创作"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "assets-images",
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "作品库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "assets-images",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "作品库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "assets-images",
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "作品库"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tools",
+    "contentLength": 596,
+    "toolReady": true,
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "全部工具"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tools",
+    "contentLength": 596,
+    "toolReady": true,
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "全部工具"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tools",
+    "contentLength": 596,
+    "toolReady": true,
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "全部工具"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tool-product-video",
+    "contentLength": 341,
+    "toolReady": true,
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      "产品宣传视频"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tool-product-video",
+    "contentLength": 341,
+    "toolReady": true,
+    "width": 1440,
+    "overflow": false,
+    "headings": [
+      "产品宣传视频"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "tool-product-video",
+    "contentLength": 341,
+    "toolReady": true,
+    "width": 1920,
+    "overflow": false,
+    "headings": [
+      "产品宣传视频"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": []
+  },
+  {
+    "name": "clip",
+    "contentLength": 255,
+    "toolReady": true,
+    "width": 1270,
+    "overflow": false,
+    "headings": [
+      "视频剪辑"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": [
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button",
+      "mc-button"
+    ]
+  },
+  {
+    "name": "clip",
+    "contentLength": 255,
+    "toolReady": true,
+    "width": 1430,
+    "overflow": false,
+    "headings": [
+      "视频剪辑"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": [
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button",
+      "mc-button"
+    ]
+  },
+  {
+    "name": "clip",
+    "contentLength": 255,
+    "toolReady": true,
+    "width": 1910,
+    "overflow": false,
+    "headings": [
+      "视频剪辑"
+    ],
+    "busy": 0,
+    "pending": false,
+    "unnamed": [
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button mc-menu-item",
+      "mc-button",
+      "mc-button"
+    ]
+  }
+]

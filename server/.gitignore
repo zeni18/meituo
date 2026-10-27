@@ -1,0 +1,26 @@
+/.idea
+/.vscode
+*.log
+/.phpunit.result.cache
+/.env
+/.env.docker
+/public/.user.ini
+/public/uploads/*
+!/public/uploads/index.html
+/runtime/*
+!/runtime/index.html
+/config/install.lock
+/skill/*
+/frontend/geo-semi/node_modules/
+
+
+# Two-machine local state
+/.collab/local/
+/.collab/runtime/
+/.collab/*.zip
+/.collab/*.msi
+/.collab/*.bundle
+/.collab/local.env
+/.composer-runtime/
+/vendor/
+**/node_modules/

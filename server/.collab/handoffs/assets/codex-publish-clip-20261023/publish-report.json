@@ -1,0 +1,231 @@
+{
+  "layout": [
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "rich",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1280,
+      "fixture": "empty",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "rich",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1440,
+      "fixture": "empty",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "rich",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "view": "website",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "view": "influencer",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "view": "website-orders",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    },
+    {
+      "width": 1920,
+      "fixture": "empty",
+      "view": "website-favorites",
+      "overflow": false,
+      "issues": [],
+      "legacy": false
+    }
+  ],
+  "flows": [
+    {
+      "name": "zero selection has no floating total; only two catalog kinds",
+      "passed": true
+    },
+    {
+      "name": "search button submits and clear restores catalog",
+      "passed": true
+    },
+    {
+      "name": "budget validation preserves draft and filters count accurately",
+      "passed": true
+    },
+    {
+      "name": "cross-page selection stays, limit twenty and clear",
+      "passed": true
+    },
+    {
+      "name": "draft handoff and server quote show original tier and cost",
+      "passed": true
+    },
+    {
+      "name": "unknown acceptance retries identical payload once, accepted only once",
+      "passed": true
+    },
+    {
+      "name": "order details show receipt, separate billing, no automatic process request",
+      "passed": true
+    },
+    {
+      "name": "favorite groups create, move, recycle and restore",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

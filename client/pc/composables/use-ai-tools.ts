@@ -1,0 +1,1693 @@
+﻿import card1 from '@/assets/images/ai-app/card-1.png'
+import card2 from '@/assets/images/ai-app/card-2.png'
+import card3 from '@/assets/images/ai-app/card-3.png'
+import card4 from '@/assets/images/ai-app/card-4.png'
+import card5 from '@/assets/images/ai-app/card-5.png'
+import card6 from '@/assets/images/ai-app/card-6.png'
+import card7 from '@/assets/images/ai-app/card-7.png'
+import card8 from '@/assets/images/ai-app/card-8.png'
+import card9 from '@/assets/images/ai-app/card-9.png'
+import card10 from '@/assets/images/ai-app/card-10.png'
+import card11 from '@/assets/images/ai-app/card-11.png'
+import card12 from '@/assets/images/ai-app/card-12.png'
+
+export type ToolCategory =
+    | '全部'
+    | '图片编辑'
+    | '电商商务'
+    | '建筑室内'
+    | '人像摄影'
+    | '游戏动漫'
+    | '创意'
+export type ToolCategoryFilter = '全部' | '图片' | '视频'
+
+export type ToolDetailResolution = '高清2k' | '高清4k'
+export type ToolResultFilter = '全部' | '视频生成' | '图片生成' | 'AI工具'
+export type ToolResultKind = 'video' | 'image' | 'tool'
+export type ToolMode =
+    | 'generic'
+    | 'local-redraw'
+    | 'outpaint'
+    | 'photo-restore'
+    | 'line-drawing'
+    | 'hairstyle-change'
+    | 'image-translate'
+    | 'background-removal'
+    | 'one-click-cleanup'
+    | 'style-transfer'
+    | 'product-image'
+    | 'product-suite'
+    | 'fashion-lookbook'
+    | 'hot-clone'
+    | 'product-multi-angle'
+    | 'product-promo-video'
+    | 'action-transfer'
+    | 'person-replacement'
+    | 'shoe-tryon'
+    | 'model-wear'
+    | 'ai-fitting'
+    | 'buyer-show'
+    | 'selling-point-card'
+
+export interface FeaturedToolItem {
+    id: string
+    title: string
+    description: string
+    image: string
+    category: ToolCategory
+    targetToolId: string
+}
+
+export interface ToolCardItem {
+    id: string
+    appCode?: string
+    title: string
+    badge: string
+    category: ToolCategory
+    image: string
+    detailName: string
+    detailDescription: string
+    promptLead: string
+    createdCost: string
+    toolMode?: ToolMode
+    generateKind?: ToolResultKind
+    appPath?: string
+    implemented?: boolean
+    uploadTitle?: string
+    promptTitle?: string
+    promptPlaceholder?: string
+    virtualUseCount?: string
+}
+
+export interface ToolDisplayOverride {
+    id: string
+    appCode?: string
+    title?: string
+    description?: string
+    cover?: string
+    badge?: string
+    virtualUseCount?: string
+    sort?: number
+    enabled?: boolean
+}
+
+export interface ToolResultItem {
+    id: string
+    kind: ToolResultKind
+    title: string
+    createdAt: string
+    meta: string[]
+    preview: string
+    previews?: string[]
+    prompt?: string
+    promptThumbs?: string[]
+    maskOverlay?: string
+    settings?: Record<string, string | number | string[]>
+}
+
+export const aiToolTexts = {
+    toolSearchPlaceholder: '请输入工具关键词',
+    featuredTools: '最近使用',
+    allTools: '全部工具',
+    noToolResult: '暂无匹配工具',
+    noToolResultHint: '试试更换关键词或切换分类',
+    uploadImage: '上传图像',
+    uploadHint: '支持 JPG、PNG、WEBP，建议上传主体清晰的图像',
+    createNow: '立即生成',
+    creating: '生成中...',
+    createResultHint: '生成结果会同步显示在右侧历史区',
+    createRatePrefix: '预计',
+    createRateSuffix: '算力',
+    emptyResultsTitle: '当前还没有生成记录',
+    emptyResultsHint: '上传图像后点击立即生成，结果会展示在这里',
+    reEdit: '重新编辑',
+    regenerate: '再次生成',
+    deleteAll: '全部删除'
+} as const
+
+export const toolComingSoonMessage = '此能力正在陆续迭代中，将以更完整、更强大的创作体验与您见面。'
+export const implementedToolCardIds = ['tool-card-digital-human-driver', 'tool-card-canvas', 'tool-card-llm', 'tool-card-aigc-geo', 'aigc_music', 'aigc_hairstyle', 'aigc_fitting', 'aigc_product_image', 'aigc_style_transfer', 'aigc_photo_restore', 'aigc_model_wear', 'aigc_background_removal', 'aigc_image_translate', 'aigc_one_click_cleanup', 'aigc_product_suite', 'aigc_product_multi_angle', 'aigc_fashion_lookbook', 'aigc_product_promo_video', 'aigc_action_transfer', 'aigc_person_replacement', 'aigc_outpaint', 'aigc_local_redraw', 'tool-card-30', 'tool-card-17', 'tool-card-20', 'tool-card-18', 'tool-card-21', 'tool-card-22', 'tool-card-14', 'tool-card-13']
+
+export const toolCategoryOptions: ToolCategoryFilter[] = ['全部', '图片', '视频']
+export const toolDetailResolutionOptions: ToolDetailResolution[] = ['高清2k', '高清4k']
+export const toolResultFilterOptions: ToolResultFilter[] = ['全部', '视频生成', '图片生成', 'AI工具']
+const removedToolCardIds = new Set(['tool-card-15', 'tool-card-19', 'tool-card-24', 'tool-card-25'])
+
+export const featuredTools: FeaturedToolItem[] = [
+    {
+        id: 'featured-tool-smart-clip',
+        title: 'AI视频剪辑',
+        description: '上传视频或从作品带入素材，选择模板完成口播、素材和新闻体混剪。',
+        image: card6,
+        category: '创意',
+        targetToolId: 'tool-card-smart-clip'
+    },
+    {
+        id: 'featured-tool-digital-human',
+        title: '数字人视频',
+        description: '选择形象、音色与文案，快速生成口播数字人视频。',
+        image: card3,
+        category: '创意',
+        targetToolId: 'tool-card-aigc-digital-human'
+    },
+    {
+        id: 'featured-tool-digital-human-driver',
+        title: '全驱数字人',
+        description: '声音、形象、动作与场景全链路驱动。',
+        image: card2,
+        category: '创意',
+        targetToolId: 'tool-card-digital-human-driver'
+    },
+    {
+        id: 'featured-tool-canvas',
+        title: '无限画布',
+        description: '在无限画布中编排文生图、图生视频和提示词节点，适合多步骤创作流程。',
+        image: card1,
+        category: '创意',
+        targetToolId: 'tool-card-canvas'
+    },
+    {
+        id: 'featured-tool-llm',
+        title: 'AIGC对话',
+        description: '进入多轮大模型对话工作台，支持多会话历史和流式回复。',
+        image: card2,
+        category: '创意',
+        targetToolId: 'tool-card-llm'
+    },
+    {
+        id: 'featured-tool-2',
+        title: '局部重绘',
+        description: '上传原图并绘制蒙版，按选区对局部内容进行精细重绘。',
+        image: card9,
+        category: '图片编辑',
+        targetToolId: 'tool-card-13'
+    },
+    {
+        id: 'featured-tool-3',
+        title: '无缝扩图',
+        description: '围绕原图四向延展画面，补全更自然的场景边界与空间。',
+        image: card11,
+        category: '图片编辑',
+        targetToolId: 'tool-card-14'
+    },
+    {
+        id: 'featured-tool-4',
+        title: '老照片修复',
+        description: '支持照片修复与照片上色两种模式，适合老照片内容还原。',
+        image: card10,
+        category: '人像摄影',
+        targetToolId: 'aigc_photo_restore'
+    },
+    {
+        id: 'featured-tool-6',
+        title: '图片换风格',
+        description: '上传一张图片并选择目标风格，按现有工具模板生成风格迁移结果，不包含模型选择和预设示例图。',
+        image: card12,
+        category: '图片编辑',
+        targetToolId: 'tool-card-16'
+    },
+    {
+        id: 'featured-tool-7',
+        title: 'AI商品套图',
+        description: '上传商品图后配置平台、地区、语言、比例和展示模块，生成适合电商详情页的整套商品视觉方案。',
+        image: card5,
+        category: '电商商务',
+        targetToolId: 'tool-card-17'
+    }
+]
+
+export const toolCards: ToolCardItem[] = [
+    {
+        id: 'tool-card-smart-clip',
+        appCode: 'smart_clip',
+        title: 'AI视频剪辑',
+        badge: '智能混剪',
+        category: '创意',
+        image: card6,
+        detailName: 'AI视频剪辑',
+        detailDescription: '支持真人口播混剪、素材混剪和新闻体视频，视频作品可直接带入作为剪辑素材。',
+        promptLead: '进入AI视频剪辑后，可选择模板、上传素材、设置身份栏与图层规则并提交剪辑任务。',
+        createdCost: '0',
+        generateKind: 'video',
+        appPath: '/ai/smart_clip'
+    },
+    {
+        id: 'tool-card-aigc-image',
+        appCode: 'aigc_image',
+        title: '图片生成',
+        badge: '图片创作',
+        category: '图片编辑',
+        image: card4,
+        detailName: '图片生成',
+        detailDescription: '输入提示词或参考图，快速生成高质量图片。',
+        promptLead: '进入图片生成后，可选择通道、比例、清晰度和生成数量。',
+        createdCost: '0',
+        generateKind: 'image',
+        appPath: '/ai/create?type=image'
+    },
+    {
+        id: 'tool-card-aigc-video',
+        appCode: 'aigc_video',
+        title: '视频生成',
+        badge: '视频创作',
+        category: '创意',
+        image: card3,
+        detailName: '视频生成',
+        detailDescription: '输入提示词或参考素材，一键生成动态镜头与叙事短片。',
+        promptLead: '进入视频生成后，可选择视频通道、比例、时长和参考素材。',
+        createdCost: '0',
+        generateKind: 'video',
+        appPath: '/ai/create?type=video'
+    },
+    {
+        id: 'aigc_music',
+        appCode: 'aigc_music',
+        title: 'AI音乐生成',
+        badge: '音乐创作',
+        category: '创意',
+        image: card6,
+        detailName: 'AI音乐生成',
+        detailDescription: '输入一句歌曲描述，或粘贴歌词和风格，一键生成可试听的 AI 音乐作品。',
+        promptLead: '进入AI音乐生成后，可选择文生音乐、自定义歌词或歌词助手，生成结果会在作品区试听和下载。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/ai/tools/aigc_music',
+        implemented: true
+    },
+    {
+        id: 'tool-card-digital-human-driver',
+        appCode: 'image_human',
+        title: '全驱数字人',
+        badge: '数字人新能力',
+        category: '创意',
+        image: card2,
+        detailName: '全驱数字人',
+        detailDescription: '上传人物图片与参考音频，选择快速或标准模式，生成全驱动数字人视频。',
+        promptLead: '进入全驱数字人后，可完成图片、音频、提示词和模式选择并查看生成结果。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/ai/avatar?tab=image_human'
+    },
+    {
+        id: 'tool-card-aigc-digital-human',
+        appCode: 'aigc_digital_human',
+        title: '数字人视频',
+        badge: '数字人合成',
+        category: '创意',
+        image: card3,
+        detailName: '数字人视频',
+        detailDescription: '选择公共或自定义形象、音色与文案，快速生成数字人口播视频。',
+        promptLead: '进入数字人视频后，可选择视频形象、声音和文案内容并查看合成结果。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/ai/avatar'
+    },
+    {
+        id: 'tool-card-canvas',
+        appCode: 'aigc_canvas',
+        title: '无限画布',
+        badge: '画布编排',
+        category: '创意',
+        image: card1,
+        detailName: '无限画布',
+        detailDescription: '面向复杂创作流程的 PC 端画布入口，可继续承接节点编排、生图、视频和工作流能力。',
+        promptLead: '进入无限画布后，可在画布中组织创作节点和素材结果。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/app/aigc_canvas'
+    },
+    {
+        id: 'tool-card-llm',
+        appCode: 'aigc_llm',
+        title: 'AIGC对话',
+        badge: '大模型对话',
+        category: '创意',
+        image: card2,
+        detailName: 'AIGC对话',
+        detailDescription: '面向多轮上下文的大模型对话入口，支持多会话持久化和 SSE 流式回复。',
+        promptLead: '进入对话页后，可创建会话、切换历史并持续追问。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/app/aigc_llm'
+    },
+    {
+        id: 'tool-card-aigc-geo',
+        appCode: 'aigc_geo',
+        title: 'GEO营销优化系统',
+        badge: 'AI搜索增长',
+        category: '创意',
+        image: card1,
+        detailName: 'GEO营销优化系统',
+        detailDescription: '围绕AI搜索曝光、内容生产、品牌管理、内容发布和付费投稿构建品牌增长闭环。',
+        promptLead: '进入GEO营销优化系统后，可从AI搜索诊断首页进入完整营销工作台。',
+        createdCost: '0',
+        generateKind: 'tool',
+        appPath: '/app/aigc_geo'
+    },
+    {
+        id: 'aigc_photo_restore',
+        appCode: 'aigc_photo_restore',
+        title: '老照片修复',
+        badge: '照片修复',
+        category: '人像摄影',
+        image: card10,
+        detailName: '老照片修复',
+        detailDescription: '针对破损、模糊与褪色老照片进行修复，也可切换照片上色模式。',
+        promptLead: '上传老照片后选择修复类型与模型，生成更清晰或上色后的结果图像。',
+        createdCost: '5',
+        toolMode: 'photo-restore',
+        generateKind: 'image',
+        uploadTitle: '上传图片',
+        appPath: '/ai/tools/aigc_photo_restore',
+        implemented: true
+    },
+    {
+        id: 'tool-card-13',
+        appCode: 'aigc_local_redraw',
+        title: '局部重绘',
+        badge: '局部编辑',
+        category: '图片编辑',
+        image: card9,
+        detailName: '局部重绘',
+        detailDescription: '上传原图与蒙版区域，结合文字描述，对选中区域进行局部重绘。',
+        promptLead: '基于原图、蒙版与文字描述生成局部重绘后的图像结果。',
+        createdCost: '5',
+        toolMode: 'local-redraw',
+        generateKind: 'image',
+        uploadTitle: '上传要编辑的图像',
+        promptTitle: '输入对图像效果的描述',
+        promptPlaceholder: '请输入希望在蒙版区域生成的内容描述',
+        appPath: '/ai/tools/aigc_local_redraw',
+        implemented: true
+    },
+    {
+        id: 'tool-card-14',
+        appCode: 'aigc_outpaint',
+        title: '无缝扩图',
+        badge: '画面延展',
+        category: '图片编辑',
+        image: card11,
+        detailName: '无缝扩图',
+        detailDescription: '上传原图后选择后台配置的扩图比例，生成自然延展的画面内容。',
+        promptLead: '基于上传图像和选定比例生成无缝扩展后的结果图像。',
+        createdCost: '5',
+        toolMode: 'outpaint',
+        generateKind: 'image',
+        uploadTitle: '上传图片',
+        appPath: '/ai/tools/aigc_outpaint',
+        implemented: true
+    },
+    {
+        id: 'aigc_style_transfer',
+        appCode: 'aigc_style_transfer',
+        title: '图片换风格',
+        badge: '风格转换',
+        category: '图片编辑',
+        image: card12,
+        detailName: '图片换风格',
+        detailDescription: '上传参考图后选择目标风格，输出对应风格化处理后的图像结果。',
+        promptLead: '基于上传图片和所选风格生成风格迁移结果，页面仅保留上传、风格选择与生成结果展示。',
+        createdCost: '6',
+        toolMode: 'style-transfer',
+        generateKind: 'image',
+        uploadTitle: '上传参考图',
+        appPath: '/ai/tools/aigc_style_transfer',
+        implemented: true
+    },
+    {
+        id: 'aigc_hairstyle',
+        appCode: 'aigc_hairstyle',
+        title: 'AI换发型',
+        badge: '人像造型',
+        category: '人像摄影',
+        image: card12,
+        detailName: 'AI换发型',
+        detailDescription: '上传人物原图和发型参考图后，参考目标发型的轮廓、长度和发色生成更自然的人像换发型结果。',
+        promptLead: '围绕上传的人像原图与发型参考图，尽量保持人物五官、脸型、肤色和画面光线自然一致，仅调整头发区域，输出更适合预览与内容创作场景的 AI 换发型结果。',
+        createdCost: '6',
+        toolMode: 'hairstyle-change',
+        generateKind: 'image',
+        uploadTitle: '上传人物原图',
+        implemented: true
+    },
+    {
+        id: 'tool-card-28',
+        appCode: 'aigc_image_translate',
+        title: '图片翻译',
+        badge: '多语翻译',
+        category: '图片编辑',
+        image: card2,
+        detailName: '图片翻译',
+        detailDescription: '上传需要翻译的图片后，选择原文语言与目标语言，可补充专有名词说明，生成保留版式结构的翻译结果图。',
+        promptLead: '围绕图片中的原始文字内容进行识别与翻译，尽量保留画面排版结构、重点层级与阅读节奏，输出适合跨语言传播的图片翻译结果。',
+        createdCost: '6',
+        toolMode: 'image-translate',
+        generateKind: 'image',
+        uploadTitle: '上传需要翻译的图片',
+        promptTitle: '术语补充（选填）',
+        promptPlaceholder: '可补充品牌名、专有名词、行业术语，或说明哪些文字不需要翻译'
+    },
+    {
+        id: 'tool-card-29',
+        appCode: 'aigc_background_removal',
+        title: '图片去背景',
+        badge: '抠图',
+        category: '图片编辑',
+        image: card9,
+        detailName: '图片去背景',
+        detailDescription: '上传主体清晰的图片后，一键去除背景，输出更干净的主体结果，适合电商、设计和内容二次编辑场景。',
+        promptLead: '识别图片主体并移除背景区域，尽量保留主体边缘细节、材质层次与透明区域表现，输出适合后续排版与合成使用的去背景结果。',
+        createdCost: '5',
+        toolMode: 'background-removal',
+        generateKind: 'image',
+        uploadTitle: '上传待抠图图片'
+    },
+    {
+        id: 'tool-card-30',
+        title: '一键消除',
+        badge: '智能清理',
+        category: '图片编辑',
+        image: card8,
+        detailName: '一键消除',
+        detailDescription: '上传主体图后，按需选择要一键消除的内容类型，批量输出更干净的图片结果。',
+        promptLead: '识别图片中的干扰内容并按选中类型执行智能清理，尽量保留主体结构、材质细节和画面完整度，输出适合电商与内容展示的清洁结果。',
+        createdCost: '5',
+        toolMode: 'one-click-cleanup',
+        generateKind: 'image',
+        uploadTitle: '上传主体图',
+        appCode: 'aigc_one_click_cleanup',
+        appPath: '/ai/tools/aigc_one_click_cleanup',
+        implemented: true
+    },
+    {
+        id: 'tool-card-17',
+        title: 'AI商品套图',
+        badge: '电商素材',
+        category: '电商商务',
+        image: card5,
+        detailName: 'AI商品套图',
+        detailDescription: '上传商品图后选择平台、国家地区、语言与出图比例，并按展示模块生成完整的商品套图方案。',
+        promptLead: '围绕商品卖点、使用场景与详情页展示模块，生成适合电商站点投放的整套视觉物料。',
+        createdCost: '8',
+        toolMode: 'product-suite',
+        generateKind: 'tool',
+        uploadTitle: '上传商品图',
+        promptTitle: '核心卖点',
+        promptPlaceholder: '请输入商品卖点、材质亮点、使用场景和你希望重点展示的转化信息',
+        appCode: 'aigc_product_suite',
+        appPath: '/ai/tools/aigc_product_suite',
+        implemented: true
+    },
+    {
+        id: 'tool-card-18',
+        title: '服饰套图',
+        badge: '服饰展示',
+        category: '电商商务',
+        image: card11,
+        detailName: '服饰套图',
+        detailDescription: '上传同一款服饰的多张图，结合模特图、比例与补充描述，生成整套服饰展示效果图。',
+        promptLead: '围绕服饰版型、模特气质与展示场景生成整套视觉稿，页面保留服饰上传、模特上传、比例和补充描述等核心功能。',
+        createdCost: '8',
+        toolMode: 'fashion-lookbook',
+        generateKind: 'image',
+        uploadTitle: '上传服饰图',
+        promptTitle: '补充描述',
+        promptPlaceholder: '可补充模特气质、展示场景、镜头氛围或穿搭要求',
+        appCode: 'aigc_fashion_lookbook',
+        appPath: '/ai/tools/aigc_fashion_lookbook',
+        implemented: true
+    },
+    {
+        id: 'tool-card-20',
+        appCode: 'aigc_product_multi_angle',
+        title: '商品多角度',
+        badge: '多视角生成',
+        category: '电商商务',
+        image: card7,
+        detailName: '商品多视图/多角度',
+        detailDescription: '上传商品原图后选择需要生成的视角，可补充材质、场景和光线等细节要求，生成多角度商品展示结果。',
+        promptLead: '围绕商品原图、多视角选择和补充描述，输出适合详情页、种草内容与电商投放的多角度展示图像。',
+        createdCost: '8',
+        toolMode: 'product-multi-angle',
+        generateKind: 'image',
+        uploadTitle: '上传原图',
+        promptTitle: '细节补充（选填）',
+        promptPlaceholder: '补充描述，如商品材质、场景要求、光线风格等',
+        appPath: '/ai/tools/aigc_product_multi_angle',
+        implemented: true
+    },
+    {
+        id: 'tool-card-21',
+        title: '产品宣传视频',
+        badge: '视频营销',
+        category: '电商商务',
+        image: card4,
+        detailName: '产品宣传视频',
+        detailDescription: '上传产品图片后选择视频比例、时长和视频类型，可结合描述词生成适合电商传播的产品宣传视频。',
+        promptLead: '上传产品图片后，结合比例、时长、视频类型和描述词，生成适合投流、详情页和种草场景的产品宣传视频。',
+        createdCost: '30',
+        toolMode: 'product-promo-video',
+        generateKind: 'video',
+        uploadTitle: '产品图片',
+        promptTitle: '描述词',
+        promptPlaceholder: '描述产品特点、使用场景或想要的视频效果',
+        appCode: 'aigc_product_promo_video',
+        appPath: '/ai/tools/aigc_product_promo_video',
+        implemented: true
+    },
+    {
+        id: 'tool-card-22',
+        title: '动作迁移',
+        badge: '视频动作',
+        category: '创意',
+        image: card8,
+        detailName: '动作迁移',
+        detailDescription: '上传参考人物图片和参考视频，选择生成模式与处理人数，将参考视频动作迁移到人物形象上。',
+        promptLead: '围绕参考人物图片与动作视频，生成保留人物形象、匹配参考动作的视频作品。',
+        createdCost: '30',
+        toolMode: 'action-transfer',
+        generateKind: 'video',
+        uploadTitle: '参考人物图',
+        promptTitle: '提示词',
+        promptPlaceholder: '可补充人物保持、画面风格或动作迁移要求',
+        appCode: 'aigc_action_transfer',
+        appPath: '/ai/tools/aigc_action_transfer',
+        implemented: true
+    },
+    {
+        id: 'tool-card-23',
+        appCode: 'aigc_model_wear',
+        title: '模特穿戴',
+        badge: '穿戴合成',
+        category: '电商商务',
+        image: card12,
+        detailName: '模特穿戴',
+        detailDescription: '上传模特图和穿戴图后生成更自然的模特穿戴效果，适合服饰、配饰和电商穿搭展示场景。',
+        promptLead: '围绕模特图和穿戴图生成适合电商展示、穿搭预览和种草内容的模特穿戴效果图。',
+        createdCost: '8',
+        toolMode: 'model-wear',
+        generateKind: 'image',
+        uploadTitle: '上传模特图',
+        appPath: '/ai/tools/aigc_model_wear',
+        implemented: true
+    },
+    {
+        id: 'aigc_person_replacement',
+        appCode: 'aigc_person_replacement',
+        title: '动作替换',
+        badge: '视频换人',
+        category: '创意',
+        image: card8,
+        detailName: '动作替换',
+        detailDescription: '上传参考人物图片和输入视频，选择生成模式与处理人数，将视频中的人物动作替换为参考人物效果。',
+        promptLead: '围绕参考人物图片与输入视频，生成保留参考人物形象、匹配原视频动作的视频作品。',
+        createdCost: '30',
+        toolMode: 'person-replacement',
+        generateKind: 'video',
+        uploadTitle: '参考人物图',
+        promptTitle: '提示词',
+        promptPlaceholder: '可补充人物保持、画面风格或动作替换要求',
+        appPath: '/ai/tools/aigc_person_replacement',
+        implemented: true
+    },
+    {
+        id: 'aigc_product_image',
+        appCode: 'aigc_product_image',
+        title: 'AI商品图',
+        badge: '商品视觉',
+        category: '电商商务',
+        image: card4,
+        detailName: 'AI商品图',
+        detailDescription: '上传商品图后选择场景模板或自定义场景，并设置生成尺寸，输出适合电商展示的商品图。',
+        promptLead: '围绕商品主体、场景参考和生成尺寸生成更适合电商详情页、主图和投放场景的 AI 商品图。',
+        createdCost: '8',
+        toolMode: 'product-image',
+        generateKind: 'image',
+        uploadTitle: '上传商品图',
+        appPath: '/ai/tools/aigc_product_image',
+        implemented: true
+    },
+    {
+        id: 'aigc_model_wear',
+        appCode: 'aigc_model_wear',
+        title: '模特穿戴',
+        badge: '穿戴合成',
+        category: '电商商务',
+        image: card12,
+        detailName: '模特穿戴',
+        detailDescription: '上传模特图和穿戴图后选择生成质量与比例，生成自然的模特穿戴效果图。',
+        promptLead: '围绕模特图、穿戴图和补充描述，生成适合电商展示、穿搭预览和种草内容的模特穿戴效果图。',
+        createdCost: '8',
+        toolMode: 'model-wear',
+        generateKind: 'image',
+        uploadTitle: '上传模特图',
+        appPath: '/ai/tools/aigc_model_wear',
+        implemented: true
+    },
+    {
+        id: 'aigc_background_removal',
+        appCode: 'aigc_background_removal',
+        title: '图片去背景',
+        badge: '透明抠图',
+        category: '图片编辑',
+        image: card9,
+        detailName: '图片去背景',
+        detailDescription: '上传图片后选择输出规格，生成透明 PNG 去背景结果，适合电商、设计和内容二次编辑场景。',
+        promptLead: '上传待抠图图片后选择输出规格，AI 会移除背景并输出透明 PNG 作品。',
+        createdCost: '5',
+        toolMode: 'background-removal',
+        generateKind: 'image',
+        uploadTitle: '上传待抠图图片',
+        appPath: '/ai/tools/aigc_background_removal',
+        implemented: true
+    },
+    {
+        id: 'aigc_image_translate',
+        appCode: 'aigc_image_translate',
+        title: '图片翻译',
+        badge: '多语翻译',
+        category: '图片编辑',
+        image: card2,
+        detailName: '图片翻译',
+        detailDescription: '上传需要翻译的图片后，选择原文语言与目标语言，可补充专有名词说明，生成保留版式结构的翻译结果图。',
+        promptLead: '围绕图片中的原始文字内容进行识别与翻译，尽量保留画面排版结构、重点层级与阅读节奏，输出适合跨语言传播的图片翻译结果。',
+        createdCost: '6',
+        toolMode: 'image-translate',
+        generateKind: 'image',
+        uploadTitle: '上传需要翻译的图片',
+        promptTitle: '术语补充（选填）',
+        promptPlaceholder: '可补充品牌名、专有名词、行业术语，或说明哪些文字不需要翻译',
+        appPath: '/ai/tools/aigc_image_translate',
+        implemented: true
+    },
+    {
+        id: 'aigc_one_click_cleanup',
+        appCode: 'aigc_one_click_cleanup',
+        title: '一键消除',
+        badge: '智能清理',
+        category: '图片编辑',
+        image: card8,
+        detailName: '一键消除',
+        detailDescription: '上传主体图后选择消除选项，最多 10 张图批量输出更干净的图片结果。',
+        promptLead: '识别图片中的干扰内容并按选中类型执行智能清理，尽量保留主体结构、材质细节和画面完整度。',
+        createdCost: '5',
+        toolMode: 'one-click-cleanup',
+        generateKind: 'image',
+        uploadTitle: '上传主体图',
+        appPath: '/ai/tools/aigc_one_click_cleanup',
+        implemented: true
+    },
+    {
+        id: 'aigc_fitting',
+        appCode: 'aigc_fitting',
+        title: 'AI试衣',
+        badge: '智能试衣',
+        category: '电商商务',
+        image: card11,
+        detailName: 'AI试衣',
+        detailDescription: '上传服装后选择单图、组图或自定义模特模式，并结合模特、服饰与姿势筛选生成试衣效果图。',
+        promptLead: '围绕上传服装、模特姿势模式与筛选条件，生成适合电商展示、穿搭预览和种草场景的 AI 试衣效果图。',
+        createdCost: '8',
+        toolMode: 'ai-fitting',
+        generateKind: 'image',
+        uploadTitle: '上传服装',
+        appPath: '/ai/tools/aigc_fitting',
+        implemented: true
+    }
+]
+
+export const getDefaultAvailableAppCodes = () => Array.from(new Set(
+    toolCards
+        .map((item) => item.appCode)
+        .filter((appCode): appCode is string => !!appCode)
+))
+
+export const frontendOnlyAppCodes = ['aigc_geo']
+
+const previewPool = [card10, card11, card12, card2, card3, card4, card5, card6, card7, card8, card9]
+
+export const isToolCardImplemented = (item?: ToolCardItem | null) => (
+    !!item && (item.implemented === true || implementedToolCardIds.includes(item.id) || !!item.appPath)
+)
+const videoToolIds = new Set([
+    'tool-card-smart-clip',
+    'tool-card-aigc-digital-human',
+    'tool-card-digital-human-driver'
+])
+const videoToolAppCodes = new Set([
+    'smart_clip',
+    'aigc_video',
+    'aigc_digital_human',
+    'image_human'
+])
+export const getToolCategoryFilter = (
+    item: Pick<ToolCardItem, 'id' | 'appCode' | 'generateKind'>
+): Exclude<ToolCategoryFilter, '全部'> | '' => {
+    if (item.generateKind === 'video') return '视频'
+    if (item.generateKind === 'image') return '图片'
+    if (videoToolIds.has(item.id) || (item.appCode && videoToolAppCodes.has(item.appCode))) return '视频'
+    return ''
+}
+export const buildToolDetailPath = (id: string) => `/ai/tools/${id}`
+export const buildToolCardPath = (item: ToolCardItem) => item.appPath || buildToolDetailPath(item.id)
+const toolDisplayIdAliases: Record<string, string[]> = {
+    aigc_hairstyle: ['tool-card-31'],
+    aigc_fitting: ['tool-card-27'],
+    aigc_product_image: ['tool-card-26'],
+    aigc_style_transfer: ['tool-card-16'],
+    aigc_photo_restore: ['tool-card-12'],
+    aigc_model_wear: ['tool-card-23'],
+    aigc_background_removal: ['tool-card-29'],
+    aigc_image_translate: ['tool-card-28'],
+    aigc_one_click_cleanup: ['tool-card-30'],
+    aigc_product_suite: ['tool-card-17'],
+    aigc_product_multi_angle: ['tool-card-20'],
+    aigc_fashion_lookbook: ['tool-card-18'],
+    aigc_product_promo_video: ['tool-card-21'],
+    aigc_action_transfer: ['tool-card-22'],
+    aigc_person_replacement: [],
+    aigc_outpaint: ['tool-card-14'],
+    aigc_local_redraw: ['tool-card-13']
+}
+const legacyToolDisplayIdMap = Object.entries(toolDisplayIdAliases).reduce<Record<string, string>>((map, [appCode, ids]) => {
+    ids.forEach((id) => {
+        map[id] = appCode
+    })
+    return map
+}, {})
+export const normalizeToolRouteId = (id: string) => legacyToolDisplayIdMap[id] || id
+const normalizeToolDisplayOverrideId = normalizeToolRouteId
+const getToolDisplayOverrideCandidates = (item: ToolCardItem) => {
+    const candidates = [item.id]
+    if (item.appCode) {
+        candidates.push(item.appCode, ...(toolDisplayIdAliases[item.appCode] || []))
+    }
+    return Array.from(new Set(candidates.map(normalizeToolDisplayOverrideId).concat(candidates)))
+}
+const findToolCardByRouteId = (id: string) => {
+    const normalizedId = normalizeToolDisplayOverrideId(id)
+    return toolCards.find((item) => item.id === normalizedId || item.appCode === normalizedId)
+}
+export const buildFeaturedToolPath = (item: FeaturedToolItem) => {
+    const targetTool = findToolCardByRouteId(item.targetToolId)
+    return targetTool ? buildToolCardPath(targetTool) : buildToolDetailPath(item.targetToolId)
+}
+
+export const getDefaultToolCard = () => toolCards[0]
+export const getToolCardById = (id: string) => {
+    if (removedToolCardIds.has(id)) return getDefaultToolCard()
+    return findToolCardByRouteId(id) ?? getDefaultToolCard()
+}
+
+const dedupeToolDisplayCards = (items: ToolCardItem[]) => {
+    const aliasToAppCode: Record<string, string> = {
+        'tool-card-31': 'aigc_hairstyle',
+        'tool-card-27': 'aigc_fitting',
+        'tool-card-26': 'aigc_product_image',
+        'tool-card-16': 'aigc_style_transfer',
+        'tool-card-12': 'aigc_photo_restore',
+        'tool-card-23': 'aigc_model_wear',
+        'tool-card-29': 'aigc_background_removal',
+        'tool-card-28': 'aigc_image_translate',
+        'tool-card-30': 'aigc_one_click_cleanup',
+        'tool-card-17': 'aigc_product_suite',
+        'tool-card-20': 'aigc_product_multi_angle',
+        'tool-card-18': 'aigc_fashion_lookbook',
+        'tool-card-21': 'aigc_product_promo_video',
+        'tool-card-22': 'aigc_action_transfer',
+        'tool-card-14': 'aigc_outpaint',
+        'tool-card-13': 'aigc_local_redraw'
+    }
+    const aliasAppCodes = new Set(
+        items
+            .map((item) => aliasToAppCode[item.id])
+            .filter(Boolean)
+    )
+    return items.filter((item) => {
+        const isRealAppDuplicate = item.appCode && item.id === item.appCode && aliasAppCodes.has(item.appCode)
+        return !isRealAppDuplicate
+    })
+}
+
+export const applyToolDisplayOverrides = (
+    items: ToolCardItem[],
+    overrides: Record<string, ToolDisplayOverride>
+) => dedupeToolDisplayCards(items)
+    .filter((item) => !removedToolCardIds.has(item.id))
+    .map((item, index) => {
+        const override = getToolDisplayOverrideCandidates(item)
+            .map((id) => overrides[id])
+            .find(Boolean)
+        const sort = Number(override?.sort)
+        const enabled = override?.enabled !== false
+        if (!override) {
+            return { item, index, sort: 0, hasSort: false, enabled }
+        }
+        const title = override.title?.trim()
+        const description = override.description?.trim()
+        const badge = override.badge?.trim()
+        const cover = typeof override.cover === 'string' ? override.cover.trim() : undefined
+        const virtualUseCount = override.virtualUseCount?.trim()
+        return {
+            item: {
+                ...item,
+                title: title || item.title,
+                detailName: title || item.detailName,
+                badge: badge || item.badge,
+                image: cover === undefined ? item.image : cover,
+                detailDescription: description || item.detailDescription,
+                promptLead: description || item.promptLead,
+                virtualUseCount: virtualUseCount || item.virtualUseCount
+            },
+            index,
+            sort: Number.isFinite(sort) ? sort : 0,
+            hasSort: Number.isFinite(sort),
+            enabled
+        }
+    })
+    .filter((row) => row.enabled)
+    .sort((left, right) => {
+        if (left.hasSort || right.hasSort) {
+            const sortCompare = right.sort - left.sort
+            if (sortCompare !== 0) return sortCompare
+        }
+        return left.index - right.index
+    })
+    .map((row) => row.item)
+
+export const applyFeaturedToolDisplayOverrides = (
+    items: FeaturedToolItem[],
+    displayToolCards: ToolCardItem[]
+) => items
+    .map((item) => {
+        const targetToolId = normalizeToolDisplayOverrideId(item.targetToolId)
+        const targetTool = displayToolCards.find((tool) => tool.id === targetToolId || tool.appCode === targetToolId)
+        if (!targetTool) return item
+        return {
+            ...item,
+            title: targetTool.title || item.title,
+            description: targetTool.detailDescription || item.description,
+            image: targetTool.image === undefined ? item.image : targetTool.image,
+            category: targetTool.category || item.category
+        }
+    })
+    .filter((item) => {
+        const targetToolId = normalizeToolDisplayOverrideId(item.targetToolId)
+        return displayToolCards.some((tool) => tool.id === targetToolId || tool.appCode === targetToolId)
+    })
+
+export const getToolResultKindLabel = (kind: ToolResultKind) => ({
+    video: '视频生成',
+    image: '图片生成',
+    tool: 'AI工具'
+}[kind])
+
+export const getToolResolutionOutput = (resolution: ToolDetailResolution) => (
+    resolution === '高清4k' ? '4096×4096' : '2048×2048'
+)
+
+export const getToolResultFilterKind = (filter: Exclude<ToolResultFilter, '全部'>): ToolResultKind => ({
+    视频生成: 'video',
+    图片生成: 'image',
+    AI工具: 'tool'
+}[filter])
+
+export const buildToolTimestamp = (date = new Date()) => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    const hours = String(date.getHours()).padStart(2, '0')
+    const minutes = String(date.getMinutes()).padStart(2, '0')
+
+    return `${year}/${month}/${day} ${hours}:${minutes}`
+}
+
+export const getPrimaryToolResultPreview = (item: ToolResultItem) => item.previews?.[0] || item.preview
+
+export const buildToolResultSeed = (tool: ToolCardItem, index: number): ToolResultItem[] => {
+    const pick = (offset: number) => previewPool[(index + offset) % previewPool.length]
+    const prompt =
+        '场景设定（Scene Setting）：背景为纹理化皮纸与层叠文字，主体是一组自然山野微缩景观，搭配苔藓、卵石、干燥植物和装饰道具，整体强调清晰层次与品牌氛围。'
+
+    if (tool.toolMode === 'local-redraw') {
+        const redrawPrompt =
+            '保留人物姿态与环境光线，仅对蒙版区域进行服饰与材质重绘，输出自然、贴合原图的局部编辑结果。'
+
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 14:40',
+                meta: ['1464×2056', '局部重绘'],
+                preview: pick(2),
+                previews: [pick(2)],
+                prompt: redrawPrompt,
+                promptThumbs: [pick(0), pick(1)]
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 15:05',
+                meta: ['1464×2056', '局部重绘'],
+                preview: pick(4),
+                previews: [pick(4)],
+                prompt: redrawPrompt,
+                promptThumbs: [pick(0), pick(3)]
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'outpaint') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 16:10',
+                meta: ['左 1200', '上 1800', '右 600', '下 400'],
+                preview: pick(5),
+                previews: [pick(5)],
+                settings: {
+                    left: 1200,
+                    top: 1800,
+                    right: 600,
+                    bottom: 400
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 17:00',
+                meta: ['左 400', '上 600', '右 1600', '下 1200'],
+                preview: pick(8),
+                previews: [pick(8)],
+                settings: {
+                    left: 400,
+                    top: 600,
+                    right: 1600,
+                    bottom: 1200
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'photo-restore') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 18:20',
+                meta: ['照片修复', 'Nano模型'],
+                preview: pick(9),
+                previews: [pick(9)],
+                settings: {
+                    repairMode: 'repair',
+                    modelVariant: 'nano'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 19:05',
+                meta: ['照片上色', '通用模型'],
+                preview: pick(1),
+                previews: [pick(1)],
+                settings: {
+                    repairMode: 'colorize',
+                    modelVariant: 'general'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'line-drawing') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 20:10',
+                meta: ['Nano模型', '线稿增强'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '保留人物轮廓和服装结构，将整体转换为清晰、简洁的线稿画面。',
+                settings: {
+                    modelVariant: 'nano',
+                    promptText: '保留人物轮廓和服装结构，将整体转换为清晰、简洁的线稿画面。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 20:42',
+                meta: ['通用模型', '线稿基础'],
+                preview: pick(7),
+                previews: [pick(7)],
+                prompt: '突出主体轮廓与明暗转折，生成更适合后续上色的线稿结构。',
+                settings: {
+                    modelVariant: 'general',
+                    promptText: '突出主体轮廓与明暗转折，生成更适合后续上色的线稿结构。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'product-image') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 22:18',
+                meta: ['场景模板', '柔光白底', '1:1(800*800)'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '围绕便携榨汁杯商品，保持主体比例与材质质感不变，使用干净静态背景和柔和布光强化产品轮廓，生成适合电商主图和详情页首屏展示的商品图。',
+                promptThumbs: [pick(2), pick(6)],
+                settings: {
+                    productPreview: pick(2),
+                    productName: '商品图-1.png',
+                    productSource: 'gallery',
+                    styleTab: 'template',
+                    presetKey: 'static-soft-shadow',
+                    presetTitle: '柔光白底',
+                    customStylePreview: '',
+                    customStyleName: '',
+                    customStyleSource: 'gallery',
+                    sizeKey: '1:1',
+                    sizeWidth: '800',
+                    sizeHeight: '800'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 22:42',
+                meta: ['场景模板', '暖金展台', '3:4(750*1000)'],
+                preview: pick(4),
+                previews: [pick(4)],
+                prompt: '围绕香氛喷雾商品，保持包装结构与标签信息完整，结合暖金色展台和层次背景构建更有陈列感的商品画面，突出精致感与礼赠氛围。',
+                promptThumbs: [pick(1), pick(4)],
+                settings: {
+                    productPreview: pick(1),
+                    productName: '商品图-2.png',
+                    productSource: 'gallery',
+                    styleTab: 'template',
+                    presetKey: 'podium-gold-stage',
+                    presetTitle: '暖金展台',
+                    customStylePreview: '',
+                    customStyleName: '',
+                    customStyleSource: 'gallery',
+                    sizeKey: '3:4',
+                    sizeWidth: '750',
+                    sizeHeight: '1000'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'product-suite') {
+        return [
+            {
+                id: `${tool.id}-result-tool-a`,
+                kind: 'tool',
+                title: `工具 - ${tool.detailName}`,
+                createdAt: '2026/03/29 21:10',
+                meta: ['Amazon', '美国', '1:1', '6个模块'],
+                preview: pick(5),
+                prompt: '围绕宠物牵引绳的高强度材质、防爆冲结构、夜间反光与遛狗场景，输出适合 Amazon 美国站详情页的整套商品套图方案，重点覆盖首屏主视觉、核心卖点图、使用场景图、多角度图、细节图和对比图。',
+                promptThumbs: [pick(0), pick(2), pick(4)],
+                settings: {
+                    platformKey: 'amazon',
+                    countryKey: 'us',
+                    languageKey: 'en',
+                    ratioKey: '1:1',
+                    moduleKeys: 'hero|core-benefit|usage-scene|multi-angle|detail|compare'
+                }
+            },
+            {
+                id: `${tool.id}-result-tool-b`,
+                kind: 'tool',
+                title: `工具 - ${tool.detailName}`,
+                createdAt: '2026/03/29 21:48',
+                meta: ['TikTok Shop', '欧洲', '3:4', '5个模块'],
+                preview: pick(8),
+                prompt: '围绕便携榨汁杯的轻量材质、快速榨汁、随行补水和通勤使用场景，输出适合 TikTok Shop 英国站投放的商品套图方案，重点覆盖首屏主视觉、核心卖点图、使用场景图、场景氛围图和尺寸规格图。',
+                promptThumbs: [pick(1), pick(3), pick(6)],
+                settings: {
+                    platformKey: 'tiktok-shop',
+                    countryKey: 'europe',
+                    languageKey: 'en',
+                    ratioKey: '3:4',
+                    moduleKeys: 'hero|core-benefit|usage-scene|mood-scene|size-spec'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'fashion-lookbook') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 22:10',
+                meta: ['3:4', '4张服饰图', '含模特图'],
+                preview: pick(10),
+                previews: [pick(10)],
+                prompt: '围绕法式通勤女装套装，突出面料垂感、通勤场景与模特上身效果，生成适合详情页与种草展示的服饰套图。',
+                promptThumbs: [pick(2), pick(5), pick(7)],
+                settings: {
+                    ratioKey: '3:4',
+                    modelPreview: pick(2),
+                    modelName: '法式通勤-模特图.png',
+                    modelSource: 'gallery',
+                    clothesPreviews: [pick(5), pick(7), pick(9), pick(10)],
+                    clothesNames: ['服饰图-1.png', '服饰图-2.png', '服饰图-3.png', '服饰图-4.png'],
+                    promptText: '围绕法式通勤女装套装，突出面料垂感、通勤场景与模特上身效果，生成适合详情页与种草展示的服饰套图。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/29 22:42',
+                meta: ['1:1', '3张服饰图', '仅服饰图'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '围绕运动休闲卫衣套装，强调版型细节、面料质感与多角度展示，输出适合电商主图和详情页的服饰套图。',
+                promptThumbs: [pick(4), pick(6), pick(8)],
+                settings: {
+                    ratioKey: '1:1',
+                    modelPreview: '',
+                    modelName: '',
+                    modelSource: 'gallery',
+                    clothesPreviews: [pick(4), pick(6), pick(8)],
+                    clothesNames: ['卫衣图-1.png', '卫衣图-2.png', '卫衣图-3.png'],
+                    promptText: '围绕运动休闲卫衣套装，强调版型细节、面料质感与多角度展示，输出适合电商主图和详情页的服饰套图。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'hot-clone') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/30 10:18',
+                meta: ['3:4', '中文', '3张商品图', '4张参考图'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '围绕桌面香薰机的极简外观、氛围灯效、静音雾化和礼赠属性，参考爆款详情页的首屏构图与卖点表达方式，输出更适合种草与电商转化的复刻视觉方案。',
+                promptThumbs: [pick(1), pick(3), pick(5), pick(7), pick(8), pick(9), pick(10)],
+                settings: {
+                    ratioKey: '3:4',
+                    languageKey: 'zh',
+                    productNameText: '桌面氛围香薰机',
+                    promptText: '围绕桌面香薰机的极简外观、氛围灯效、静音雾化和礼赠属性，参考爆款详情页的首屏构图与卖点表达方式，输出更适合种草与电商转化的复刻视觉方案。',
+                    productPreviews: [pick(1), pick(3), pick(5)],
+                    productNames: ['商品图-1.png', '商品图-2.png', '商品图-3.png'],
+                    referencePreviews: [pick(7), pick(8), pick(9), pick(10)],
+                    referenceNames: ['参考图-1.png', '参考图-2.png', '参考图-3.png', '参考图-4.png']
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/03/30 11:06',
+                meta: ['1:1', '英文', '2张商品图', '3张参考图'],
+                preview: pick(4),
+                previews: [pick(4)],
+                prompt: '围绕便携榨汁杯的轻量机身、随行补水、快充便携和通勤使用场景，参考海外爆款主图的构图方式与短句卖点组织，输出更适合跨境站点投放的复刻结果。',
+                promptThumbs: [pick(0), pick(2), pick(4), pick(5), pick(6)],
+                settings: {
+                    ratioKey: '1:1',
+                    languageKey: 'en',
+                    productNameText: 'Portable Juice Cup',
+                    promptText: '围绕便携榨汁杯的轻量机身、随行补水、快充便携和通勤使用场景，参考海外爆款主图的构图方式与短句卖点组织，输出更适合跨境站点投放的复刻结果。',
+                    productPreviews: [pick(0), pick(2)],
+                    productNames: ['商品图-A.png', '商品图-B.png'],
+                    referencePreviews: [pick(4), pick(5), pick(6)],
+                    referenceNames: ['参考图-A.png', '参考图-B.png', '参考图-C.png']
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'product-multi-angle') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 14:18',
+                meta: ['2个视角', '3张原图', '正面、侧面'],
+                preview: pick(7),
+                previews: [pick(7)],
+                prompt: '围绕桌面小风扇商品，保持主体结构、材质和配色一致，输出适合详情页展示的正面与侧面多角度视图，突出扇罩结构、底座细节与产品体积感。',
+                promptThumbs: [pick(1), pick(3), pick(5)],
+                settings: {
+                    viewKeys: 'front|side',
+                    imagePreviews: [pick(1), pick(3), pick(5)],
+                    imageNames: ['原图-1.png', '原图-2.png', '原图-3.png'],
+                    promptText: '围绕桌面小风扇商品，保持主体结构、材质和配色一致，输出适合详情页展示的正面与侧面多角度视图，突出扇罩结构、底座细节与产品体积感。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 15:02',
+                meta: ['3个视角', '2张原图', '背面、俯视、45度角'],
+                preview: pick(9),
+                previews: [pick(9)],
+                prompt: '围绕厨房收纳盒商品，生成背面、俯视和 45 度角展示图，强调透明材质、盖体结构和收纳层次，画面保持干净明亮。',
+                promptThumbs: [pick(0), pick(2)],
+                settings: {
+                    viewKeys: 'back|top|forty-five',
+                    imagePreviews: [pick(0), pick(2)],
+                    imageNames: ['收纳盒-1.png', '收纳盒-2.png'],
+                    promptText: '围绕厨房收纳盒商品，生成背面、俯视和 45 度角展示图，强调透明材质、盖体结构和收纳层次，画面保持干净明亮。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'product-promo-video') {
+        return [
+            {
+                id: `${tool.id}-result-video-a`,
+                kind: 'video',
+                title: tool.detailName,
+                createdAt: '2026/04/03 16:18',
+                meta: ['9:16', '5秒', '产品宣传'],
+                preview: pick(4),
+                prompt: '围绕便携挂脖风扇，突出轻量佩戴、三档风力、户外通勤和夏日清凉感，输出更适合竖版投流的产品宣传视频，节奏轻快，镜头聚焦产品细节与使用场景。',
+                promptThumbs: [pick(1)],
+                settings: {
+                    ratioKey: '9:16',
+                    durationKey: '5',
+                    typeKey: 'product',
+                    promptText: '围绕便携挂脖风扇，突出轻量佩戴、三档风力、户外通勤和夏日清凉感，输出更适合竖版投流的产品宣传视频，节奏轻快，镜头聚焦产品细节与使用场景。'
+                }
+            },
+            {
+                id: `${tool.id}-result-video-b`,
+                kind: 'video',
+                title: tool.detailName,
+                createdAt: '2026/04/03 16:42',
+                meta: ['16:9', '10秒', '功能展示'],
+                preview: pick(6),
+                prompt: '围绕桌面空气炸锅，强调大容量、可视化烹饪窗口、快速出餐和多场景烹饪能力，输出更适合横版详情页和站外传播的功能展示视频。',
+                promptThumbs: [pick(3)],
+                settings: {
+                    ratioKey: '16:9',
+                    durationKey: '10',
+                    typeKey: 'feature',
+                    promptText: '围绕桌面空气炸锅，强调大容量、可视化烹饪窗口、快速出餐和多场景烹饪能力，输出更适合横版详情页和站外传播的功能展示视频。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'shoe-tryon') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 18:12',
+                meta: ['模特图', '鞋图', '试穿效果'],
+                preview: pick(10),
+                previews: [pick(10)],
+                prompt: '围绕通勤休闲穿搭场景，将白色厚底运动鞋自然匹配到模特脚部，保持腿部姿态、服饰风格和整体光线一致，输出更适合电商展示的真实试穿效果图。',
+                promptThumbs: [pick(1), pick(7)],
+                settings: {
+                    modelPreview: pick(1),
+                    modelName: '模特图-1.png',
+                    modelSource: 'gallery',
+                    shoePreview: pick(7),
+                    shoeName: '鞋图-1.png',
+                    shoeSource: 'gallery',
+                    promptText: '围绕通勤休闲穿搭场景，将白色厚底运动鞋自然匹配到模特脚部，保持腿部姿态、服饰风格和整体光线一致，输出更适合电商展示的真实试穿效果图。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 18:36',
+                meta: ['模特图', '鞋图', '试穿效果'],
+                preview: pick(8),
+                previews: [pick(8)],
+                prompt: '保持模特下半身姿态与街拍氛围不变，将复古低帮板鞋自然融合到人物穿着效果中，突出鞋型轮廓、鞋面材质和日常搭配感。',
+                promptThumbs: [pick(3), pick(5)],
+                settings: {
+                    modelPreview: pick(3),
+                    modelName: '模特图-2.png',
+                    modelSource: 'gallery',
+                    shoePreview: pick(5),
+                    shoeName: '鞋图-2.png',
+                    shoeSource: 'gallery',
+                    promptText: '保持模特下半身姿态与街拍氛围不变，将复古低帮板鞋自然融合到人物穿着效果中，突出鞋型轮廓、鞋面材质和日常搭配感。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'model-wear') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 19:12',
+                meta: ['模特图', '穿戴图', '穿戴效果'],
+                preview: pick(9),
+                previews: [pick(9)],
+                prompt: '围绕都市通勤穿搭场景，将上传服饰自然贴合到模特身上，保持人物姿态、服装结构和整体光线协调一致，输出更适合电商展示的模特穿戴效果图。',
+                promptThumbs: [pick(2), pick(6)],
+                settings: {
+                    modelPreview: pick(2),
+                    modelName: '模特图-1.png',
+                    modelSource: 'gallery',
+                    wearPreview: pick(6),
+                    wearName: '穿戴图-1.png',
+                    wearSource: 'gallery',
+                    promptText: '围绕都市通勤穿搭场景，将上传服饰自然贴合到模特身上，保持人物姿态、服装结构和整体光线协调一致，输出更适合电商展示的模特穿戴效果图。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 19:36',
+                meta: ['模特图', '穿戴图', '穿戴效果'],
+                preview: pick(0),
+                previews: [pick(0)],
+                prompt: '保持模特身形比例、动作和拍摄氛围不变，将上传配饰和服装元素自然融合到人物穿搭中，突出材质细节和整体搭配感。',
+                promptThumbs: [pick(4), pick(8)],
+                settings: {
+                    modelPreview: pick(4),
+                    modelName: '模特图-2.png',
+                    modelSource: 'gallery',
+                    wearPreview: pick(8),
+                    wearName: '穿戴图-2.png',
+                    wearSource: 'gallery',
+                    promptText: '保持模特身形比例、动作和拍摄氛围不变，将上传配饰和服装元素自然融合到人物穿搭中，突出材质细节和整体搭配感。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'ai-fitting') {
+        return []
+    }
+
+    if (tool.toolMode === 'buyer-show') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 20:12',
+                meta: ['欧美市场', '含参考图', '买家秀'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '围绕便携咖啡杯商品，输出更贴近日常通勤场景的买家秀效果图，突出真实手机拍摄质感、生活化环境和自然使用状态，适合欧美市场浏览习惯。',
+                promptThumbs: [pick(1), pick(7)],
+                settings: {
+                    productPreview: pick(1),
+                    productName: '商品图-1.png',
+                    productSource: 'gallery',
+                    referencePreview: pick(7),
+                    referenceName: '参考图-1.png',
+                    referenceSource: 'gallery',
+                    productType: 'cup',
+                    productStatus: 'in-use',
+                    presentationMode: 'handheld',
+                    sceneMood: 'lifestyle',
+                    productRealism: 'high',
+                    environmentRealism: 'natural',
+                    shootRealism: 'phone',
+                    targetMarket: 'global',
+                    promptText: '围绕便携咖啡杯商品，输出更贴近日常通勤场景的买家秀效果图，突出真实手机拍摄质感、生活化环境和自然使用状态，适合欧美市场浏览习惯。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 20:38',
+                meta: ['东南亚市场', '无参考图', '买家秀'],
+                preview: pick(4),
+                previews: [pick(4)],
+                prompt: '围绕家用收纳盒商品，生成更适合东南亚电商场景的真实买家秀效果，画面强调家庭环境、自然摆拍感和轻社交分享氛围。',
+                promptThumbs: [pick(3)],
+                settings: {
+                    productPreview: pick(3),
+                    productName: '商品图-2.png',
+                    productSource: 'gallery',
+                    referencePreview: '',
+                    referenceName: '',
+                    referenceSource: 'gallery',
+                    productType: 'home',
+                    productStatus: 'new',
+                    presentationMode: 'display',
+                    sceneMood: 'warm',
+                    productRealism: 'medium',
+                    environmentRealism: 'lifestyle',
+                    shootRealism: 'natural',
+                    targetMarket: 'sea',
+                    promptText: '围绕家用收纳盒商品，生成更适合东南亚电商场景的真实买家秀效果，画面强调家庭环境、自然摆拍感和轻社交分享氛围。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'selling-point-card') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 21:24',
+                meta: ['3:4', '美国市场'],
+                preview: pick(5),
+                previews: [pick(5)],
+                prompt: '围绕便携榨汁杯商品生成更适合电商详情页展示的卖点图，突出轻便随行、快速榨汁和高颜值外观，版式清晰、信息聚焦。',
+                promptThumbs: [pick(5), pick(8)],
+                settings: {
+                    productPreview: pick(5),
+                    productName: '商品图-1.png',
+                    productSource: 'gallery',
+                    referencePreview: pick(8),
+                    referenceName: '参考图-1.png',
+                    referenceSource: 'gallery',
+                    ratioKey: '3:4',
+                    productType: 'small-appliance',
+                    language: 'en',
+                    coreSellingPoint: 'single-copy',
+                    layoutStyle: 'left-product-right-copy',
+                    focus: 'function',
+                    mainTitle: 'auto',
+                    subTitle: 'auto',
+                    supportingElement: 'icon',
+                    targetMarket: 'us',
+                    promptText: '围绕便携榨汁杯商品生成更适合电商详情页展示的卖点图，突出轻便随行、快速榨汁和高颜值外观，版式清晰、信息聚焦。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 21:46',
+                meta: ['9:16', '东南亚市场'],
+                preview: pick(2),
+                previews: [pick(2)],
+                prompt: '围绕防泼水双肩背包生成竖版卖点图，强调大容量收纳、轻量通勤和多场景出行使用感，信息层级清晰，适合移动端浏览。',
+                promptThumbs: [pick(2)],
+                settings: {
+                    productPreview: pick(2),
+                    productName: '商品图-2.png',
+                    productSource: 'gallery',
+                    referencePreview: '',
+                    referenceName: '',
+                    referenceSource: 'gallery',
+                    ratioKey: '9:16',
+                    productType: 'backpack',
+                    language: 'th',
+                    coreSellingPoint: 'main-with-side-copy',
+                    layoutStyle: 'product-top-copy-bottom',
+                    focus: 'design',
+                    mainTitle: 'auto',
+                    subTitle: 'auto',
+                    supportingElement: 'data',
+                    targetMarket: 'sea',
+                    promptText: '围绕防泼水双肩背包生成竖版卖点图，强调大容量收纳、轻量通勤和多场景出行使用感，信息层级清晰，适合移动端浏览。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'style-transfer') {
+        return []
+    }
+
+    if (tool.toolMode === 'image-translate') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/03 23:56',
+                meta: ['自动识别', '英文', '图片翻译'],
+                preview: pick(2),
+                previews: [pick(2)],
+                prompt: '识别图片中的中文营销文案并翻译为英文，保留原有排版层级、重点标题和按钮信息，品牌名与产品型号保持不翻译。',
+                promptThumbs: [pick(2)],
+                settings: {
+                    sourceLanguage: 'auto',
+                    targetLanguage: 'en',
+                    promptText: '品牌名与产品型号保持不翻译。'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/04 00:12',
+                meta: ['英文', '日文', '图片翻译'],
+                preview: pick(7),
+                previews: [pick(7)],
+                prompt: '将图片中的英文说明翻译为日文，尽量保留主标题、卖点分区和标注位置，技术参数用更贴近日语电商表达的方式呈现。',
+                promptThumbs: [pick(7)],
+                settings: {
+                    sourceLanguage: 'en',
+                    targetLanguage: 'ja',
+                    promptText: '技术参数用更贴近日语电商表达的方式呈现。'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'background-removal') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/04 00:26',
+                meta: ['透明背景', '主体保留', '图片去背景'],
+                preview: pick(4),
+                previews: [pick(4)],
+                prompt: '识别商品主体并移除背景，保留瓶身边缘高光、透明材质和标签细节，输出适合详情页和海报合成的去背景结果。',
+                promptThumbs: [pick(4)],
+                settings: {
+                    imagePreview: pick(4),
+                    imageName: '商品图-去背景-1.png',
+                    imageSource: 'gallery'
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/04 00:39',
+                meta: ['透明背景', '人物主体', '图片去背景'],
+                preview: pick(6),
+                previews: [pick(6)],
+                prompt: '移除人物背景并保留发丝、服装边缘和半透明区域，输出更适合后续拼贴与版式设计的去背景结果。',
+                promptThumbs: [pick(6)],
+                settings: {
+                    imagePreview: pick(6),
+                    imageName: '人物图-去背景-1.png',
+                    imageSource: 'gallery'
+                }
+            }
+        ]
+    }
+
+    if (tool.toolMode === 'hairstyle-change') {
+        return []
+    }
+
+    if (tool.toolMode === 'one-click-cleanup') {
+        return [
+            {
+                id: `${tool.id}-result-image-a`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/04 00:56',
+                meta: ['3张主体图', '2项内容', '水印、文字'],
+                preview: pick(5),
+                previews: [pick(5)],
+                prompt: '批量识别图片中的水印和文字信息并进行清理，尽量保留商品主体、阴影关系和背景干净度，输出更适合详情页展示的结果。',
+                promptThumbs: [pick(5), pick(6), pick(7)],
+                settings: {
+                    imagePreviews: [pick(5), pick(6), pick(7)],
+                    imageNames: ['主体图-1.png', '主体图-2.png', '主体图-3.png'],
+                    optionKeys: ['watermark', 'text']
+                }
+            },
+            {
+                id: `${tool.id}-result-image-b`,
+                kind: 'image',
+                title: tool.detailName,
+                createdAt: '2026/04/04 01:08',
+                meta: ['2张主体图', '3项内容', 'Icon、牛皮癣、文字'],
+                preview: pick(2),
+                previews: [pick(2)],
+                prompt: '清理图片中的小图标、牛皮癣贴片和多余文字，尽量维持主体边缘、质感和背景过渡自然，输出更整洁的商品展示图。',
+                promptThumbs: [pick(2), pick(3)],
+                settings: {
+                    imagePreviews: [pick(2), pick(3)],
+                    imageNames: ['主体图-A.png', '主体图-B.png'],
+                    optionKeys: ['icon', 'sticker', 'text']
+                }
+            }
+        ]
+    }
+
+    return [
+        {
+            id: `${tool.id}-result-image`,
+            kind: 'image',
+            title: '图片生成',
+            createdAt: '2026/03/29 14:40',
+            meta: ['2:3', '2k', '豆包 seed-2-0-pro'],
+            preview: pick(3),
+            previews: [pick(3), pick(4), pick(5), pick(6)],
+            prompt,
+            promptThumbs: [pick(1), pick(2)]
+        },
+        {
+            id: `${tool.id}-result-video`,
+            kind: 'video',
+            title: '视频生成',
+            createdAt: '2026/03/29 14:40',
+            meta: ['16:9', '15s', '豆包 seed-2-0-pro'],
+            preview: pick(0),
+            prompt,
+            promptThumbs: [pick(1), pick(2)]
+        },
+        {
+            id: `${tool.id}-result-tool`,
+            kind: 'tool',
+            title: `工具 - ${tool.detailName}`,
+            createdAt: '2026/03/29 14:40',
+            meta: ['1464×2056'],
+            preview: pick(7)
+        }
+    ]
+}

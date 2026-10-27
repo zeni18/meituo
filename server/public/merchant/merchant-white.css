@@ -1,0 +1,31 @@
+/* Only the merchant white-theme gate owns this layer. No short-drama/canvas selectors. */
+html[data-merchant-white=true] {
+  color-scheme: light;
+  background: var(--ui-bg, #F4F5F7);
+  --skin-bg: var(--ui-bg, #F4F5F7);
+  --skin-surface: var(--ui-surface, #FFFFFF);
+  --skin-raised: var(--ui-surface-2, #F7F8FA);
+  --skin-elevated: var(--ui-surface, #FFFFFF);
+  --skin-popup: var(--ui-surface, #FFFFFF);
+  --skin-text: var(--ui-text, #16171D);
+  --skin-muted: var(--ui-text-2, #5E6270);
+  --skin-border: var(--ui-line-strong, rgba(22,23,29,.14));
+  --skin-accent: var(--ui-accent, #5B5CF6);
+  --skin-accent-hover: var(--ui-accent-hover, #4B4CE6);
+  --skin-accent-text: var(--ui-accent, #5B5CF6);
+  --skin-texture: none;
+  --skin-backdrop: none;
+  --skin-home-background: none;
+  --skin-home-glow-primary: none;
+  --skin-home-glow-secondary: none;
+  --skin-heading-shadow: none;
+}
+html[data-merchant-white=true] body,
+html[data-merchant-white=true] #__nuxt {
+  background: var(--ui-bg, #F4F5F7);
+  color: var(--ui-text, #16171D);
+}
+/* Defense for an already-open panel during a route transition. Patched Vue does not mount these. */
+html[data-merchant-white=true] :is(.ia-skin-background,.skin-particles,.home-stars,.ia-appearance,.appearance-panel,.skin-editor) {
+  display: none !important;
+}

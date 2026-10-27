@@ -1,0 +1,28 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('public/merchant/brand-v2.js','utf8');
+const helpers=source.slice(source.indexOf('    function cleanPhone('),source.indexOf('    const words ='));
+const scope={};vm.runInNewContext(helpers+';this.phone={normalizePhone,phoneLengthError,wirePhone};',scope);
+const api=scope.phone,fixtures=JSON.parse(fs.readFileSync('tests/fixtures/merchant-contact-phone.json','utf8'));
+for(const [input,expected]of fixtures.valid)assert.equal(api.normalizePhone(input),expected,input);
+for(const input of fixtures.invalid)assert.throws(()=>api.normalizePhone(input),{name:'Error'},input);
+let writes=0;
+const el={_value:'',attrs:{},events:{},selectionStart:0,selectionEnd:0,get value(){return this._value;},set value(v){writes++;this._value=v;},setAttribute(k,v){this.attrs[k]=v;},addEventListener(k,fn){this.events[k]=fn;},focus(){this.focused=true;}};
+const error={textContent:'',hidden:true};
+const read=api.wirePhone({querySelector:s=>s==='[name=mobile]'?el:error});
+function value(v,start=v.length,end=start){el._value=v;el.selectionStart=start;el.selectionEnd=end;}
+value('13812345678');let blocked=false;
+el.events.beforeinput({data:'9',inputType:'insertText',preventDefault(){blocked=true;}});
+assert.equal(blocked,true);assert.equal(el.value,'13812345678');assert.match(error.textContent,/11位/);
+blocked=false;value('13812345678',0,11);
+el.events.paste({clipboardData:{getData:()=>fixtures.invalid[0]},preventDefault(){blocked=true;}});
+assert.equal(blocked,true);assert.equal(el.value,'13812345678','Reject an oversized paste as a whole, never silently change the phone');
+blocked=false;value('13812345678',3,7);
+el.events.beforeinput({data:'9876',inputType:'insertText',preventDefault(){blocked=true;}});assert.equal(blocked,false,'Replacing selected digits remains usable');
+value(fixtures.invalid[0]);assert.equal(read(),null);assert.equal(el.focused,true);assert.equal(el.attrs['aria-invalid'],'true');
+value('１３８１２３４５６７８');el.events.blur();assert.equal(el.value,'13812345678');assert.equal(error.hidden,true);
+value('1381234567');const previous=writes;el.events.input();assert.equal(writes,previous,'Validation during input cannot rewrite the value or move the caret');
+value('');assert.equal(read(),'','Contact number stays optional');
+for(const [input]of fixtures.valid)assert.equal(api.phoneLengthError(input),'','Valid landlines/extensions/international numbers must remain pasteable');
+assert.match(api.phoneLengthError('0571-87011233 转 1234567'),/6位/);
+console.log('PASS shared phone fixtures, typed digit limit, whole-paste rejection, selection replacement, autofill/programmatic rejection, fullwidth normalization, caret preservation and optional empty value.');

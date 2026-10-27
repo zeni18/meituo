@@ -1,0 +1,185 @@
+/* Light merchant workspace: surfaces define hierarchy; borders are reserved for
+   interaction states. Keep the chosen skin accent and all dark styles intact. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light {
+  --ia-bg: color-mix(in srgb, var(--skin-bg, #fff) 94%, #8995ad);
+  --ia-surface: color-mix(in srgb, var(--skin-bg, #fff) 12%, #fff);
+  --ia-card: var(--ia-surface);
+  --ia-elevated: var(--ia-surface);
+  --ia-text: color-mix(in srgb, var(--skin-text, #0f0f0f) 84%, #8995ad);
+  --ia-muted: color-mix(in srgb, var(--skin-text, #0f0f0f) 62%, #8995ad);
+  --ia-hover: color-mix(in srgb, var(--ia-surface) 91%, #8995ad);
+  --ia-hover-strong: color-mix(in srgb, var(--ia-surface) 83%, #8995ad);
+  --ia-border: color-mix(in srgb, var(--ia-text) 10%, var(--ia-surface));
+  --ia-border-subtle: color-mix(in srgb, var(--ia-text) 5%, var(--ia-surface));
+  --ia-accent-soft: color-mix(in srgb, var(--ia-accent) 9%, var(--ia-surface));
+  --ia-accent-soft-hover: color-mix(in srgb, var(--ia-accent) 14%, var(--ia-surface));
+  --ia-option-menu-bg: var(--ia-surface);
+  --ia-option-selected-bg: var(--ia-accent-soft);
+  --ia-option-selected-text: var(--ia-text);
+  --ia-option-selected-muted: var(--ia-muted);
+  --ia-popup-border: var(--ia-border-subtle);
+  --ia-shadow: rgba(36, 45, 70, .08);
+  --ia-panel-shadow: 0 12px 40px rgba(36, 45, 70, .1);
+  --merchant-card-shadow: 0 2px 12px rgba(36, 45, 70, .035);
+  --merchant-field-bg: color-mix(in srgb, var(--ia-surface) 94%, #8995ad);
+  scrollbar-color: var(--ia-hover-strong) transparent;
+}
+
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .imagine-aigc .ia-sidebar {
+  background: var(--ia-surface);
+  border-right-color: transparent;
+  box-shadow: 1px 0 0 var(--ia-border-subtle);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .imagine-aigc .ia-header {
+  background: var(--ia-surface);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .imagine-aigc :is(.ia-nav-item.active, .mw-nav-active, .mw-material-current) {
+  background: var(--ia-accent-soft);
+  color: var(--merchant-selected-text, var(--ia-text));
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.ia-navigation, .mc-editor, .mc-preview, .mc-dialog, .mc-picker-grid, .ml-content, .ml-folders) {
+  scrollbar-color: var(--ia-hover-strong) transparent;
+  scrollbar-width: thin;
+}
+
+/* Editor cards and toolbar. Border width stays stable to avoid layout jumps. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-top, .mc-panel, .mc-preview, .mc-script-page) {
+  background: var(--ia-surface);
+  border-color: transparent;
+  border-radius: 16px;
+  box-shadow: var(--merchant-card-shadow);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-modes {
+  background: var(--merchant-field-bg);
+  border-color: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-mode[aria-pressed=true] {
+  box-shadow: 0 3px 9px color-mix(in srgb, var(--ia-accent) 18%, transparent);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-button:not(.mc-primary):not(.mc-choice):not(.mc-add-tile):not([aria-pressed=true]) {
+  background: var(--merchant-field-bg);
+  border-color: transparent;
+  border-radius: 10px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-button:not(.mc-primary):hover:not(:disabled) {
+  background: var(--ia-hover);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-primary {
+  border-radius: 10px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-setting-row, .mc-global-row) {
+  border-bottom-color: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-output-settings, .mc-preview-service, .mc-optional-extras) {
+  border-color: var(--ia-border-subtle);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-global-row .mc-button, .mc-pool-head > .mc-button, .mc-settings-toggle) {
+  background: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-choice[aria-pressed=true] {
+  background: var(--ia-accent-soft);
+  border-color: transparent;
+  color: var(--merchant-selected-text, var(--ia-text));
+  font-weight: 500;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-choice-group :is(.mc-choice:not([aria-pressed=true])):before {
+  border-color: color-mix(in srgb, var(--ia-text) 35%, var(--ia-surface));
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-global-row .mc-check input:not(:checked) {
+  background: var(--ia-hover-strong);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-global-row .mc-check input:after {
+  background: var(--ia-surface);
+  box-shadow: 0 1px 3px rgba(36, 45, 70, .12);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-add-tile {
+  background: var(--merchant-field-bg);
+  border-color: transparent;
+  border-radius: 12px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-add-tile:hover:not(:disabled) {
+  background: var(--ia-accent-soft);
+  color: var(--merchant-selected-text, var(--ia-text));
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-screen[data-filled=false] {
+  background: var(--merchant-field-bg) !important;
+  border-radius: 12px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-preview-divider:before {
+  background: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio .mc-preview-toggle {
+  border-color: transparent;
+  border-radius: 9px;
+  background: var(--ia-surface);
+  box-shadow: 0 2px 10px rgba(36, 45, 70, .1);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-asset, .mc-plan, .mc-script-composer, .mc-sticker, .mc-pick) {
+  border-color: var(--ia-border-subtle);
+  background: var(--merchant-field-bg);
+}
+/* Keep functional selection unmistakable in material and shot pickers. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .mc-studio :is(.mc-pick:has(input:checked), .mc-group-card[aria-pressed=true], .mc-shot[aria-pressed=true]) {
+  border-color: var(--ia-accent);
+  background: var(--ia-accent-soft);
+}
+
+/* Shared controls use filled surfaces, including native-quality dropdowns. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mc-field, .mc-slider-field, .mw-field, .ms-stores, .ml-library, .mp-page, .md-field) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]), textarea),
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mc-input, .ml-folder-search, .ml-material-search, .mp-filters input) {
+  border-color: transparent;
+  background: var(--merchant-field-bg);
+  border-radius: 10px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .ds-select:not(.ds-select-admin) .ds-select-trigger {
+  background: var(--merchant-field-bg);
+  border-color: transparent;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .ds-select:not(.ds-select-admin) .ds-select-trigger:hover {
+  background: var(--ia-hover);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .ds-select:not(.ds-select-admin) .ds-select-trigger[aria-expanded=true] {
+  border-color: var(--ia-accent);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mw-secondary, .ml-button:not(.ml-primary), .ml-icon-button) {
+  background: var(--merchant-field-bg);
+  border-color: transparent;
+  border-radius: 10px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mw-secondary, .ml-button:not(.ml-primary), .ml-icon-button):hover:not(:disabled) {
+  background: var(--ia-hover);
+}
+
+/* Carry the same surface hierarchy through stores, assets and publishing. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.ms-shell, .mw-record, .mp-table-wrap, .mp-folders, .mp-film, .ml-media-card) {
+  background: var(--ia-surface);
+  border-color: transparent;
+  box-shadow: var(--merchant-card-shadow);
+  border-radius: 14px;
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.ml-folders, .md-left, .md-right, .md-header) {
+  background: var(--ia-surface);
+  border-color: var(--ia-border-subtle);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light .ml-footer {
+  background: var(--ia-surface);
+  border-color: transparent;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(36, 45, 70, .07);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.ml-media-card, .mp-film).is-selected {
+  border-color: var(--ia-accent);
+  background: var(--ia-accent-soft);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mc-dialog, .mw-dialog, .ms-dialog, .mp-dialog, .ml-dialog, .md-modal, .mc-popover-panel, .mc-document-panel) {
+  background: var(--ia-surface);
+  border-color: var(--ia-border-subtle);
+  box-shadow: var(--ia-panel-shadow);
+}
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mc-dialog, .mw-dialog, .ms-dialog, .mp-dialog, .ml-dialog, .md-modal)::backdrop {
+  background: rgba(31, 39, 61, .3);
+}
+/* Preserve the original focus rings, invalid states and accent actions. */
+html[data-pc-design=imagine][data-pc-theme=light].theme-light :is(.mc-studio, .mw-workspace, .ml-library, .mp-page) [aria-invalid=true] {
+  border-color: var(--ia-danger);
+}

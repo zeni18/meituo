@@ -1,0 +1,24 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const ts=require('../frontend/geo-semi/node_modules/typescript');
+const source=fs.readFileSync('frontend/geo-semi/src/diagnosis-model.ts','utf8');
+const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const scope={exports:{}};vm.runInNewContext(js,scope);const {diagnosisModel}=scope.exports;
+let result=diagnosisModel([]);
+assert.equal(result.counts.waiting,5);assert.equal(result.counts.success,0);assert.equal(result.pending,false);
+assert.equal(result.platforms[0].samples,undefined,'no diagnosis is not zero brand exposure');
+const jobs=[{platform:'豆包',status:'success'},{platform:'豆包',status:'queued'},{platform:'DeepSeek',status:'polling'},{platform:'Kimi',status:'review'},{platform:'腾讯元宝',status:'failed'},{platform:'通义千问',status:'success'}];
+result=diagnosisModel([{platform:'豆包',samples:3,questions:2,mentions:0}],{jobs});
+assert.equal(result.platforms[0].status,'running','partially completed queue remains unfinished');
+assert.equal(result.platforms[0].mentions,0,'zero actual mentions is preserved');
+assert.equal(result.counts.running,2);assert.equal(result.counts.alert,2);assert.equal(result.counts.success,1);
+assert.equal(result.pending,true,'queued and polling jobs keep the local status refresh active');
+assert.equal(Object.values(result.counts).reduce((a,b)=>a+b,0),5,'platform categories never double count');
+result=diagnosisModel([{platform:'DeepSeek',samples:99}],{jobs:[]});
+assert.equal(result.platforms.find(p=>p.platform==='DeepSeek').status,'waiting','historical samples do not complete a new batch');
+result=diagnosisModel([{platform:'文心一言',samples:2}],{jobs:[{platform:'ChatGPT',status:'polling'},{platform:'文心一言',status:'success'}]});
+assert.equal(result.platforms.length,7,'additional provider platforms remain visible in diagnosis progress');
+assert.equal(result.platforms.find(p=>p.platform==='文心一言').status,'success');
+assert.equal(result.counts.running,1);assert.equal(result.pending,true);
+const manifest=JSON.parse(fs.readFileSync('public/merchant/images/platforms/sources.json','utf8'));
+assert.equal(manifest.length,8);for(const item of manifest){assert.ok(fs.statSync('public/merchant/images/platforms/'+item.file).size>100);assert.match(item.official_page,/^https:\/\//);}
+console.log('GEO diagnosis: empty, queued, running, partial, review, failure, historical evidence and eight local logo assets passed.');

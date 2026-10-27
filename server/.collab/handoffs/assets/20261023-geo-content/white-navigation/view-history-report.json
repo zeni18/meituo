@@ -1,0 +1,82 @@
+{
+  "realCompiledHistory": true,
+  "networkRequests": 0,
+  "checks": [
+    {
+      "name": "页签替换不增加历史，随后跨页返回保留最新页签",
+      "passed": true,
+      "evidence": {
+        "backTarget": "/ai/geo?tenant_id=1&brand_id=11#articles",
+        "direction": "back"
+      }
+    },
+    {
+      "name": "连续详情可逐级返回/前进，原生缓存方向和步数正确",
+      "passed": true,
+      "evidence": {
+        "visits": [
+          {
+            "to": "/ai/geo?tenant_id=1&brand_id=11#articles",
+            "delta": -1,
+            "direction": "back"
+          },
+          {
+            "to": "/ai/geo?tenant_id=1&brand_id=11#keywords",
+            "delta": -1,
+            "direction": "back"
+          },
+          {
+            "to": "/ai/geo?tenant_id=1&brand_id=11#articles",
+            "delta": 1,
+            "direction": "forward"
+          },
+          {
+            "to": "/ai/geo?tenant_id=1&brand_id=11#effect-jobs",
+            "delta": 1,
+            "direction": "forward"
+          }
+        ]
+      }
+    },
+    {
+      "name": "详情后原生跨页 push/replace 保留连续位置和正确返回",
+      "passed": true,
+      "evidence": {
+        "stack": [
+          {
+            "url": "/ai/geo?tenant_id=1&brand_id=11#keywords",
+            "position": 0
+          },
+          {
+            "url": "/ai/geo?tenant_id=1&brand_id=11#articles",
+            "position": 1
+          },
+          {
+            "url": "/ai/geo?tenant_id=1&brand_id=11#effect-jobs",
+            "position": 2
+          },
+          {
+            "url": "/ai/tools?tenant_id=1",
+            "position": 3
+          }
+        ],
+        "back": {
+          "to": "/ai/geo?tenant_id=1&brand_id=11#effect-jobs",
+          "from": "/ai/tools?tenant_id=1",
+          "delta": -1,
+          "type": "pop",
+          "direction": "back"
+        }
+      }
+    },
+    {
+      "name": "页签 replace 保留既有前后入口与 position，重复目标不造历史",
+      "passed": true,
+      "evidence": {
+        "position": 1,
+        "back": "/ai/geo?tenant_id=1&brand_id=11#keywords",
+        "forward": "/ai/geo?tenant_id=1&brand_id=11#effect-jobs"
+      }
+    }
+  ]
+}

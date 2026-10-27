@@ -1,0 +1,205 @@
+/* AI创作台 · 克制的轻拟态后台
+   原则：中性灰阶承载结构，靠字号/字重/留白/细分隔线建立层级；不使用浅色底图标块和彩色标签。
+   主题色只出现在：唯一主操作、聚焦环、当前步骤指示。品牌对象用深色石墨卡面强调。
+   颜色全部来自 --s-* 令牌，暗色在 .semi-always-dark 下重定义。 */
+.gcs-studio{
+ --s-card:#fff;--s-sunken:#f5f6f8;--s-hover:#f2f3f5;--s-line:#e8eaee;--s-line-2:#d9dce3;
+ --s-ink:#14161b;--s-ink-2:#3b404a;--s-muted:#6b717d;--s-faint:#a2a7b1;
+ --s-accent:var(--semi-color-primary);--s-ring:color-mix(in srgb,var(--s-accent) 16%,transparent);
+ --s-check:#14161b;--s-ok:#16804f;--s-warn:#b25a07;
+ --s-graphite:linear-gradient(155deg,#2b2f38 0%,#17191f 62%,#101216 100%);
+ --s-shadow:0 1px 2px rgba(16,18,24,.04),0 6px 20px rgba(16,18,24,.045);
+ --s-shadow-lg:0 1px 2px rgba(16,18,24,.05),0 18px 44px rgba(16,18,24,.10);
+ --s-r:18px;--s-r-sm:10px;
+ --gcs-ink:var(--s-ink);--gcs-secondary:var(--s-ink-2);--gcs-muted:var(--s-muted);--gcs-purple:var(--s-accent);--gcs-tint:var(--s-sunken);--gcs-line:var(--s-line);--gcs-paper:var(--s-card);--gcs-canvas:var(--s-sunken);
+ color:var(--s-ink);min-width:0
+}
+.semi-always-dark .gcs-studio{
+ --s-card:#1b1d23;--s-sunken:#22252c;--s-hover:#262930;--s-line:#2c3038;--s-line-2:#3a3f49;
+ --s-ink:#eceef2;--s-ink-2:#c5c9d1;--s-muted:#959ba6;--s-faint:#6c727d;
+ --s-check:var(--s-accent);--s-ok:#4cc38a;--s-warn:#e9a04f;
+ --s-graphite:linear-gradient(155deg,#343944 0%,#23262e 60%,#1b1e24 100%);
+ --s-shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);--s-shadow-lg:0 18px 44px rgba(0,0,0,.45)
+}
+.gi-workspace.is-creation-studio>.gs-page-content{padding:0;background:transparent;border:0;min-height:0}.is-creation-studio .gi-heading{margin-bottom:18px}
+
+/* —— Semi 控件：中性皮肤 —— */
+.geo-semi .gcs-studio .semi-input-wrapper,.geo-semi .gcs-studio .semi-select,.geo-semi .gcs-studio .semi-input-textarea-wrapper{background:var(--s-card);border:1px solid var(--s-line-2);border-radius:var(--s-r-sm);transition:border-color .15s,box-shadow .15s}
+.geo-semi .gcs-studio .semi-input-wrapper:hover,.geo-semi .gcs-studio .semi-select:hover,.geo-semi .gcs-studio .semi-input-textarea-wrapper:hover{background:var(--s-card);border-color:var(--s-faint)}
+.geo-semi .gcs-studio .semi-input-wrapper-focus,.geo-semi .gcs-studio .semi-select-focus,.geo-semi .gcs-studio .semi-select-open,.geo-semi .gcs-studio .semi-input-textarea-wrapper-focus{background:var(--s-card);border-color:var(--s-accent);box-shadow:0 0 0 3px var(--s-ring)}
+.geo-semi .gcs-studio .semi-input,.geo-semi .gcs-studio .semi-input-textarea,.geo-semi .gcs-studio .semi-select-selection{color:var(--s-ink)}
+.geo-semi .gcs-studio .semi-input::placeholder,.geo-semi .gcs-studio .semi-input-textarea::placeholder,.geo-semi .gcs-studio .semi-select-selection-placeholder{color:var(--s-faint)}
+.geo-semi .gcs-studio .semi-select-arrow,.geo-semi .gcs-studio .semi-input-textarea-counter{color:var(--s-faint)}
+.geo-semi .gcs-studio .semi-select-multiple .semi-tag{background:var(--s-sunken);color:var(--s-ink-2);border:0;border-radius:6px;max-width:180px}
+.geo-semi .gcs-studio .semi-select-multiple .semi-select-selection{overflow:hidden;min-width:0}.geo-semi .gcs-studio .semi-select-multiple .semi-tag-group{flex-wrap:wrap;max-width:100%}
+.geo-semi .gcs-studio .semi-button{border-radius:var(--s-r-sm);font-weight:500;transition:background .15s,color .15s,border-color .15s,box-shadow .15s}
+.geo-semi .gcs-studio .semi-button-light{background:var(--s-card);color:var(--s-ink);border:1px solid var(--s-line-2)}
+.geo-semi .gcs-studio .semi-button-light:not(.semi-button-disabled):hover{background:var(--s-hover);color:var(--s-ink);border-color:var(--s-faint)}
+.geo-semi .gcs-studio .semi-button-borderless{background:transparent;color:var(--s-ink-2)}
+.geo-semi .gcs-studio .semi-button-borderless:not(.semi-button-disabled):hover{background:var(--s-hover);color:var(--s-ink)}
+.geo-semi .gcs-studio .semi-button-solid.semi-button-primary{background:var(--s-accent);color:#fff;border:0;box-shadow:0 1px 2px rgba(16,18,24,.12),inset 0 1px 0 rgba(255,255,255,.14)}
+.geo-semi .gcs-studio .semi-button-solid.semi-button-primary:not(.semi-button-disabled):hover{background:color-mix(in srgb,var(--s-accent) 88%,#000)}
+.geo-semi .gcs-studio .semi-button-disabled,.geo-semi .gcs-studio .semi-button-disabled:hover{background:var(--s-sunken)!important;color:var(--s-faint)!important;border-color:transparent!important;box-shadow:none!important}
+.geo-semi .gcs-studio .semi-button-borderless.semi-button-disabled{background:transparent!important}
+.gcs-studio .semi-checkbox{--semi-color-primary:var(--s-check);--semi-color-primary-hover:var(--s-check);--semi-color-primary-active:var(--s-check)}
+.geo-semi .gcs-studio .semi-checkbox-inner-display{border-radius:5px}
+
+/* —— 顶部：分段模式切换 + 文字工具 —— */
+.gcs-toolbar,.gcs-tools{display:flex;align-items:center;gap:4px}.gcs-toolbar{justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0 0 16px}
+.gcs-modes{display:flex;gap:2px;padding:4px;border-radius:14px;background:var(--s-hover);border:1px solid var(--s-line)}
+.geo-semi .gcs-mode{display:flex;align-items:center;min-height:50px;padding:7px 18px;border:0;border-radius:10px;background:transparent;color:var(--s-muted);font:inherit;text-align:left;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
+.geo-semi .gcs-mode:hover{color:var(--s-ink)}
+.geo-semi .gcs-mode.is-active{color:var(--s-ink);background:var(--s-card);box-shadow:0 1px 2px rgba(16,18,24,.06),0 2px 8px rgba(16,18,24,.06)}
+.gcs-mode strong{display:block;font-size:14px;font-weight:600;line-height:1.4}.gcs-mode small{display:block;font-size:11px;line-height:1.5;color:var(--s-faint);margin-top:1px;white-space:nowrap}
+.gcs-mode.is-active small{color:var(--s-muted)}
+.geo-semi .gcs-tools .semi-button{min-height:36px;font-size:13px;padding:0 12px}
+.gcs-tools .semi-button .semi-icon{font-size:12px;margin-left:2px;color:var(--s-faint)}
+
+/* —— 进度：一张卡，四栏，细线指示 —— */
+.gcs-progress{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--s-card);border:1px solid var(--s-line);border-radius:var(--s-r);box-shadow:var(--s-shadow);overflow:hidden}
+.gcs-progress>li{min-width:0}.gcs-progress>li+li{border-left:1px solid var(--s-line)}
+.geo-semi .gcs-progress-step{position:relative;display:flex;align-items:flex-start;gap:14px;width:100%;padding:16px 20px 18px;border:0;background:transparent;color:var(--s-ink);font:inherit;text-align:left;cursor:pointer;transition:background .15s}
+.geo-semi .gcs-progress-step:hover{background:var(--s-sunken)}
+.gcs-progress-step::after{content:"";position:absolute;left:20px;right:20px;bottom:0;height:2px;background:var(--s-line)}
+.gcs-progress-step.is-done::after{background:var(--s-ink)}
+.gcs-progress-step.is-current::after{background:var(--s-accent)}
+.gcs-progress-num{font-size:20px;font-weight:300;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--s-faint);flex:none;padding-top:1px}
+.gcs-progress-step.is-done .gcs-progress-num,.gcs-progress-step.is-current .gcs-progress-num{color:var(--s-ink)}
+.gcs-progress-step>span:last-child{min-width:0}
+.gcs-progress-step strong{display:block;font-size:13px;font-weight:600;line-height:1.5}.gcs-progress-step small{display:block;font-size:12px;line-height:1.5;color:var(--s-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.gcs-progress-step:not(.is-done):not(.is-current) strong{color:var(--s-muted)}
+
+/* —— 提示条 —— */
+.gcs-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 16px;margin-bottom:16px;border-radius:12px;background:var(--s-card);border:1px solid var(--s-line);box-shadow:inset 3px 0 0 var(--s-ink);font-size:13px;color:var(--s-ink-2);line-height:1.7}.gcs-notice .semi-button{font-size:12px;flex:none}
+
+/* —— 主体与卡片 —— */
+.gcs-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(340px,.9fr);gap:20px;align-items:start}
+.gcs-inputs{display:flex;flex-direction:column;gap:20px;min-width:0}
+.gcs-card{background:var(--s-card);border:1px solid var(--s-line);border-radius:var(--s-r);padding:24px;min-width:0;box-shadow:var(--s-shadow);scroll-margin-top:96px}
+.gcs-card>header,.gcs-result>header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:20px;min-width:0}
+.gcs-card>header>div,.gcs-result>header>div{display:flex;align-items:baseline;gap:12px;min-width:0}
+.gcs-card h2,.gcs-result h2{font-size:16px;font-weight:600;line-height:1.5;margin:0;color:var(--s-ink);letter-spacing:-.01em}
+.gcs-card>header p{font-size:12px;line-height:1.6;color:var(--s-muted);margin:3px 0 0}
+.gcs-card header .semi-button{font-size:12px;flex:none}
+.gcs-step{font-size:13px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--s-faint);flex:none;letter-spacing:.02em}
+
+/* —— 字段 —— */
+.gcs-field{display:flex;flex-direction:column;gap:8px;min-width:0;margin:18px 0 0}
+.gcs-field>span:first-child{font-size:12px;font-weight:500;color:var(--s-ink-2);display:flex;gap:6px;align-items:center;justify-content:space-between;min-height:20px}
+.gcs-field>span:first-child>small{font-size:12px;font-weight:400;color:var(--s-muted);font-variant-numeric:tabular-nums}
+.gcs-field>span:first-child>em{font-style:normal;font-size:11px;font-weight:400;color:var(--s-faint);margin-right:auto}
+.gcs-field>small{font-size:12px;line-height:1.75;color:var(--s-muted)}
+.gcs-field .semi-select{width:100%;min-width:0}.gcs-field .semi-input-wrapper{width:100%}
+.gcs-field .semi-input,.gcs-field .semi-select-selection,.gcs-field .semi-input-textarea{font-size:13px}.gcs-field .semi-input-textarea{line-height:1.8}
+.gcs-field>span>.semi-button{height:auto;min-height:0;font-size:12px;padding:0 4px}
+.gcs-field-lead{margin-top:0}
+.gcs-main-subject .semi-input-wrapper{min-height:48px}.gcs-main-subject .semi-input{font-size:15px;font-weight:500}
+.gcs-config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+.gcs-card header+.gcs-config-grid .gcs-field{margin-top:0;margin-bottom:18px}.gcs-config-grid+.gcs-field{margin-top:0}
+.gcs-note{font-size:12px;line-height:1.8;color:var(--semi-color-text-2);margin:12px 0 0}
+.geo-semi details.gcs-advanced{max-width:none;margin-top:22px;padding-top:16px;border-top:1px solid var(--s-line)}
+.geo-semi .gcs-advanced>summary{font-size:13px;font-weight:500;color:var(--s-ink);cursor:pointer;line-height:1.9}
+.gcs-advanced>summary::marker{color:var(--s-faint)}
+.gcs-advanced>summary>span{font-size:12px;color:var(--s-muted);font-weight:400;margin-left:10px}
+.gcs-advanced .gcs-config-grid{margin-top:4px}.gcs-advanced .gcs-field{margin-bottom:2px}
+
+/* —— 01 选题 —— */
+.gcs-batch-hint{display:flex;align-items:center;gap:16px;padding:14px 16px;border-radius:12px;border:1px solid var(--s-line);font-size:13px;line-height:1.7;color:var(--s-muted)}
+.gcs-batch-hint>span{flex:1;min-width:0}
+.gcs-batch-hint>strong{flex:none;font-size:18px;font-weight:300;letter-spacing:-.02em;color:var(--s-ink);font-variant-numeric:tabular-nums}
+.gcs-batch-hint.is-warning{border-color:color-mix(in srgb,var(--s-warn) 45%,var(--s-line))}.gcs-batch-hint.is-warning>strong{color:var(--s-warn)}
+.gcs-pool{margin-top:20px;border:1px solid var(--s-line);border-radius:14px;overflow:hidden}
+.gcs-pool-library{display:flex;align-items:baseline;gap:10px;padding:12px 16px 0;min-width:0;font-size:13px;color:var(--s-ink)}
+.gcs-pool-library>small{font-size:12px;color:var(--s-faint);flex:none}.gcs-pool-library>span{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gcs-pool-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 8px 8px 16px;border-bottom:1px solid var(--s-line);flex-wrap:wrap}
+.gcs-pool-toolbar>span{font-size:13px;font-weight:600;color:var(--s-ink)}
+.gcs-pool-toolbar strong{font-weight:400;color:var(--s-muted);margin:0 8px 0 6px;font-variant-numeric:tabular-nums}
+.gcs-pool-toolbar small{font-size:12px;color:var(--s-muted)}.gcs-pool-toolbar>div{display:flex;gap:0}.gcs-pool-toolbar .semi-button{font-size:12px}
+.gcs-topic-pool{max-height:312px;overflow-y:auto;scrollbar-width:thin}
+.gcs-topic{position:relative;display:flex;align-items:flex-start;gap:12px;padding:13px 10px 13px 16px;border-bottom:1px solid var(--s-line);transition:background .15s}
+.gcs-topic:last-child{border-bottom:0}
+.gcs-topic:hover{background:var(--s-sunken)}
+.gcs-topic.is-selected{background:var(--s-sunken)}
+.gcs-topic.is-selected::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--s-ink)}
+.gcs-topic>.semi-checkbox{margin-top:3px;flex:none}
+.geo-semi .gcs-topic>button:not(.semi-button){flex:1;min-width:0;background:none;border:0;padding:0;text-align:left;font:inherit;cursor:pointer;color:var(--s-ink)}
+.gcs-topic strong{display:block;font-size:13px;line-height:1.7;font-weight:500;overflow-wrap:anywhere}
+.gcs-topic small{display:block;font-size:12px;color:var(--s-muted);margin-top:1px;line-height:1.6}
+.geo-semi .gcs-topic>.semi-button{color:var(--s-faint);flex:none;padding:0 6px;height:26px;min-height:26px;font-size:16px}
+.gcs-pool-empty{padding:28px 16px;text-align:center}
+.gcs-pool-empty strong{font-size:14px;color:var(--s-ink);font-weight:500}.gcs-pool-empty p{font-size:12px;line-height:1.7;margin:6px 0 0;color:var(--s-muted)}
+.gcs-pool-actions{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--s-line)}.gcs-pool-actions .semi-button{font-size:12px}
+
+/* —— 02 资料：石墨品牌卡 + 文字列表 —— */
+.gcs-brand{position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;min-width:0;min-height:112px;padding:22px 22px;border-radius:16px;color:#fff;background:var(--s-graphite);box-shadow:0 1px 2px rgba(0,0,0,.2),0 14px 30px rgba(16,18,24,.18),inset 0 1px 0 rgba(255,255,255,.06)}
+.gcs-brand::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 100% 0%,rgba(255,255,255,.10),transparent 55%);pointer-events:none}
+.gcs-brand-mark{position:relative;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;flex:none;font-size:20px;font-weight:600;color:#14161b;background:#f3f1ec}
+.gcs-brand>div{position:relative;min-width:0;flex:1}
+.gcs-brand strong{display:block;font-size:17px;font-weight:600;line-height:1.5;letter-spacing:-.01em;overflow-wrap:anywhere}.gcs-brand small{font-size:12px;line-height:1.6;display:block;color:rgba(255,255,255,.62);margin-top:2px}
+.gcs-brand-auto{position:relative;align-self:flex-start;flex:none;font-size:11px;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
+.gcs-brand-auto::before{content:"";width:6px;height:6px;border-radius:50%;background:#4cc38a}
+.gcs-source-list{margin-top:18px;border-top:1px solid var(--s-line)}
+.geo-semi .gcs-source-list>button{display:flex;align-items:center;gap:12px;width:100%;padding:13px 2px;border:0;border-bottom:1px solid var(--s-line);background:transparent;color:var(--s-ink);font:inherit;text-align:left;cursor:pointer;transition:padding .15s,background .15s}
+.geo-semi .gcs-source-list>button:last-child{border-bottom:0}
+.geo-semi .gcs-source-list>button:hover{padding-left:8px;padding-right:8px;background:var(--s-sunken)}
+.gcs-source-list>button>span{flex:1;min-width:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.gcs-source-list strong{font-size:13px;font-weight:500}.gcs-source-list small{font-size:12px;color:var(--s-muted)}
+.gcs-source-list .semi-icon{font-size:13px;color:var(--s-faint);flex:none}
+
+/* —— 04 预览 —— */
+.gcs-result{display:flex;flex-direction:column;position:sticky;top:92px;height:calc(100svh - 260px);min-height:520px;max-height:1160px;min-width:0;overflow:hidden;background:var(--s-card);border:1px solid var(--s-line);border-radius:var(--s-r);box-shadow:var(--s-shadow);scroll-margin-top:96px}
+.gcs-result>header{padding:20px 22px 0;margin:0 0 14px;flex:none;align-items:center}
+.gcs-result>header>div{align-items:center}
+.geo-semi .gcs-result>header .semi-tag{font-size:12px;height:auto;padding:0;background:transparent;border:0;color:var(--s-muted);display:inline-flex;align-items:center;gap:6px}.gcs-result>header .semi-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--s-faint)}.gcs-result>header [class*="semi-tag-green"]::before{background:var(--s-ok)}.gcs-result>header [class*="semi-tag-blue"]::before{background:var(--s-accent)}.gcs-result>header [class*="semi-tag-red"]::before{background:#d64545}.gcs-result header .semi-button{font-size:12px}.gcs-result>header>div+div{gap:0}
+.gcs-task-picker{display:flex;gap:8px;align-items:center;padding:0 22px 12px;flex:none}.gcs-task-picker>.semi-select{flex:1;min-width:0}.gcs-task-picker>.semi-button{font-size:12px;flex:none}
+.gcs-result-tabs{display:flex;gap:20px;margin:0 22px;border-bottom:1px solid var(--s-line);flex:none}
+.geo-semi .gcs-result-tabs>button{position:relative;border:0;background:transparent;font:inherit;font-size:13px;color:var(--s-muted);padding:8px 0 10px;cursor:pointer}
+.geo-semi .gcs-result-tabs>button:hover{color:var(--s-ink)}
+.geo-semi .gcs-result-tabs>button.is-active{color:var(--s-ink);font-weight:600}
+.gcs-result-tabs>button.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--s-ink)}
+.gcs-paper{flex:1;min-height:0;overflow-y:auto;padding:22px 28px 30px;scrollbar-width:thin}
+.gcs-paper-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--s-muted);font-size:12px;line-height:1.7;margin-bottom:18px}
+.gcs-paper-meta b{font-weight:500;display:inline-flex;align-items:center;gap:5px}.gcs-paper-meta b::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.gcs-paper-meta b.is-dirty{color:var(--s-warn)}.gcs-paper-meta b.is-saved{color:var(--s-ok)}
+.gcs-paper .gaa-manuscript{margin:0 auto}.gcs-paper .gaa-manuscript h1{font-size:24px;line-height:1.55;margin:0 0 22px;letter-spacing:-.01em}.gcs-paper .gaa-manuscript h2{font-size:17px;margin:26px 0 12px}.gcs-paper .gaa-manuscript p,.gcs-paper .gaa-manuscript li{font-size:14px;line-height:2;color:var(--s-ink-2)}
+.gcs-paper-list h3{font-size:17px;font-weight:600;line-height:1.7;margin:4px 0 18px}.gcs-paper-list ol,.gcs-paper-list ul{padding-left:20px;font-size:13px;line-height:2.2;color:var(--s-ink-2)}.gcs-paper-list p{font-size:12px;line-height:1.9;color:var(--s-muted)}
+.gcs-empty-result{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:100%;box-sizing:border-box;padding:24px 8px;gap:12px}
+.gcs-skeleton{width:168px;padding:20px 18px;margin-bottom:12px;border-radius:12px;background:var(--s-card);border:1px solid var(--s-line);box-shadow:var(--s-shadow-lg);display:flex;flex-direction:column;gap:9px;transform:rotate(-2deg)}
+.gcs-skeleton>i{display:block;height:6px;border-radius:3px;background:var(--s-hover)}
+.gcs-skeleton>i:nth-child(1){height:10px;width:78%;background:var(--s-line-2);margin-bottom:6px}.gcs-skeleton>i:nth-child(2){width:100%}.gcs-skeleton>i:nth-child(3){width:92%}.gcs-skeleton>i:nth-child(4){width:64%;margin-bottom:6px}.gcs-skeleton>i:nth-child(5){width:96%}.gcs-skeleton>i:nth-child(6){width:58%}
+.gcs-empty-result.is-running .gcs-skeleton>i{background:linear-gradient(90deg,var(--s-hover) 0%,var(--s-line-2) 50%,var(--s-hover) 100%);background-size:200% 100%;animation:gcs-shimmer 1.4s linear infinite}
+@keyframes gcs-shimmer{to{background-position:-200% 0}}
+.gcs-empty-tag{font-size:12px;color:var(--s-faint);letter-spacing:.04em}
+.gcs-empty-result h3{font-size:22px;font-weight:600;line-height:1.5;letter-spacing:-.02em;white-space:pre-line;margin:0;color:var(--s-ink)}
+.gcs-empty-result p{font-size:13px;line-height:1.85;max-width:300px;color:var(--s-muted);margin:0;overflow-wrap:anywhere}
+.gcs-document-editor{display:flex;flex-direction:column;gap:18px}
+.geo-semi .gcs-document-editor>.semi-input-wrapper{height:auto;border:0;background:transparent;box-shadow:none;border-bottom:1px solid var(--s-line);border-radius:0}
+.gcs-document-editor input{font-size:20px;font-weight:600;line-height:1.7;padding:8px 0}
+.geo-semi .gcs-document-editor .semi-input-textarea-wrapper{border:0;background:transparent;box-shadow:none}
+.gcs-document-editor textarea{font-size:14px;line-height:2;padding:0;background:transparent}.gcs-document-editor .semi-input-textarea-counter{font-size:11px}
+.gcs-result-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid var(--s-line);flex:none;flex-wrap:wrap}
+.gcs-result-footer>div{display:flex;align-items:center;gap:8px}.gcs-result-footer>div:last-child{margin-left:auto}.gcs-result-footer .semi-button{font-size:12px;min-height:36px}
+
+/* —— 底部生成条 —— */
+.gcs-submit-bar{position:sticky;bottom:12px;z-index:6;margin-top:20px;padding:14px 14px 14px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:color-mix(in srgb,var(--s-card) 94%,transparent);backdrop-filter:blur(12px);border:1px solid var(--s-line);border-radius:16px;box-shadow:var(--s-shadow-lg)}
+.gcs-submit-bar>div{display:flex;gap:16px;align-items:center;min-width:0}
+.gcs-submit-bar>.gcs-submit-summary{flex-direction:column;gap:2px;align-items:flex-start}
+.gcs-submit-bar strong{font-size:14px;font-weight:600;line-height:1.6}
+.gcs-submit-bar small{font-size:12px;color:var(--s-muted);line-height:1.6;overflow-wrap:anywhere}
+.gcs-submit-bar small.gcs-missing{color:var(--s-warn)}
+.geo-semi .gcs-submit-bar .semi-button{font-size:14px;padding:0 26px;min-height:44px;border-radius:12px;flex:none}
+.gcs-cache-note{font-size:12px;color:var(--s-faint);white-space:nowrap}
+
+/* —— 侧滑面板与弹窗（位于门户中，沿用 Semi 主题变量） —— */
+.gcs-sheet .semi-sidesheet-body{padding:20px;min-width:0;overflow:auto}.gcs-sheet .semi-sidesheet-header{border-bottom:1px solid var(--semi-color-border)}.gcs-sheet .semi-sidesheet-footer{border-top:1px solid var(--semi-color-border);text-align:right}.gcs-sheet .gs-toolbar{gap:8px}.gcs-sheet .gs-image-library .ml-shell{min-height:calc(100svh - 200px)}.gcs-sheet .semi-table{min-width:100%}.gcs-sheet .semi-table-row-cell{font-size:12px}
+.gcs-history>button{display:flex;align-items:center;gap:14px;padding:18px 0;width:100%;border:0;border-bottom:1px solid var(--semi-color-border);background:none;color:var(--semi-color-text-0);font:inherit;text-align:left;cursor:pointer}.gcs-history>button>span:not(.semi-tag){flex:1;min-width:0}.gcs-history strong{font-size:13px;font-weight:500;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gcs-history small{font-size:11px;display:block;color:var(--semi-color-text-2);margin-top:6px}
+.gcs-fee h3{font-size:18px;line-height:1.7;margin:18px 0 12px}.gcs-fee p{font-size:13px;color:var(--semi-color-text-2);line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}.gcs-fee dl{background:var(--semi-color-fill-0);border-radius:8px;padding:12px 16px;margin:18px 0}.gcs-fee dl>div{display:flex;justify-content:space-between;gap:16px;font-size:12px;line-height:2.2}.gcs-fee dd{margin:0}
+
+/* —— 响应式 —— */
+@media(min-width:1600px){.gcs-layout{grid-template-columns:minmax(0,1.25fr) minmax(460px,1fr);gap:24px}.gcs-inputs{gap:24px}.gcs-card{padding:28px}.gcs-result>header{padding:24px 26px 0}.gcs-paper{padding:30px 40px}.gcs-paper .gaa-manuscript h1{font-size:28px}.gcs-paper .gaa-manuscript p,.gcs-paper .gaa-manuscript li{font-size:15px}.gcs-empty-result h3{font-size:26px}}
+@media(max-width:1280px){.gcs-mode small{display:none}.geo-semi .gcs-mode{min-height:40px;padding:6px 16px}}
+@media(max-width:1100px){.geo-semi .gcs-tools .semi-button{padding:0 8px}.gcs-layout{gap:16px;grid-template-columns:minmax(0,1fr) minmax(310px,.85fr)}.gcs-inputs{gap:16px}.gcs-card{padding:20px}.gcs-card>header p{display:none}.gcs-paper{padding:20px}.gcs-cache-note{display:none}.gcs-progress-step small{display:none}.geo-semi .gcs-progress-step{padding:14px 14px 16px;gap:10px}.gcs-progress-step::after{left:14px;right:14px}.gcs-config-grid{gap:0 12px}}
+@media(max-width:950px){.gcs-layout{grid-template-columns:minmax(0,1fr)}.gcs-result{position:relative;top:auto;height:auto;min-height:520px;max-height:none}.gcs-paper{min-height:360px;max-height:65svh}.gcs-empty-result{min-height:320px}.gcs-modes{flex:1}.geo-semi .gcs-mode{flex:1;justify-content:center;text-align:center}.gcs-tools{margin-left:auto}.gcs-card>header p{display:block}}
+@media(max-width:600px){.geo-semi .gcs-studio .semi-select-multiple .semi-tag{max-width:132px}.gcs-toolbar{gap:10px}.gcs-modes{width:100%;flex-basis:100%}.geo-semi .gcs-mode{padding:6px 4px}.gcs-mode strong{font-size:13px}.gcs-tools{width:100%;justify-content:flex-end}.geo-semi .gcs-tools .semi-button{min-height:40px}.gcs-progress-num{font-size:16px}.geo-semi .gcs-progress-step{flex-direction:column;gap:2px;padding:12px 8px 14px;text-align:center;align-items:center}.gcs-progress-step::after{left:10px;right:10px}.gcs-progress-step strong{font-size:11px;font-weight:500}.gcs-card{padding:18px 16px;border-radius:16px}.gcs-card>header{flex-wrap:wrap;margin-bottom:16px}.gcs-card>header .semi-button{min-height:36px}.gcs-config-grid{grid-template-columns:minmax(0,1fr)}.gcs-field .semi-input,.gcs-field .semi-input-textarea{font-size:16px}.gcs-field .semi-select-selection{font-size:14px}.gcs-field .semi-select,.gcs-field .semi-input-wrapper{min-height:40px}.gcs-pool-actions .semi-button,.gcs-pool-toolbar .semi-button{min-height:38px}.gcs-topic{padding:12px 8px 12px 14px}.gcs-topic>button:not(.semi-button){min-height:36px}.gcs-topic>.semi-button{min-width:36px;min-height:36px}.gcs-brand{padding:18px;min-height:96px}.gcs-brand-auto{display:none}.geo-semi .gcs-source-list>button{min-height:52px}.gcs-submit-bar{padding:12px;gap:8px;bottom:8px;border-radius:14px;flex-wrap:wrap}.gcs-submit-bar>div:last-child{width:100%}.geo-semi .gcs-submit-bar>div:last-child>.semi-button{flex:1}.gcs-submit-bar strong{font-size:13px}.geo-semi .gcs-submit-bar .semi-button{min-height:46px;padding:0 16px;font-size:14px}.gcs-result-footer .semi-button{min-height:38px}.gcs-paper{padding:20px 16px}.gcs-paper .gaa-manuscript h1{font-size:21px}.gcs-sheet .semi-sidesheet-body{padding:14px}.gcs-notice{align-items:flex-start}.gcs-advanced>summary>span{display:block;margin-left:16px}}
+@media(max-height:850px) and (min-width:951px){.gcs-skeleton{display:none}.gcs-empty-result h3{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.gcs-studio *{transition:none!important;animation:none!important}}

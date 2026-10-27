@@ -1,0 +1,50 @@
+[
+  {
+    "file": "doubao.png",
+    "official_page": "https://www.doubao.com/",
+    "asset_url": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/new-doubao/192x192.png",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "deepseek.ico",
+    "official_page": "https://www.deepseek.com/",
+    "asset_url": "https://www.deepseek.com/favicon.ico",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "yuanbao.png",
+    "official_page": "https://yuanbao.tencent.com/",
+    "asset_url": "https://static.yuanbao.tencent.com/m/yuanbao-web/logo_with_bg.png",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "qianwen.png",
+    "official_page": "https://www.qianwen.com/",
+    "asset_url": "https://img.alicdn.com/imgextra/i2/O1CN01taBbMS1CfyJoOt0lB_!!6000000000109-2-tps-80-80.png",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "kimi.png",
+    "official_page": "https://www.kimi.com/",
+    "asset_url": "https://www.kimi.com/pwa-192.png",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "wenxin.png",
+    "official_page": "https://wenxin.baidu.com/",
+    "asset_url": "https://psstatic.cdn.bcebos.com/aife/image/baidu_ai_logo_1736910930000.png",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "nano.svg",
+    "official_page": "https://www.n.cn/",
+    "asset_url": "https://s5.ssl.qhres2.com/static/1d036ee171d75707.svg",
+    "retrieved_at": "2026-10-18"
+  },
+  {
+    "file": "zhipu.ico",
+    "official_page": "https://chatglm.cn/",
+    "asset_url": "https://chatglm.cn/favicon.ico",
+    "retrieved_at": "2026-10-18"
+  }
+]

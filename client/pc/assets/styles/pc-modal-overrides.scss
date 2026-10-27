@@ -1,0 +1,46 @@
+/*
+ * PC modal surfaces use background, radius, and shadow for depth.
+ * Keep inner form/card/list borders intact; remove only outer popup frames.
+ */
+.notice-center-drawer,
+.notice-detail-modal,
+.ai-help-panel,
+.ai-help-dialog,
+.asset-gallery-modal,
+.site-login-modal__panel,
+.ai-user-panel,
+.membership-pay-modal,
+.credit-purchase-modal,
+.credit-agreement-modal,
+.credits-usage-modal,
+.mobile-code-modal__panel,
+.avatar-create-modal,
+.avatar-delete-modal,
+.voice-create-modal,
+.history-voice-modal,
+.voice-trim-modal,
+.work-detail__content,
+.asset-preview__content,
+.template-modal,
+.tool-mask-editor,
+.tool-gallery-modal,
+.canvas-modal,
+.gallery-modal,
+.mask-editor,
+.media-preview img,
+.media-preview video,
+.video-preview video,
+.reference-preview__panel,
+.tool-image-preview-modal__figure,
+.image-preview-modal__content {
+    border: 0 !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+}
+
+.notice-detail-shell {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}

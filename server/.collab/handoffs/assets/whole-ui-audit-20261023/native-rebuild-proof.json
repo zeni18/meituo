@@ -1,0 +1,7 @@
+{
+  "version": "mw20261023d",
+  "baselineModuleCount": 247,
+  "rebuiltModulesByteEqual": 223,
+  "publicAdapterByteEqual": true,
+  "idempotentChanges": []
+}

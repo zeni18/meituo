@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "checks": [
+    "clearly labelled temporary review brand restored; its store and test upload stay in recoverable trash",
+    {
+      "target": "/ai/stores?tenant_id=1",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#articles",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#keywords",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#article-library",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#materials",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#images",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#diagnose",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/geo?tenant_id=1&brand_id=1#effect",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/materials/images?tenant_id=1",
+      "mounted": true,
+      "overflow": false
+    },
+    {
+      "target": "/ai/video-editor?tenant_id=1",
+      "mounted": true,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "remaining": "For user review: temporary brand 1 named 界面验收临时品牌1023 contains manually saved test articles/materials/keywords with no individual delete API. Temporary store/staff, keyword group and upload are recoverably recycled. No permanent deletes and no fabricated business statistics."
+}
